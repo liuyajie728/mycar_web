@@ -41,7 +41,7 @@
 	
 			if($this->form_validation->run() === FALSE):
 				$this->load->view('templates/header', $data);
-				$this->load->view('manager/login', $data);
+				$this->load->view('user/login', $data);
 				$this->load->view('templates/footer');
 		
 			else:
@@ -83,14 +83,14 @@
 				elseif(!$this->stuff_model->stuff_check()):
 					$data['error'] = '<p>这个手机号尚未被注册，请确认。</p>';
 					$this->load->view('templates/header', $data);
-					$this->load->view('manager/login', $data);
+					$this->load->view('user/login', $data);
 					$this->load->view('templates/footer');
 			
 				//若密码错误
 				else:
 					$data['error'] = '<p>密码不正确，请重试。</p>';
 					$this->load->view('templates/header', $data);
-					$this->load->view('manager/login', $data);
+					$this->load->view('user/login', $data);
 					$this->load->view('templates/footer');
 				endif;
 			endif;
