@@ -1,9 +1,13 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/* Station */
+	$route['station/(:any)'] = 'station/index/$1';
+	$route['station'] = 'station/index';
+
 	/* Sms */
 	$route['sms/send'] = 'sms/send';
-	
+
 	/* User */
 	$route['login'] = 'user/login';
 	$route['register'] = 'user/login';

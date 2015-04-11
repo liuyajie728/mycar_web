@@ -5,10 +5,12 @@
 			</div>
 		</footer>
 		<script>
-			//隐藏微信底部导航栏
+			// 隐藏微信底部导航栏
 			document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
 				WeixinJSBridge.call('hideToolbar');
 			});
+			// 隐藏右上角菜单接口
+			wx.hideOptionMenu();
 			
 			$(function(){
 				//表格可排序

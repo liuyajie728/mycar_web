@@ -7,28 +7,15 @@
 		{
 			parent::__construct();
 		}
-
-		public function index()
-		{
-			$data['title'] = '用户首页';
-			$this->load->view('templates/header', $data);
-			$this->load->view('blank');
-			$this->load->view('templates/footer');
-			
-			$this->output->enable_profiler(TRUE);
-		}
 		
 		// 用户登录
 		public function login()
 		{
 			if($this->input->is_ajax_request()):
-				$type = 1; // 注册/登陆短信类型默认为1
-				$mobile = trim($this->input->get('mobile'));
-				$params = array(
-					'mobile' => $mobile,
-					'type' => 1
-				);
-				$url = 'http://www.key2all.com/mycar_api/sms/send';
+				$params['captcha'] = $this->input->get('captcha');
+				$params['mobile'] = $this->input->get('mobile');
+				$params['sms_id'] = $this->input->get('sms_id');
+				$url = 'http://www.key2all.com/mycar_api/user/login';
 
 			    $curl = curl_init();
 			    // 设置你要访问的URL
@@ -40,17 +27,18 @@
 			    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 			    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
 			    // 运行cURL，请求API
-			    $data = curl_exec($curl);
+			    $result = curl_exec($curl);
 			    // 关闭URL请求
 			    curl_close($curl);
 
 				// 返回数据
-				echo $data;
+				echo $result;
+			endif;
 
 			else:
 				/*
 				$this->load->library('session');
-			
+
 				//若已登录，则直接转到首页
 				if ($this->session->userdata('logged_in') === TRUE):
 					redirect(base_url());
@@ -80,7 +68,7 @@
 						$data['user'] = $this->user_model->login();
 
 						//将员工信息写入session、cookie并转到首页
-						$manager_data = array(
+						$user_data = array(
 							'user_id' => $data['user']['stuff_id'],
 							'nickname'	=> $data['user']['nickname'],
 							'lastname'	=> $data['user']['lastname'],
@@ -94,30 +82,15 @@
 							'time_last_activity'	=> $data['user']['time_last_activity'],
 							'logged_in' => TRUE
 						);
-
-						$this->session->set_userdata( $manager_data );
-						//将员工ID及手机号写入cookie并保存1年
-						$this->input->set_cookie('manager_mobile', $data['user']['mobile'], 60*60*24*365);
-						$this->input->set_cookie('manager_id', $data['user']['stuff_id'], 60*60*24*365);
+						$this->session->set_userdata($user_data);
+						//将会员ID及手机号写入cookie并保存1年
+						$this->input->set_cookie('mobile', $data['user']['mobile'], 60*60*24*365);
+						$this->input->set_cookie('user_id', $data['user']['stuff_id'], 60*60*24*365);
 						if($this->session->flashdata('referer') && $this->session->flashdata('referer') != base_url()):
 							redirect($this->session->flashdata('referer'));
 						else:
 							redirect(base_url());
 						endif;
-		
-					//若员工不存在
-					elseif(!$this->stuff_model->stuff_check()):
-						$data['error'] = '<p>这个手机号尚未被注册，请确认。</p>';
-						$this->load->view('templates/header', $data);
-						$this->load->view('user/login', $data);
-						$this->load->view('templates/footer');
-			
-					//若密码错误
-					else:
-						$data['error'] = '<p>密码不正确，请重试。</p>';
-						$this->load->view('templates/header', $data);
-						$this->load->view('user/login', $data);
-						$this->load->view('templates/footer');
 					endif;
 				endif;
 			endif;
