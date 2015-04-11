@@ -1,13 +1,18 @@
 @charset "utf-8";
 @viewport{width:device-width;}
-@-webkit-viewport{width:device-width;}
-@-moz-viewport{width:device-width;}
-@-ms-viewport{width:device-width;}
-@-o-viewport{width:device-width;}
-@viewport{width:device-width;}
 
 body{color:#6d6d72;background:#EFEFF4;font:100%/1.5 "华文细黑","微软雅黑",verdana,sans-serif;}
 h1,h2,h3,h4{}
 	a{color:#4cb5ff;}
 		a:hover,a:active{color:#466096;}
-	.container{font-size:14px;font-size:.875rem;width:95%;margin:0 auto;}
+	.container{font-size:24px;font-size:1.5rem;width:95%;margin:0 auto;}
+
+/* 宽度在640像素以上的设备 */
+@media only screen and (min-width:640px){
+	.container{font-size:24px;font-size:1.125rem;width:640px;}
+}
+
+/* 宽度在960像素以上的设备 */
+@media only screen and (min-width:960px){
+	.container{font-size:14px;font-size:.875rem;width:960px;}
+}

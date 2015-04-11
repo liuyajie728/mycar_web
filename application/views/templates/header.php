@@ -4,7 +4,7 @@
 		<meta charset=utf-8>
 		<link rel=dns-prefetch href="http://cdn.key2all.com">
 		<link rel=dns-prefetch href="http://images.key2all.com">
-		<title><?php echo isset($title)?$title.' - ':''; ?></title>
+		<title><?php echo ($class != 'home')?$title :'我的车'; ?></title>
 		<meta name=description content="<?php echo $title; ?>">
 		<meta name=keywords content="<?php echo $title; ?>">
 		<meta name=version content="revision20150411">
@@ -20,8 +20,8 @@
 		<script src="http://cdn.key2all.com/js/jquery/new.js"></script>
 		<script src="http://cdn.key2all.com/js/jquery/jquery.cookie.js"></script>
 		<script src="http://cdn.key2all.com/js/jquery/jquery.tablesorter.js"></script>
-		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.validate.js"></script>
-		<script src="http://cdn.key2all.com/js/jquery/jquery.uploadify.js"></script>-->
+		<script src="http://cdn.key2all.com/js/jquery/jquery.validate.js"></script>
+		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.uploadify.js"></script>-->
 		
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
 		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">
@@ -45,8 +45,10 @@
 ?>
 <!-- 内容开始 -->
 	<body<?php echo (isset($class))? ' class='.$class: NULL; ?>>
-		<header id=header class=container>
-			<h1><a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a></h1>
+		<header id=header>
+			<div class=container>
+				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a></h1>
+			</div>
 		</header>
 	
 		<div id=maincontainer class=container>

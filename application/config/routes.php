@@ -1,6 +1,9 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/* Sms */
+	$route['sms/send'] = 'sms/send';
+	
 	/* User */
 	$route['login'] = 'user/login';
 	$route['register'] = 'user/login';
