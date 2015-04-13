@@ -15,7 +15,7 @@
 				$params['captcha'] = $this->input->get('captcha');
 				$params['mobile'] = $this->input->get('mobile');
 				$params['sms_id'] = $this->input->get('sms_id');
-				$url = 'http://www.key2all.com/mycar_api/user/login';
+				$url = 'http://www.key2all.cn/user/login';
 
 			    $curl = curl_init();
 			    // 设置你要访问的URL
@@ -33,7 +33,6 @@
 
 				// 返回数据
 				echo $result;
-			endif;
 
 			else:
 				/*

@@ -1,5 +1,6 @@
 <div id=content>
-	<p>您仅需提供常用手机号即可成为哎油会员！</p>
+	<h2>您的手机号是？</h2>
+	<p>填写手机号，成为哎油会员</p>
 <?php
 	if(isset($error)){echo $error;}
 	$attributes = array('class' => 'form-login form-horizontal', 'role' => 'form');
@@ -20,17 +21,19 @@
 				</div>
 			</div>
 		</fieldset>
-		<button id=login class="btn btn-primary" disabled>确定</button>
+		<button id=login class="btn btn-primary" disabled>开始</button>
 	</form>
 	<script>
 		$(function(){
 			$('#sms_send').click(function(){
 				// 获取mobile字段值，验证该字段是否已被输入11位数字，设置sms_send按钮为不可用状态
 				var mobile = $('[name=mobile]').val();
+				var type = 1; // 注册/登陆短信类型为1
+				var params = {'mobile':mobile, 'type':type};
 				$('a#sms_send').text('重新发送').attr('disabled');
 
 				// 尝试发送短信并获取发送状态
-				$.getJSON('/sms/send', {'mobile':mobile}, function(data){
+				$.getJSON('/sms/send', params, function(data){
 					if (data.status == 200) // 若成功，激活并将焦点移到captcha字段
 					{
 						$('[name=captcha]').removeAttr('disabled').focus();
@@ -43,6 +46,14 @@
 				});
 				return false;
 			});
+			
+			$('[name=captcha]').keyup(function(){
+				var captcha = $('[name=captcha]').val();
+				if (captcha.length == 4)
+				{
+					$('button#login').removeAttr('disabled');
+				}
+			});
 
 			$('button#login').click(function(){
 				// 验证captcha字段是否已被输入4位数字
@@ -52,9 +63,10 @@
 				var sms_id = $.cookie('sms_id');
 				var params = {'captcha':captcha, 'mobile':mobile, 'sms_id':sms_id};
 				$.getJSON('/login', params, function(data){
-					if (data.status == 200) //若成功，保存用户信息信息到session
+					if (data.status == 200) //若成功，保存用户信息信息到session, 并跳转到首页
 					{
-						location.href = '/login';
+						// 未完成，将data.content里所含数组全部转存为session
+						location.href = '/home';
 					}
 					else // 若失败，进行提示并将焦点移入captcha字段
 					{

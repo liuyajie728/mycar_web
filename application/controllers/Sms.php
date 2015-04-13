@@ -25,12 +25,12 @@
 		* @param int $type Sms type, login validation code by default.
 		* @return json Sms sending results.
 		*/
-		public function send($type = 1)
+		public function send()
 		{
 			if($this->input->is_ajax_request()):
 				$params['mobile'] = $this->input->get('mobile');
 				$params['type'] = $this->input->get('type');
-				$url = 'http://www.key2all.com/mycar_api/sms/send';
+				$url = 'http://www.key2all.cn/sms/send';
 
 			    $curl = curl_init();
 			    // 设置你要访问的URL

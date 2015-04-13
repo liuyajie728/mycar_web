@@ -9,12 +9,18 @@
 			document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
 				WeixinJSBridge.call('hideToolbar');
 			});
-			// 隐藏右上角菜单接口
-			wx.hideOptionMenu();
 			
 			$(function(){
 				//表格可排序
 				$('.sortable').tablesorter();
+
+				// 回到页首按钮
+				$('a#tostations').click(function(){
+					$('body,html').stop(false, false).animate({
+						scrollTop: $('#stations').offset().top
+					}, 800);
+					return false;
+				});
 			});
 		</script>
 	</body>
