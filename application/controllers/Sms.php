@@ -8,16 +8,6 @@
 			parent::__construct();
 		}
 
-		public function index()
-		{
-			$data['title'] = '短信首页';
-			$this->load->view('templates/header', $data);
-			$this->load->view('blank');
-			$this->load->view('templates/footer');
-			
-			$this->output->enable_profiler(TRUE);
-		}
-
 		/**
 		* Send sms through API
 		*

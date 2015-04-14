@@ -15,8 +15,11 @@
 	$route['user/edit/(:any)'] = 'user/edit/$1';
 	$route['user/(:any)'] = 'user/index/$1';
 	$route['user'] = 'user/index';
+	
+	/* Home Page */
+	$route['home'] = 'home/index';
 
-	$route['default_controller'] = 'index';
+	$route['default_controller'] = 'home';
 	$route['404_override'] = '';
 	$route['translate_uri_dashes'] = TRUE;
 	

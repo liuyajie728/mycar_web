@@ -48,6 +48,7 @@
 		<header id=header>
 			<div class=container>
 				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a></h1>
+				<a id=toorders title="哎油账单" href="/order">账单</a>
 			</div>
 		</header>
 	

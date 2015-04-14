@@ -17,16 +17,21 @@
 		位置筛选器
 	</ul>
 	<ul id=filter-brand>
-		品牌筛选器
+		<?php foreach($station_brands as $brand): ?>
+			<li data-brand_id=<?php echo $brand['brand_id'] ?>><?php echo $brand['name'] ?></li>
+		<?php endforeach; ?>
 	</ul>
 	<ul id=filter-sorter>
 		排序方式
 	</ul>
 </nav>
 <ul id=stations>
+	<?php foreach($stations as $station): ?>
 	<li class=single>
-		<a title="" href="#">
-			<figure><img alt="" src=""></figure>
+		<a title="<?php echo $station['name'] ?>" href="<?php echo base_url('station/'.$station['station_id']); ?>">
+			<figure><img alt="<?php echo $station['name'] ?>" src="<?php echo $station['image_url'] ?>"></figure>
+			<h2><?php echo $station['name'] ?></h2>
 		</a>
 	</li>
+	<?php endforeach; ?>
 </ul>

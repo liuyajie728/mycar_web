@@ -5,7 +5,7 @@ body{color:#6d6d72;background:#EFEFF4;font:100%/1.5 "华文细黑","微软雅黑
 h1,h2,h3,h4{}
 	a{color:#4cb5ff;}
 		a:hover,a:active{color:#466096;}
-	.container{font-size:24px;font-size:1.5rem;}
+	.container{font-size:24px;font-size:1.5rem;box-sizing:border-box;}
 	
 	/**
 	* Home page styles
@@ -16,6 +16,16 @@ h1,h2,h3,h4{}
 		#filter>ul{float:left;display:inline;width:33%;}
 			#filter li:last-child{width:34%;}
 		#stations li{float:left;display:inline;width:100%;}
+
+#header{color:#fff;background-color:#222;text-align:center;height:2.75rem;line-height:2.75rem;}
+#header h1{font-size:18px;font-size:1.125rem;}
+	#header a{color:#fff;}
+#toorders{float:right;}
+
+form{width:100%;padding:0 7.8125%;box-sizing:border-box;}
+	input{height:2.5rem;width:100%;box-sizing:border-box;}
+		input:focus{box-shadow:0 0 2px #4cb5ff;}
+	button{color:#fff;background-color:#4cb5ff;text-align:center;height:2.5rem;width:100%;margin-top:1rem;border-radius:5px;}
 
 /* 宽度在640像素以上的设备 */
 @media only screen and (min-width:641px){

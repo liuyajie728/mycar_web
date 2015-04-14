@@ -8,6 +8,36 @@
 			parent::__construct();
 		}
 		
+		// User homepage
+		public function index()
+		{
+			$data['title'] = '我';
+			$data['class'] = 'user';
+
+			$data['me'] = $this->get_me($this->input->cookie('user_id'));
+			
+			$this->load->view('templates/header', $data);
+			$this->load->view('user/index', $data);
+			$this->load->view('templates/footer');
+		}
+		
+		// Get user's data
+		private function get_me($user_id)
+		{
+			$params['user_id'] = $user_id;
+			$url = 'http://www.key2all.cn/user/';
+			
+			$curl = curl_init();
+			curl_setopt($curl, CURLOPT_URL, $url);
+			curl_setopt($curl, CURLOPT_POST, count($params));
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
+			$result = curl_exec($curl);
+			curl_close($curl);
+			return $result;
+		}
+
 		// 用户登录
 		public function login()
 		{

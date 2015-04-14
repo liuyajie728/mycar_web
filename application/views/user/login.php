@@ -7,25 +7,24 @@
 	echo form_open(base_url('login'), $attributes);
 ?>
 		<fieldset>
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input class=form-control name=mobile type=tel value="<?php echo set_value('mobile'); ?>" placeholder="手机号" required autofocus>
-					<a id=sms_send class="btn btn-primary" href="#">验证</a>
-					<?php echo form_error('mobile'); ?>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input class=form-control name=captcha type=number step=1 value="<?php echo set_value('captcha'); ?>" placeholder="验证码" required disabled>
-					<?php echo form_error('captcha'); ?>
-				</div>
-			</div>
+			<input class=form-control name=mobile type=tel value="" placeholder="手机号" required autofocus>
+			<a id=sms_send class="btn btn-primary" href="#">验证</a>
+			<input class=form-control name=captcha type=number step=1 value="" placeholder="验证码" required disabled>
 		</fieldset>
+		<p>点击“开始”，即代表您同意<a title="《哎油服务条款》" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
 		<button id=login class="btn btn-primary" disabled>开始</button>
 	</form>
 	<script>
 		$(function(){
-			$('#sms_send').click(function(){
+			$('[name=captcha]').keyup(function(){
+				var captcha = $('[name=captcha]').val();
+				if (captcha.length == 11)
+				{
+					$('a#sms_send').removeAttr('disabled');
+				}
+			});
+			
+			$('a#sms_send').click(function(){
 				// 获取mobile字段值，验证该字段是否已被输入11位数字，设置sms_send按钮为不可用状态
 				var mobile = $('[name=mobile]').val();
 				var type = 1; // 注册/登陆短信类型为1
@@ -65,7 +64,11 @@
 				$.getJSON('/login', params, function(data){
 					if (data.status == 200) //若成功，保存用户信息信息到session, 并跳转到首页
 					{
-						// 未完成，将data.content里所含数组全部转存为session
+						// 清楚储存在cookie中的sms_id，将data.content里所含数组全部转存为cookie，并跳转到首页
+						$.cookie('sms_id', NULL);
+						$.each(data.content, function(key,value){
+							$.cookie(key, value);
+						});
 						location.href = '/home';
 					}
 					else // 若失败，进行提示并将焦点移入captcha字段
