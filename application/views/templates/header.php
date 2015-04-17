@@ -48,7 +48,12 @@
 		<header id=header>
 			<nav id=nav-header class=container>
 				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a></h1>
-				<?php if (!in_array($class, array('home'))): ?>
+				<?php
+					// 拆分载入视图时传入的$class变量为数组，并检查数组中内容决定是否需要显示“返回”按钮
+					$class_array = explode(' ', $class);
+					$no_toback = array('home', 'product-index', 'user-index', 'user-login');
+					if (empty(array_intersect($class_array, $no_toback))):
+				?>
 				<a id=toback title="返回" href="#" onclick="javascript:history.go(-1);">返回</a>
 				<?php endif; ?>
 				<a id=toorders title="哎油账单" href="/order">账单</a>

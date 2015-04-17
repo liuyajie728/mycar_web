@@ -88,7 +88,7 @@
 				if($this->form_validation->run() === FALSE):
 					$this->load->view('templates/header', $data);
 					$this->load->view('user/login', $data);
-					$this->load->view('templates/footer');
+					$this->load->view('templates/footer', $data);
 		
 				else:
 					//成功登录
