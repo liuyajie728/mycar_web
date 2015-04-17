@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang=zh-cn>
+<html lang=zh-cn manifest="./cache.manifest">
 	<head>
 		<meta charset=utf-8>
 		<link rel=dns-prefetch href="http://cdn.key2all.com">
@@ -7,7 +7,7 @@
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
 		<meta name=description content="<?php echo $title; ?>">
 		<meta name=keywords content="<?php echo $title; ?>">
-		<meta name=version content="revision20150414">
+		<meta name=version content="revision20150417">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -22,7 +22,7 @@
 		<script src="http://cdn.key2all.com/js/jquery/jquery.tablesorter.js"></script>
 		<script src="http://cdn.key2all.com/js/jquery/jquery.validate.js"></script>
 		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.uploadify.js"></script>-->
-		
+
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
 		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">
 		
@@ -30,12 +30,12 @@
 		<link rel="apple-touch-icon" href="<?php echo base_url('images/icon_128.png'); ?>">
 		
 		<link rel=canonical href="<?php echo base_url().uri_string(); ?>">
-		
-		<meta name=format-detection content="telephone=yes, address=no, email=no">
-		
+
+		<meta name=format-detection content="telephone=yes, email=no, address=no">
+
 		<!-- 苹果设备优化 -->
-		<meta name=apple-mobile-web-app-capable content="yes">
-		<meta name=apple-mobile-web-app-status-bar-style content="black-translucent">
+		<meta name=apple-mobile-web-app-capable content=yes>
+		<meta name=apple-mobile-web-app-status-bar-style content=black-translucent>
 		<link rel="apple-touch-startup-image" media="device-width: 320px" href="<?php echo base_url('images/launch_960.png'); ?>">
 		<link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="<?php echo base_url('images/launch_1136.png'); ?>">
 	</head>
@@ -44,12 +44,15 @@
 	ob_flush();flush();
 ?>
 <!-- 内容开始 -->
-	<body<?php echo (isset($class))? ' class='.$class: NULL; ?>>
+	<body<?php echo (isset($class))? ' class="'.$class.'"': NULL; ?>>
 		<header id=header>
-			<div class=container>
+			<nav id=nav-header class=container>
 				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a></h1>
+				<?php if (!in_array($class, array('home'))): ?>
+				<a id=toback title="返回" href="#" onclick="javascript:history.go(-1);">返回</a>
+				<?php endif; ?>
 				<a id=toorders title="哎油账单" href="/order">账单</a>
-			</div>
+			</nav>
 		</header>
 	
 		<div id=maincontainer class=container>

@@ -16,9 +16,17 @@
 	</form>
 	<script>
 		$(function(){
-			$('[name=captcha]').keyup(function(){
-				var captcha = $('[name=captcha]').val();
-				if (captcha.length == 11)
+			// 清空cookie中的sms_id记录
+			$.cookie('sms_id', NULL);
+			
+			$('[name=mobile]').keyup(function(){
+				var mobile = $('[name=mobile]').val();
+				if (isNaN(mobile))
+				{
+					alert('请输入有效手机号码');
+					$('[name=mobile]').val('').focus();
+				}
+				if (mobile.length == 11)
 				{
 					$('a#sms_send').removeAttr('disabled');
 				}
@@ -48,6 +56,11 @@
 			
 			$('[name=captcha]').keyup(function(){
 				var captcha = $('[name=captcha]').val();
+				if (isNaN(captcha))
+				{
+					alert('请输入有效验证码');
+					$('[name=captcha]').val('').focus();
+				}
 				if (captcha.length == 4)
 				{
 					$('button#login').removeAttr('disabled');
@@ -62,17 +75,23 @@
 				var sms_id = $.cookie('sms_id');
 				var params = {'captcha':captcha, 'mobile':mobile, 'sms_id':sms_id};
 				$.getJSON('/login', params, function(data){
-					if (data.status == 200) //若成功，保存用户信息信息到session, 并跳转到首页
+					if (data.status == 200) //若成功，保存用户信息信息到session/cookie, 并跳转到首页
 					{
-						// 清楚储存在cookie中的sms_id，将data.content里所含数组全部转存为cookie，并跳转到首页
-						$.cookie('sms_id', NULL);
-						$.each(data.content, function(key,value){
-							$.cookie(key, value);
-						});
+						// 清除储存在cookie中的sms_id，将data.content里所含数组全部转存为cookie，并跳转到首页
+						$.cookie('sms_id', '');
+						$.each(
+							data.content,
+							function(key,value){
+								$('fieldset>p').before(key+':'+value+'<br>');
+								//$.cookie(key, value);
+							}
+						);
+						//alert('登陆成功');
 						location.href = '/home';
 					}
 					else // 若失败，进行提示并将焦点移入captcha字段
 					{
+						alert('验证码错误，请确认');
 						$('[name=captcha]').val('').focus();
 					}
 				});

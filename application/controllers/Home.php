@@ -10,7 +10,7 @@
 
 		public function index()
 		{
-			$data['title'] = '首页';
+			$data['title'] = '哎油';
 			$data['class'] = 'home';
 
 			$data['stations'] = $this->get_station();

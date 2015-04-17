@@ -12,7 +12,7 @@
 		public function index()
 		{
 			$data['title'] = '我';
-			$data['class'] = 'user';
+			$data['class'] = 'user user-index';
 
 			$data['me'] = $this->get_me($this->input->cookie('user_id'));
 			
@@ -81,7 +81,7 @@
 				endif;
 				*/
 				$data['title'] = '我的车';
-				$data['class'] = 'login';
+				$data['class'] = 'user user-login';
 
 				$this->form_validation->set_rules('mobile', '手机号', 'trim|required|is_natural|exact_length[11]');
 

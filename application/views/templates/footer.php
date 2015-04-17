@@ -1,6 +1,11 @@
 		</div>
 		<footer id=footer>
 			<div class=container>
+				<nav id=nav-footer>
+					<a title="哎油首页" href="/home">首页</a>
+					<a title="哎油充值" href="/product">充值</a>
+					<a title="我的哎油账户" href="/user">我</a>
+				</nav>
 				<p>&copy;<?php echo date('Y'); ?> <a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a></p>
 			</div>
 		</footer>
@@ -13,14 +18,6 @@
 			$(function(){
 				//表格可排序
 				$('.sortable').tablesorter();
-
-				// 回到页首按钮
-				$('a#tostations').click(function(){
-					$('body,html').stop(false, false).animate({
-						scrollTop: $('#stations').offset().top
-					}, 800);
-					return false;
-				});
 			});
 		</script>
 	</body>

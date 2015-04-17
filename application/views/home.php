@@ -35,3 +35,14 @@
 	</li>
 	<?php endforeach; ?>
 </ul>
+<script>
+	$(function(){
+		// 滑动到油站列表
+		$('a#tostations').click(function(){
+			$('body,html').stop(false, false).animate({
+				scrollTop: $('#stations').offset().top
+			}, 800);
+			return false;
+		});
+	});
+</script>
