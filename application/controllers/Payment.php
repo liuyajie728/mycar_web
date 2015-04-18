@@ -1,7 +1,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
-	class Order extends CI_Controller
+	class Payment extends CI_Controller
 	{
 		public function __construct()
 		{
@@ -11,6 +11,28 @@
 			if($this->session->userdata('logged_in') != TRUE):
 				redirect(base_url('login'));
 			endif;
+		}
+		
+		/**
+		* Payment Code
+		*
+		* @since always
+		* @return int Payment Code
+		*/
+		public function code()
+		{
+			$data['title'] = '付款码';
+			$data['class'] = 'payment payment-code';
+
+			// ! generate payment code
+			$this->load->helper('string');
+			//$code = random_string('numeric', 2).$this->session->userdata('user_id').random_string('numeric', 4);
+			$code = random_string('numeric', 2).'1'.random_string('numeric', 4);
+			$data['payment_code'] = $code;
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('payment/code', $data);
+			$this->load->view('templates/footer', $data);
 		}
 
 		public function index($order_id = NULL)
@@ -63,7 +85,7 @@
 		{
 			if($this->input->is_ajax_request()):
 				$params['user_id'] = $this->input->post('user_id');
-				
+
 				$url = api_url('order/create');
 			    $curl = curl_init();
 			    curl_setopt($curl, CURLOPT_URL, $url);

@@ -12,7 +12,8 @@
 		* Send sms through API
 		*
 		* @since always
-		* @param int $type Sms type, login validation code by default.
+		* @param int $_POST['mobile'] SMS receiver mobile number.
+		* @param int $_POST['type'] SMS type, login validation code by default.
 		* @return json Sms sending results.
 		*/
 		public function send()
@@ -20,12 +21,10 @@
 			if($this->input->is_ajax_request()):
 				$params['mobile'] = $this->input->get('mobile');
 				$params['type'] = $this->input->get('type');
-				$url = 'http://www.key2all.cn/sms/send';
-
+				
+				$url = api_url('sms/send');
 			    $curl = curl_init();
-			    // 设置你要访问的URL
 			    curl_setopt($curl, CURLOPT_URL, $url);
-				// 设置cURL参数，内容为要请求的方式及内容
 				curl_setopt($curl, CURLOPT_POST, count($params));
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 			    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。

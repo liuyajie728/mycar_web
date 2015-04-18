@@ -11,6 +11,11 @@
 		// User homepage
 		public function index()
 		{
+			//若未登录，转到登录页
+			if($this->session->userdata('logged_in') != TRUE):
+				redirect(base_url('login'));
+			endif;
+
 			$data['title'] = '我';
 			$data['class'] = 'user user-index';
 
@@ -18,7 +23,7 @@
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('user/index', $data);
-			$this->load->view('templates/footer');
+			$this->load->view('templates/footer', $data);
 		}
 		
 		// Get user's data
@@ -41,16 +46,19 @@
 		// 用户登录
 		public function login()
 		{
+			//若已登录，则直接转到首页
+			if($this->session->userdata('logged_in') === TRUE):
+				redirect(base_url());
+			endif;
+			
 			if($this->input->is_ajax_request()):
 				$params['captcha'] = $this->input->get('captcha');
 				$params['mobile'] = $this->input->get('mobile');
 				$params['sms_id'] = $this->input->get('sms_id');
-				$url = 'http://www.key2all.cn/user/login';
-
+				
+				$url = api_url('user/login');
 			    $curl = curl_init();
-			    // 设置你要访问的URL
 			    curl_setopt($curl, CURLOPT_URL, $url);
-				// 设置cURL参数，内容为要请求的方式及内容
 				curl_setopt($curl, CURLOPT_POST, count($params));
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 			    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
@@ -65,21 +73,6 @@
 				echo $result;
 
 			else:
-				/*
-				$this->load->library('session');
-
-				//若已登录，则直接转到首页
-				if ($this->session->userdata('logged_in') === TRUE):
-					redirect(base_url());
-				endif;
-
-				//向闪出session记录来源网址以备登录成功时跳转
-				if ($this->input->server('HTTP_REFERER')):
-					$this->session->set_flashdata('referer' , $this->input->server('HTTP_REFERER'));
-				elseif ($this->session->flashdata('referer')):
-					$this->session->keep_flashdata('referer');
-				endif;
-				*/
 				$data['title'] = '我的车';
 				$data['class'] = 'user user-login';
 
@@ -98,7 +91,7 @@
 
 						//将员工信息写入session、cookie并转到首页
 						$user_data = array(
-							'user_id' => $data['user']['stuff_id'],
+							'user_id' => $data['user']['user_id'],
 							'nickname'	=> $data['user']['nickname'],
 							'lastname'	=> $data['user']['lastname'],
 							'firstname'	=> $data['user']['firstname'],

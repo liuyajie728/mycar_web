@@ -18,14 +18,14 @@
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('home', $data);
-			$this->load->view('templates/footer');
+			$this->load->view('templates/footer', $data);
 		}
 		
 		// 获取加油站信息
 		public function get_station($station_id = NULL)
 		{
 			$params['station_id'] = $station_id;
-			$url = 'http://www.key2all.cn/station';
+			$url = api_url('station');
 
 		    $curl = curl_init();
 		    // 设置你要访问的URL
@@ -49,12 +49,10 @@
 		public function get_station_brand($brand_id = NULL)
 		{
 			$params['brand_id'] = $brand_id;
-			$url = 'http://www.key2all.cn/station_brand';
+			$url = api_url('station_brand');
 
 		    $curl = curl_init();
-		    // 设置你要访问的URL
 		    curl_setopt($curl, CURLOPT_URL, $url);
-			// 设置cURL参数，内容为要请求的方式及内容
 			curl_setopt($curl, CURLOPT_POST, count($params));
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。

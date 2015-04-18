@@ -5,8 +5,10 @@
 	$route['order/confirm'] = 'order/confirm';
 	$route['order/(:any)'] = 'order/index/$1';
 	$route['order'] = 'order/index';
-		/* Payment */
-		$route['payment'] = 'order/payment/index';
+	
+	/* Payment */
+	$route['payment/code'] = 'payment/code';
+	$route['payment'] = 'payment/index';
 
 	/* Station */
 	$route['station/(:any)'] = 'station/index/$1';

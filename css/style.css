@@ -44,5 +44,5 @@ form{width:100%;padding:0 7.8125%;box-sizing:border-box;}
 
 /* 宽度在1280像素以上的设备 */
 @media only screen and (min-width:1281px){
-	.container{width:95%;margin:0 auto;}
+	.container{width:95%;}
 }
