@@ -6,7 +6,7 @@
 		</a>
 	</li>
 	<li>
-		<a title="显示付款码" href="/pay/code">
+		<a title="显示付款码" href="/payment/code">
 			<figure><img alt="显示付款码" src=""></figure>
 			<p>付款码</p>
 		</a>

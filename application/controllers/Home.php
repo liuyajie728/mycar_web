@@ -28,9 +28,7 @@
 			$url = api_url('station');
 
 		    $curl = curl_init();
-		    // 设置你要访问的URL
 		    curl_setopt($curl, CURLOPT_URL, $url);
-			// 设置cURL参数，内容为要请求的方式及内容
 			curl_setopt($curl, CURLOPT_POST, count($params));
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
@@ -44,7 +42,7 @@
 			// 返回数据
 			return $result['content'];
 		}
-		
+
 		// 获取加油站品牌信息
 		public function get_station_brand($brand_id = NULL)
 		{

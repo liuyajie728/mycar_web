@@ -86,7 +86,7 @@
 			if($this->input->is_ajax_request()):
 				$params['user_id'] = $this->input->post('user_id');
 
-				$url = api_url('order/create');
+				$url = api_url('payment/create');
 			    $curl = curl_init();
 			    curl_setopt($curl, CURLOPT_URL, $url);
 				curl_setopt($curl, CURLOPT_POST, count($params));
@@ -98,6 +98,32 @@
 			    $result = json_decode(curl_exec($curl));
 			    // 关闭URL请求
 			    curl_close($curl);
+				echo $result;
+
+			endif;
+		}
+
+		/**
+		* Confirm order payment status
+		*
+		* @since always
+		* @param int $order_id
+		* @return json Order confirmation status
+		*/
+		public function confirm()
+		{
+			if($this->input->is_ajax_request()):
+				$params['order_id'] = $this->input->post('order_id');
+				
+				$url = api_url('payment/confirm');
+				$curl = curl_init();
+				curl_setopt($curl, CURLOPT_URL, $url);
+				curl_setopt($curl, CURLOPT_POST, count($params));
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
+				$result = json_decode(curl_exec($curl));
+				curl_close($curl);
 				echo $result;
 
 			endif;

@@ -1,20 +1,19 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
-	define('API_URL', 'http://www.key2all.cn/');
+	define('API_URL', 'http://www.jiayoucar.com/api/');
 	function api_url($api_name)
 	{
 		$api_url = API_URL . $api_name;
 		return $api_url;
 	}
-	
 	date_default_timezone_set('Asia/Shanghai');
 	
 	/**
 	* Native CodeIgniter configs.
 	* @since always
 	*/
-	$config['base_url'] = 'http://www.suiyimen.cn';
+	$config['base_url'] = 'http://www.jiayoucar.com/web/';
 	$config['index_page'] = 'index.php';
 	$config['uri_protocol']	= 'REQUEST_URI';
 	$config['url_suffix'] = '';
@@ -299,7 +298,7 @@
 	$config['sess_regenerate_destroy'] = FALSE;
 
 	$config['cookie_prefix']	= '';
-	$config['cookie_domain']	= '.suiyimen.cn';
+	$config['cookie_domain']	= '.jiayoucar.com/web/';
 	$config['cookie_path']		= '/';
 	$config['cookie_secure']	= FALSE;
 	$config['cookie_httponly'] 	= FALSE;

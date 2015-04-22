@@ -11,30 +11,70 @@
 			<a id=sms_send class="btn btn-primary" href="#">验证</a>
 			<input class=form-control name=captcha type=number step=1 value="" placeholder="验证码" required disabled>
 		</fieldset>
-		<p>点击“开始”，即代表您同意<a title="《哎油服务条款》" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
+		<p>点击“开始”，即代表您同意<a title="查看青岛我的车信息技术有限公司《哎油服务条款》详细内容" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
 		<button id=login class="btn btn-primary" disabled>开始</button>
 	</form>
 	<script>
 		$(function(){
 			// 清空cookie中的sms_id记录
-			$.cookie('sms_id', NULL);
+			$.cookie('sms_id', '', {expires:-1});
 			
-			$('[name=mobile]').keyup(function(){
-				var mobile = $('[name=mobile]').val();
+			/**
+			* @param int stage whether should check length of string
+			*/
+			function check_mobile(mobile, check_length)
+			{
 				if (isNaN(mobile))
 				{
 					alert('请输入有效手机号码');
 					$('[name=mobile]').val('').focus();
 				}
-				if (mobile.length == 11)
+				if (check_length == 1)
 				{
-					$('a#sms_send').removeAttr('disabled');
+					if (mobile.length != 11)
+					{
+						alert('请输入有效手机号码');
+						return false;
+					}
+					else if(mobile.length == 11)
+					{
+						$('a#sms_send').removeAttr('disabled');
+					}
 				}
+			}
+			function check_captcha(captcha)
+			{
+				if (isNaN(captcha))
+				{
+					alert('请输入有效验证码');
+					$('[name=captcha]').val('').focus();
+				}
+				if (check_length == 1)
+				{
+					if (mobile.length != 4)
+					{
+						alert('请输入有效验证码');
+						return false;
+					}
+					else if (captcha.length == 4)
+					{
+						$('button#login').removeAttr('disabled');
+					}
+				}
+			}
+			
+			$('[name=mobile]').keyup(function(){
+				var mobile = $('[name=mobile]').val();
+				check_mobile(mobile);
 			});
 			
 			$('a#sms_send').click(function(){
 				// 获取mobile字段值，验证该字段是否已被输入11位数字，设置sms_send按钮为不可用状态
 				var mobile = $('[name=mobile]').val();
+				if (check_mobile(mobile, 1) == false)
+				{
+					return false;
+				}
 				var type = 1; // 注册/登陆短信类型为1
 				var params = {'mobile':mobile, 'type':type};
 				$('a#sms_send').text('重新发送').attr('disabled');
@@ -56,20 +96,16 @@
 			
 			$('[name=captcha]').keyup(function(){
 				var captcha = $('[name=captcha]').val();
-				if (isNaN(captcha))
-				{
-					alert('请输入有效验证码');
-					$('[name=captcha]').val('').focus();
-				}
-				if (captcha.length == 4)
-				{
-					$('button#login').removeAttr('disabled');
-				}
+				check_captcha(captcha);
 			});
 
 			$('button#login').click(function(){
 				// 验证captcha字段是否已被输入4位数字
 				var captcha = $('[name=captcha]').val();
+				if (check_captcha(captcha, 1) == false)
+				{
+					return false;
+				}
 				// 将captcha字段值和存储在cookie中的sms_id发送到服务器进行验证
 				var mobile = $('[name=mobile]').val();
 				var sms_id = $.cookie('sms_id');
@@ -78,7 +114,7 @@
 					if (data.status == 200) //若成功，保存用户信息信息到session/cookie, 并跳转到首页
 					{
 						// 清除储存在cookie中的sms_id，将data.content里所含数组全部转存为cookie，并跳转到首页
-						$.cookie('sms_id', '');
+						$.cookie('sms_id', '', {expires:-1});
 						$.each(
 							data.content,
 							function(key,value){

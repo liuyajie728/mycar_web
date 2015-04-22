@@ -31,13 +31,16 @@
 		    // 关闭URL请求
 		    curl_close($curl);
 			
-			if ($station_id === NULL): // 若未传入station_id，生成油站列表页并设置相应class
+			// 若未传入station_id，生成油站列表页并设置相应class
+			if ($station_id === NULL):
 				$data['title'] = '加油站列表';
 				$data['class'] = 'station station-index';
 				$this->load->view('templates/header', $data);
 			    $data['stations'] = $result['content'];
 				$this->load->view('station/index', $data);
-			else: // 若传入station_id，生成油站详情页并设置相应class
+			
+			// 若传入station_id，生成油站详情页并设置相应class
+			else:
 				$data['title'] = '加油站详情';
 				$data['class'] = 'station station-detail';
 				$this->load->view('templates/header', $data);
