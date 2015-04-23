@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang=zh-cn manifest="./cache.manifest">
+<html lang=zh-cn>
 	<head>
 		<meta charset=utf-8>
 		<link rel=dns-prefetch href="http://cdn.key2all.com">
@@ -7,7 +7,7 @@
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
 		<meta name=description content="<?php echo $title; ?>">
 		<meta name=keywords content="<?php echo $title; ?>">
-		<meta name=version content="revision20150422">
+		<meta name=version content="revision20150423">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">

@@ -61,10 +61,10 @@
 
 				// 尝试发送短信并获取发送状态
 				$.getJSON('sms/send', params, function(data){
-					if (data.status == 200) // 若成功，激活并将焦点移到captcha字段
+					if (data.status == 200) // 若成功，激活并将焦点移到captcha字段，激活确认按钮
 					{
-						$('[name=captcha]').removeAttr('disabled').focus();
 						$.cookie('sms_id', data.content.sms_id);
+						$('[name=captcha],button#login').removeAttr('disabled').focus();
 					}
 					else // 若失败，激活sms_send按钮
 					{
@@ -74,49 +74,21 @@
 				return false;
 			});
 			
-			/**
-			* @param int Whether should check length of string
-			*/
-			function check_captcha(captcha, check_length)
-			{
-				if (isNaN(captcha))
-				{
-					alert('请输入有效验证码');
-					$('[name=captcha]').val('').focus();
-				}
-				if (check_length == 1)
-				{
-					if (captcha.length != 4)
-					{
-						alert('请输入有效验证码');
-						return false;
-					}
-					else if (captcha.length == 4)
-					{
-						$('button#login').removeAttr('disabled');
-					}
-				}
-			}
-			
-			$('[name=captcha]').keyup(function(){
-				var captcha = $('[name=captcha]').val();
-				check_captcha(captcha, 0);
-			});
-
 			$('button#login').click(function(){
 				// 验证captcha字段是否已被输入4位数字
 				var captcha = $('[name=captcha]').val();
-				if (check_captcha(captcha, 1) == false)
-				{
-					return false;
-				}
+				//if (check_captcha(captcha, 1) == false)
+				//{
+				//	return false;
+				//}
 				// 将captcha字段值和存储在cookie中的sms_id发送到服务器进行验证
 				var mobile = $('[name=mobile]').val();
 				var sms_id = $.cookie('sms_id');
 				var params = {'captcha':captcha, 'mobile':mobile, 'sms_id':sms_id};
 				$.getJSON('login', params, function(data){
-					if (data.status == 200) //若成功，跳转到json文件中target_url
+					if (data.status == 200) //若成功，删除cookie中的短信ID，跳转到json文件中target_url
 					{
+						$.cookie('sms_id', '', {expires:-1});
 						location.href = data.content.target_url;
 					}
 					else // 若失败，进行提示并将焦点移入captcha字段

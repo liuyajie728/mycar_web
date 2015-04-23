@@ -93,7 +93,7 @@
 			$this->load->view('templates/footer', $data);
 			
 			// 创建消费类型订单
-			$this->create($params, 'consume');
+			//$this->create($params, 'consume');
 		}
 		
 		// 充值订单
@@ -103,6 +103,6 @@
 			$params['amount'] = $this->input->post('amount');
 
 			// 创建充值类型订单
-			$this->create($params, 'recharge');
+			//$this->create($params, 'recharge');
 		}
 	}

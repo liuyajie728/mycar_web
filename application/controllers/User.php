@@ -78,7 +78,7 @@
 					
 				else:
 					$data['user'] = $result['content'];
-					// 如果成功登陆则将用户信息写入session及cookie并转到首页
+					// 如果成功登陆则将用户信息写入session
 					$user_data = array(
 						'user_id' => $data['user']['user_id'],
 						'nickname'	=> $data['user']['nickname'],
