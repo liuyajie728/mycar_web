@@ -2,6 +2,8 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	/* Order */
+	$route['order/consume/create'] = 'order/consume';
+	$route['order/recharge/create'] = 'order/recharge';
 	$route['order/confirm'] = 'order/confirm';
 	$route['order/(:any)'] = 'order/index/$1';
 	$route['order'] = 'order/index';

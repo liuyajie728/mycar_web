@@ -47,7 +47,7 @@
 	<body<?php echo (isset($class))? ' class="'.$class.'"': NULL; ?>>
 		<header id=header>
 			<nav id=nav-header class=container>
-				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a></h1>
+				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url() ?>"><?php echo $title; ?></a></h1>
 				<?php
 					// 拆分载入视图时传入的$class变量为数组，并检查数组中内容决定是否需要显示“返回”按钮
 					$class_array = explode(' ', $class);
@@ -56,7 +56,7 @@
 				?>
 				<a id=toback title="返回" href="#" onclick="javascript:history.go(-1);">返回</a>
 				<?php endif; ?>
-				<a id=toorders title="哎油账单" href="/order">账单</a>
+				<a id=toorders title="哎油账单" href="<?php echo base_url('order') ?>">账单</a>
 			</nav>
 		</header>
 	

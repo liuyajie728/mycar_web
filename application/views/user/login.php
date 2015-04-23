@@ -3,16 +3,16 @@
 	<p>填写手机号，成为哎油会员</p>
 <?php
 	if(isset($error)){echo $error;}
-	$attributes = array('class' => 'form-login form-horizontal', 'role' => 'form');
+	$attributes = array('class' => 'form-login', 'role' => 'form');
 	echo form_open(base_url('login'), $attributes);
 ?>
 		<fieldset>
-			<input class=form-control name=mobile type=tel value="" placeholder="手机号" required autofocus>
+			<input name=mobile type=tel value="" placeholder="手机号" required autofocus>
 			<a id=sms_send class="btn btn-primary" href="#">验证</a>
-			<input class=form-control name=captcha type=number step=1 value="" placeholder="验证码" required disabled>
+			<input name=captcha type=number step=1 value="" placeholder="验证码" required disabled>
 		</fieldset>
 		<p>点击“开始”，即代表您同意<a title="查看青岛我的车信息技术有限公司《哎油服务条款》详细内容" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
-		<button id=login class="btn btn-primary" disabled>开始</button>
+		<button id=login disabled>开始</button>
 	</form>
 	<script>
 		$(function(){
@@ -20,7 +20,7 @@
 			$.cookie('sms_id', '', {expires:-1});
 			
 			/**
-			* @param int stage whether should check length of string
+			* @param int Whether should check length of string
 			*/
 			function check_mobile(mobile, check_length)
 			{
@@ -36,36 +36,16 @@
 						alert('请输入有效手机号码');
 						return false;
 					}
-					else if(mobile.length == 11)
+					else if (mobile.length == 11)
 					{
 						$('a#sms_send').removeAttr('disabled');
-					}
-				}
-			}
-			function check_captcha(captcha)
-			{
-				if (isNaN(captcha))
-				{
-					alert('请输入有效验证码');
-					$('[name=captcha]').val('').focus();
-				}
-				if (check_length == 1)
-				{
-					if (mobile.length != 4)
-					{
-						alert('请输入有效验证码');
-						return false;
-					}
-					else if (captcha.length == 4)
-					{
-						$('button#login').removeAttr('disabled');
 					}
 				}
 			}
 			
 			$('[name=mobile]').keyup(function(){
 				var mobile = $('[name=mobile]').val();
-				check_mobile(mobile);
+				check_mobile(mobile, 0);
 			});
 			
 			$('a#sms_send').click(function(){
@@ -80,11 +60,11 @@
 				$('a#sms_send').text('重新发送').attr('disabled');
 
 				// 尝试发送短信并获取发送状态
-				$.getJSON('/sms/send', params, function(data){
+				$.getJSON('sms/send', params, function(data){
 					if (data.status == 200) // 若成功，激活并将焦点移到captcha字段
 					{
 						$('[name=captcha]').removeAttr('disabled').focus();
-						$.cookie('sms_id', data.sms_id);
+						$.cookie('sms_id', data.content.sms_id);
 					}
 					else // 若失败，激活sms_send按钮
 					{
@@ -94,9 +74,33 @@
 				return false;
 			});
 			
+			/**
+			* @param int Whether should check length of string
+			*/
+			function check_captcha(captcha, check_length)
+			{
+				if (isNaN(captcha))
+				{
+					alert('请输入有效验证码');
+					$('[name=captcha]').val('').focus();
+				}
+				if (check_length == 1)
+				{
+					if (captcha.length != 4)
+					{
+						alert('请输入有效验证码');
+						return false;
+					}
+					else if (captcha.length == 4)
+					{
+						$('button#login').removeAttr('disabled');
+					}
+				}
+			}
+			
 			$('[name=captcha]').keyup(function(){
 				var captcha = $('[name=captcha]').val();
-				check_captcha(captcha);
+				check_captcha(captcha, 0);
 			});
 
 			$('button#login').click(function(){
@@ -110,24 +114,14 @@
 				var mobile = $('[name=mobile]').val();
 				var sms_id = $.cookie('sms_id');
 				var params = {'captcha':captcha, 'mobile':mobile, 'sms_id':sms_id};
-				$.getJSON('/login', params, function(data){
-					if (data.status == 200) //若成功，保存用户信息信息到session/cookie, 并跳转到首页
+				$.getJSON('login', params, function(data){
+					if (data.status == 200) //若成功，跳转到json文件中target_url
 					{
-						// 清除储存在cookie中的sms_id，将data.content里所含数组全部转存为cookie，并跳转到首页
-						$.cookie('sms_id', '', {expires:-1});
-						$.each(
-							data.content,
-							function(key,value){
-								$('fieldset>p').before(key+':'+value+'<br>');
-								//$.cookie(key, value);
-							}
-						);
-						//alert('登陆成功');
-						location.href = '/home';
+						location.href = data.content.target_url;
 					}
 					else // 若失败，进行提示并将焦点移入captcha字段
 					{
-						alert('验证码错误，请确认');
+						alert('登录失败，请重试验证码。');
 						$('[name=captcha]').val('').focus();
 					}
 				});
