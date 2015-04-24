@@ -2,14 +2,15 @@
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	/* Order */
-	$route['order/consume/create'] = 'order/consume';
-	$route['order/recharge/create'] = 'order/recharge';
+	$route['order/create/consume/(:any)'] = 'order/consume/$1';
+	$route['order/create/recharge'] = 'order/recharge';
 	$route['order/confirm'] = 'order/confirm';
 	$route['order/(:any)'] = 'order/index/$1';
 	$route['order'] = 'order/index';
 	
 	/* Payment */
-	$route['payment/code'] = 'payment/code';
+	$route['payment/create'] = 'payment/create';
+	$route['payment/confirm'] = 'payment/confirm';
 	$route['payment'] = 'payment/index';
 
 	/* Station */

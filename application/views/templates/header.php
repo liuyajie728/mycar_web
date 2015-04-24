@@ -24,7 +24,13 @@
 		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.uploadify.js"></script>-->
 
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
-		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<!--<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">-->
 		
 		<link rel="shortcut icon" href="<?php echo base_url('images/icon_32.png'); ?>">
 		<link rel="apple-touch-icon" href="<?php echo base_url('images/icon_128.png'); ?>">

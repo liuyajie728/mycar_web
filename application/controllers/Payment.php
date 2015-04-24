@@ -100,6 +100,14 @@
 			    curl_close($curl);
 				echo $result;
 
+			else:
+				$data['title'] = '支付方式';
+				$data['class'] = 'payment payment-create';
+				
+				$this->load->view('templates/header', $data);
+				$this->load->view('payment/create', $data);
+				$this->load->view('templates/footer', $data);
+
 			endif;
 		}
 

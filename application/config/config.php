@@ -298,8 +298,8 @@
 	$config['sess_regenerate_destroy'] = FALSE;
 
 	$config['cookie_prefix']	= '';
-	$config['cookie_domain']	= '.jiayoucar.com/web/';
-	$config['cookie_path']		= '/';
+	$config['cookie_domain']	= '.jiayoucar.com';
+	$config['cookie_path']		= '/web';
 	$config['cookie_secure']	= FALSE;
 	$config['cookie_httponly'] 	= FALSE;
 

@@ -15,9 +15,7 @@
 
 		public function index($order_id = NULL)
 		{
-			if ($order_id === NULL):
-				break;
-			else:
+			if ($order_id != NULL):
 				$params['order_id'] = $order_id;
 			endif;
 			$params['user_id'] = $this->session->userdata('user_id');
@@ -42,7 +40,7 @@
 			    $data['orders'] = $result['content'];
 				$this->load->view('order/index', $data);
 
-			else: // 若传入order_id，生成油站详情页并设置相应class
+			else: // 若传入order_id，生成订单详情页并设置相应class
 				$data['title'] = '订单详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);
@@ -74,35 +72,66 @@
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
 		    // 运行cURL，请求API
-		    $result = json_decode(curl_exec($curl));
+		    $result = json_decode(curl_exec($curl), TRUE);
 		    // 关闭URL请求
 		    curl_close($curl);
-			echo $result;
+			return $result['status'];
 		}
 		
 		// 消费订单
-		public function consume()
+		public function consume($station_id)
 		{
-			$params['user_id'] = $this->session->userdata('user_id');
-			$params['station_id'] = $this->input->post('station_id');
-			$params['refuel_amount'] = $this->input->post('refuel_amount');
-			$params['shopping_amount'] = $this->input->post('shopping_amount');
-			
-			$this->load->view('templates/header', $data);
-			$this->load->view('order/consume', $data);
-			$this->load->view('templates/footer', $data);
-			
-			// 创建消费类型订单
-			//$this->create($params, 'consume');
+			$data['title'] = '消费订单';
+			$data['class'] = 'order order-consume order-create';
+
+			$this->form_validation->set_rules('station_id', '加油站ID', 'trim|required');
+			$this->form_validation->set_rules('refuel_amount', '加油/加气/充电金额', 'trim|required');
+			$this->form_validation->set_rules('shopping_amount', '其它消费金额', 'trim|required');
+
+			if($this->form_validation->run() === FALSE):
+				$data['station_id'] = $station_id;
+				$this->load->view('templates/header', $data);
+				$this->load->view('order/consume', $data);
+				$this->load->view('templates/footer', $data);
+
+			else:
+				$params['user_id'] = $this->session->userdata('user_id');
+				$params['station_id'] = $this->input->post('station_id');
+				$params['refuel_amount'] = $this->input->post('refuel_amount');
+				$params['shopping_amount'] = $this->input->post('shopping_amount');
+				// 创建消费类型订单
+				//$order_status = $this->create($params);
+				
+				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
+				
+				// 若订单创建不成功，则重新载入本页面
+			endif;
+			$this->output->enable_profiler(TRUE);
 		}
-		
+
 		// 充值订单
 		public function recharge()
 		{
-			$params['user_id'] = $this->session->userdata('user_id');
-			$params['amount'] = $this->input->post('amount');
+			$data['title'] = '充值订单';
+			$data['class'] = 'order order-recharge order-create';
+			
+			$this->form_validation->set_rules('amount', '充值金额', 'trim|required');
+			
+			if($this->form_validation->run() === FALSE):
+				$this->load->view('templates/header', $data);
+				$this->load->view('order/recharge', $data);
+				$this->load->view('templates/footer', $data);
 
-			// 创建充值类型订单
-			//$this->create($params, 'recharge');
+			else:
+				$params['user_id'] = $this->session->userdata('user_id');
+				$params['amount'] = $this->input->post('amount');
+				// 创建充值类型订单
+				//$order_status = $this->create($params, 'recharge');
+				
+				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
+			
+				// 若订单创建不成功，则重新载入本页面
+			endif;
+			$this->output->enable_profiler(TRUE);
 		}
 	}
