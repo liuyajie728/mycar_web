@@ -38,7 +38,7 @@
 			curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
 			$result = json_decode(curl_exec($curl), TRUE);
 			curl_close($curl);
-			return $result;
+			return $result['content'];
 		}
 
 		// 用户登录

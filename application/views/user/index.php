@@ -1,6 +1,5 @@
 <ul id=content>
-	<?php var_dump($me) ?>
-	<?php if(empty($me['nickname'])): ?>
+	<?php if ($me['nickname'] === NULL): ?>
 	<p>Hi, <?php echo $me['mobile'] ?></p>
 	<?php else: ?>
 	<li><?php echo $me['nickname'] ?></li>

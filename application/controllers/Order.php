@@ -59,10 +59,10 @@
 		* @param string $order_type Order type, allows either 'consume' or 'recharge', default to 'consume'
 		* @return json Order creating results.
 		*/
-		public function create($params, $order_type = 'consume')
+		public function create($params)
 		{
 			// Automaticly generate api url according to $order_type.
-			$url = api_url('order/create/'. $order_type);
+			$url = api_url('order/create');
 
 		    $curl = curl_init();
 		    curl_setopt($curl, CURLOPT_URL, $url);
@@ -71,11 +71,11 @@
 		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-		    // 运行cURL，请求API
+		    // 运行cURL，请求API，转换返回的json数据为数组
 		    $result = json_decode(curl_exec($curl), TRUE);
 		    // 关闭URL请求
 		    curl_close($curl);
-			return $result['status'];
+			return $result;
 		}
 		
 		// 消费订单
@@ -85,8 +85,8 @@
 			$data['class'] = 'order order-consume order-create';
 
 			$this->form_validation->set_rules('station_id', '加油站ID', 'trim|required');
-			$this->form_validation->set_rules('refuel_amount', '加油/加气/充电金额', 'trim|required');
-			$this->form_validation->set_rules('shopping_amount', '其它消费金额', 'trim|required');
+			$this->form_validation->set_rules('refuel_cost', '加油/加气/充电金额', 'trim|decimal|greater_than[0]|required');
+			$this->form_validation->set_rules('shopping_cost', '其它消费金额', 'trim|decimal|greater_than_equal_to[0]|required');
 
 			if($this->form_validation->run() === FALSE):
 				$data['station_id'] = $station_id;
@@ -97,14 +97,21 @@
 			else:
 				$params['user_id'] = $this->session->userdata('user_id');
 				$params['station_id'] = $this->input->post('station_id');
-				$params['refuel_amount'] = $this->input->post('refuel_amount');
-				$params['shopping_amount'] = $this->input->post('shopping_amount');
+				$params['refuel_cost'] = $this->input->post('refuel_cost');
+				$params['shopping_cost'] = $this->input->post('shopping_cost');
 				// 创建消费类型订单
-				//$order_status = $this->create($params);
+				$params['type'] = 'consume';
+				$order_status = $this->create($params);
 				
 				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
-				
+				if ($order_status['status'] == 200):
+					echo $order_status['content']['order_id'];
 				// 若订单创建不成功，则重新载入本页面
+				else:
+					echo $order_status['content'];
+					
+				endif;
+
 			endif;
 			$this->output->enable_profiler(TRUE);
 		}
@@ -115,8 +122,8 @@
 			$data['title'] = '充值订单';
 			$data['class'] = 'order order-recharge order-create';
 			
-			$this->form_validation->set_rules('amount', '充值金额', 'trim|required');
-			
+			$this->form_validation->set_rules('amount', '充值金额', 'trim|is_natural_no_zero|required');
+
 			if($this->form_validation->run() === FALSE):
 				$this->load->view('templates/header', $data);
 				$this->load->view('order/recharge', $data);
@@ -126,11 +133,21 @@
 				$params['user_id'] = $this->session->userdata('user_id');
 				$params['amount'] = $this->input->post('amount');
 				// 创建充值类型订单
-				//$order_status = $this->create($params, 'recharge');
+				$params['type'] = 'recharge';
 				
+				$order_status = $this->create($params);
+				var_dump($order_status);
+				/*
 				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
-			
+				if ($order_status['status'] == 200):
+					echo $order_status['content']['order_id'];
 				// 若订单创建不成功，则重新载入本页面
+				else:
+					echo $order_status['content'];
+					
+				endif;
+				*/
+				
 			endif;
 			$this->output->enable_profiler(TRUE);
 		}

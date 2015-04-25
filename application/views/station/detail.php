@@ -9,8 +9,8 @@
 		<p><?php echo $station['address'] ?></p>
 	</section>
 	<ul id=action>
-		<li><a class=tel href="tel:<?php echo $station['tel'] ?>"><?php echo $station['tel'] ?></a></li>
-		<li><a class=route href="<?php echo $marker_url ?>"><?php echo $station['address'] ?></a></li>
-		<li><a class=refuel href="<?php echo base_url('order/create/consume/'.$station['station_id']) ?>">在此加油</a></li>
+		<li><a class="btn btn-default btn-block" href="tel:<?php echo $station['tel'] ?>"><?php echo $station['tel'] ?></a></li>
+		<li><a class="btn btn-default btn-block" href="<?php echo $marker_url ?>"><?php echo $station['address'] ?></a></li>
+		<li><a class="btn btn-primary btn-block" href="<?php echo base_url('order/create/consume/'.$station['station_id']) ?>">在此加油</a></li>
 	</ul>
 </div>

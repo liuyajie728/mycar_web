@@ -7,12 +7,12 @@
 	echo form_open(base_url('login'), $attributes);
 ?>
 		<fieldset>
-			<input name=mobile type=tel value="" placeholder="手机号" required autofocus>
-			<a id=sms_send class="btn btn-primary" href="#">验证</a>
-			<input name=captcha type=number step=1 value="" placeholder="验证码" required disabled>
+			<input name=mobile class=form-control type=tel value="" placeholder="手机号" required autofocus>
+			<a id=sms_send class="btn btn-default" href="#">验证</a>
+			<input name=captcha class=form-control type=number step=1 value="" placeholder="验证码" required disabled>
 		</fieldset>
 		<p>点击“开始”，即代表您同意<a title="查看青岛我的车信息技术有限公司《哎油服务条款》详细内容" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
-		<button id=login disabled>开始</button>
+		<button id=login class="btn btn-default btn-block" disabled>开始</button>
 	</form>
 	<script>
 		$(function(){

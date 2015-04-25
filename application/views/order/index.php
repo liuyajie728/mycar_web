@@ -1,16 +1,22 @@
 <div id=content>
-<?php
-	if(empty($orders)):
-		echo '<p>您还没有用哎油加过油，快去<a title="哎油首页" href="'. base_url() .'">最近的加油站</a>试一下吧！</p>';
-	else:
-		foreach ($orders as $order):
-?>
-	<ul id=orders>
-		<li class=<?php $order['order_id'] ?>>订单ID <?php $order['order_id'] ?></li>
-		<li class=<?php $order['time_create'] ?>>订单ID <?php $order['time_create'] ?></li>
+	
+<?php if(empty($orders)): ?>
+	<blockquote>
+		<p>还没有享受过哎油的优惠和服务哦。您可以：
+	</blockquote>
+	<ol>
+		<li>去充值<a class="btn btn-primary" title="哎油账户充值" href="<?php echo base_url('order/create/recharge') ?>">获得每月额外返利</a></li>
+		<li>去附近<a class="btn btn-default" title="哎油首页" href="<?php echo base_url() ?>">找加油站试一下</a></li>
+	</ol>
+<?php else: ?>
+	<ul id=orders class=list-group>
+		<?php foreach ($orders as $order): ?>
+		<li class=list-group-item>
+			订单号 <?php echo $order['order_id'] ?>
+			金额 <?php echo $order['amount'] ?>
+			创建时间 <?php echo $order['time_create'] ?>
+		</li>
+		<?php endforeach ?>
 	</ul>
-<?php
-		endforeach;
-	endif;
-?>
+<?php endif ?>
 </div>

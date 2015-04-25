@@ -5,10 +5,11 @@
 ?>
 		<fieldset>
 			<label for=amount>充值金额（元）</label>
-			<input class=form-control name=amount type=number step=200 min=200 required>
+			<input class=form-control name=amount type=number step=100 min=100 required>
+			<?php echo form_error('amount'); ?>
 		</fieldset>
-		<p id=balance_change>充值后余额增加 <span></span> 元</p>
-		<button class="btn btn-default">确定</button>
+		<p id=balance_change>充值后最多获得 <span></span> 元余额。</p>
+		<button class="btn btn-primary btn-block">确定</button>
 	</form>
 </div>
 <script>
