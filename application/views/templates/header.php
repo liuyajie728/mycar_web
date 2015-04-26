@@ -33,7 +33,7 @@
 		<link rel="shortcut icon" href="http://images.key2all.com/logo/brand/6_32.png">
 		<link rel="apple-touch-icon" href="http://images.key2all.com/logo/brand/6_120.png">
 
-		<link rel=canonical href="<?php echo base_url().uri_string() ?>">
+		<link rel=canonical href="<?php echo current_url() ?>">
 
 		<meta name=format-detection content="telephone=yes, email=no, address=no">
 

@@ -30,14 +30,7 @@
 		{
 			$params['user_id'] = $user_id;
 			$url = api_url('user');
-			$curl = curl_init();
-			curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_POST, count($params));
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-			$result = json_decode(curl_exec($curl), TRUE);
-			curl_close($curl);
+			$result = $this->curl->go($url, $params, 'array');
 			return $result['content'];
 		}
 
@@ -55,17 +48,7 @@
 				$params['sms_id'] = $this->input->get('sms_id');
 
 				$url = api_url('user/login');
-			    $curl = curl_init();
-			    curl_setopt($curl, CURLOPT_URL, $url);
-				curl_setopt($curl, CURLOPT_POST, count($params));
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-			    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
-			    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-				// 将返回的json对象转换成关联数组
-				$result = json_decode(curl_exec($curl), TRUE);
-			    // 关闭URL请求
-			    curl_close($curl);
+				$result = $this->curl->go($url, $params, 'array');
 
 				// 返回数据
 				//echo $result;

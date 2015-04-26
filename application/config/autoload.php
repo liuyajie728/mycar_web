@@ -28,7 +28,7 @@
 	|
 	|	$autoload['libraries'] = array('user_agent' => 'ua');
 	*/
-	$autoload['libraries'] = array('database', 'form_validation', 'image_lib', 'session');
+	$autoload['libraries'] = array('database', 'form_validation', 'image_lib', 'session', 'curl');
 
 	/*
 	| -------------------------------------------------------------------

@@ -9,8 +9,9 @@
 	$route['order'] = 'order/index';
 	
 	/* Payment */
-	$route['payment/create'] = 'payment/create';
-	$route['payment/confirm'] = 'payment/confirm';
+	$route['payment/create/(:any)'] = 'payment/create/$1';
+	$route['payment/confirm/(:any)'] = 'payment/confirm/$1';
+	$route['payment(:any)'] = 'payment/$1';
 	$route['payment'] = 'payment/index';
 
 	/* Station */

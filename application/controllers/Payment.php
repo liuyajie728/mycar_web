@@ -12,63 +12,31 @@
 				redirect(base_url('login'));
 			endif;
 		}
-		
-		/**
-		* Payment Code
-		*
-		* @since always
-		* @return int Payment Code
-		*/
-		public function code()
+
+		public function index($payment_id = NULL)
 		{
-			$data['title'] = '付款码';
-			$data['class'] = 'payment payment-code';
-
-			// ! generate payment code
-			$this->load->helper('string');
-			//$code = random_string('numeric', 2).$this->session->userdata('user_id').random_string('numeric', 4);
-			$code = random_string('numeric', 2).'1'.random_string('numeric', 4);
-			$data['payment_code'] = $code;
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('payment/code', $data);
-			$this->load->view('templates/footer', $data);
-		}
-
-		public function index($order_id = NULL)
-		{
-			if ($order_id === NULL):
+			if ($payment_id === NULL):
 				// 未设计逻辑，待补充
 			else:
-				$params['order_id'] = $order_id;
+				$params['$payment_id'] = $payment_id;
 			endif;
-			$params['user_id'] = $this->input->cookie('user_id');
+			$params['user_id'] = $this->session->userdata('user_id');
 			
 			$url = api_url('order');
-		    $curl = curl_init();
-		    curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_POST, count($params));
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
-		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-		    // 运行cURL，请求API
-		    $result = json_decode(curl_exec($curl), TRUE); // 将json对象转换成关联数组
-		    // 关闭URL请求
-		    curl_close($curl);
+		    $result = $this->curl->go($url, $params, 'array');
 			
-			if ($order_id === NULL): // 若未传入order_id，生成油站列表页并设置相应class
-				$data['title'] = '订单列表';
-				$data['class'] = 'order order-index';
+			if ($payment_id === NULL): // 若未传入payment_id，生成流水列表页并设置相应class
+				$data['title'] = '流水列表';
+				$data['class'] = 'payment payment-index';
 				$this->load->view('templates/header', $data);
-			    $data['orders'] = $result['content'];
-				$this->load->view('order/index', $data);
+			    $data['payments'] = $result['content'];
+				$this->load->view('payment/index', $data);
 			else: // 若传入order_id，生成油站详情页并设置相应class
-				$data['title'] = '订单详情';
-				$data['class'] = 'order order-detail';
+				$data['title'] = '流水详情';
+				$data['class'] = 'payment payment-detail';
 				$this->load->view('templates/header', $data);
-			    $data['order'] = $result['content'];
-				$this->load->view('order/detail', $data);
+			    $data['payment'] = $result['content'];
+				$this->load->view('payment/detail', $data);
 			endif;
 			$this->load->view('templates/footer', $data);
 		}
@@ -81,58 +49,45 @@
 		* @param $_POST['amount'] Order raw amount, no coupon or other deduction counted in.
 		* @return json Order creating results.
 		*/
-		public function create()
+		public function create($order_id)
 		{
-			if($this->input->is_ajax_request()):
-				$params['user_id'] = $this->input->post('user_id');
+			$data['title'] = '创建流水';
+			$data['class'] = 'payment payment-create';
+			
+			$this->form_validation->set_rules('method', '支付方式', 'trim|required');
 
-				$url = api_url('payment/create');
-			    $curl = curl_init();
-			    curl_setopt($curl, CURLOPT_URL, $url);
-				curl_setopt($curl, CURLOPT_POST, count($params));
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-			    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
-			    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-			    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-			    // 运行cURL，请求API
-			    $result = json_decode(curl_exec($curl));
-			    // 关闭URL请求
-			    curl_close($curl);
-				echo $result;
+			if($this->form_validation->run() === FALSE):
+				$data['order_id'] = $order_id;
 
-			else:
-				$data['title'] = '支付方式';
-				$data['class'] = 'payment payment-create';
-				
 				$this->load->view('templates/header', $data);
 				$this->load->view('payment/create', $data);
 				$this->load->view('templates/footer', $data);
+
+			else:
+				$params['order_id'] = $this->input->post('order_id');
+				$params['method'] = $this->input->post('method');
+
+				var_dump($params);
+				$url = api_url('payment/create');
+			    //echo $this->curl->go($url, $params);
 
 			endif;
 		}
 
 		/**
-		* Confirm order payment status
+		* Confirm payment status
 		*
 		* @since always
-		* @param int $order_id
-		* @return json Order confirmation status
+		* @param int $payment_id
+		* @return json Payment confirmation status
 		*/
-		public function confirm()
+		public function confirm($payment_id)
 		{
 			if($this->input->is_ajax_request()):
-				$params['order_id'] = $this->input->post('order_id');
+				$params['payment_id'] = $this->input->post('payment_id');
 				
 				$url = api_url('payment/confirm');
-				$curl = curl_init();
-				curl_setopt($curl, CURLOPT_URL, $url);
-				curl_setopt($curl, CURLOPT_POST, count($params));
-				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-				$result = json_decode(curl_exec($curl));
-				curl_close($curl);
-				echo $result;
+				echo $this->curl->go($url, $params);
 
 			endif;
 		}
