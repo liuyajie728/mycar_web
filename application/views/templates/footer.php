@@ -24,7 +24,7 @@
 			
 			$(function(){
 				// 表格可排序
-				$('.sortable').tablesorter();
+				//$('.sortable').tablesorter();
 			});
 		</script>
 	</body>

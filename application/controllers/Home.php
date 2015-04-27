@@ -1,6 +1,12 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/**
+	* Home Class
+	*
+	* @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	* @copyright SenseStrong <www.sensestrong.com>
+	*/
 	class Home extends CI_Controller
 	{
 		public function __construct()
@@ -8,6 +14,13 @@
 			parent::__construct();
 		}
 
+		/**
+		* Generate home page.
+		*
+		* @since always
+		* @param void
+		* @return void
+		*/
 		public function index()
 		{
 			$data['title'] = '哎油';
@@ -20,8 +33,14 @@
 			$this->load->view('home', $data);
 			$this->load->view('templates/footer', $data);
 		}
-		
-		// 获取加油站信息
+
+		/**
+		* Get refuel station infos.
+		*
+		* @since always
+		* @param int $station_id
+		* @return array $result['content']
+		*/
 		public function get_station($station_id = NULL)
 		{
 			$params['station_id'] = $station_id;
@@ -43,7 +62,13 @@
 			return $result['content'];
 		}
 
-		// 获取加油站品牌信息
+		/**
+		* Get refuel station brand infos.
+		*
+		* @since always
+		* @param int $brand_id
+		* @return array $result['content']
+		*/
 		public function get_station_brand($brand_id = NULL)
 		{
 			$params['brand_id'] = $brand_id;

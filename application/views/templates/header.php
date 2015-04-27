@@ -7,7 +7,7 @@
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
 		<meta name=description content="<?php echo $title; ?>">
 		<meta name=keywords content="<?php echo $title; ?>">
-		<meta name=version content="revision20150425">
+		<meta name=version content="revision20150427">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -19,7 +19,7 @@
 		<![endif]-->
 		<script src="http://cdn.key2all.com/js/jquery/new.js"></script>
 		<script src="http://cdn.key2all.com/js/jquery/jquery.cookie.js"></script>
-		<script src="http://cdn.key2all.com/js/jquery/jquery.tablesorter.js"></script>
+		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.tablesorter.js"></script>-->
 		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.validate.js"></script>-->
 		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.uploadify.js"></script>-->
 

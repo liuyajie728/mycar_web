@@ -5,6 +5,8 @@
 	$route['order/create/consume/(:any)'] = 'order/consume/$1';
 	$route['order/create/recharge'] = 'order/recharge';
 	$route['order/confirm'] = 'order/confirm';
+	$route['order/recharge/(:any)'] = 'order/index_recharge/$1';
+	$route['order/recharge'] = 'order/index_recharge';
 	$route['order/(:any)'] = 'order/index/$1';
 	$route['order'] = 'order/index';
 	

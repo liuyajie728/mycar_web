@@ -1,6 +1,12 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/**
+	* Sms Class
+	*
+	* @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	* @copyright SenseStrong <www.sensestrong.com>
+	*/
 	class Sms extends CI_Controller
 	{
 		public function __construct()
@@ -21,9 +27,15 @@
 			if($this->input->is_ajax_request()):
 				$params['mobile'] = $this->input->get('mobile');
 				$params['type'] = $this->input->get('type');
-				
+
 				$url = api_url('sms/send');
-				echo $this->curl->go($url, $params);
+				//echo $this->curl->go($url, $params);
+				$result = $this->curl->go($url, $params);
+				
+				// Convert to json format for ajax return.
+				header("Content-type:application/json;charset=utf-8");
+				$output_json = json_encode($result);
+				echo $output_json;
 			endif;
 		}
 	}

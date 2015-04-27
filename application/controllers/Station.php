@@ -1,6 +1,12 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/**
+	* Station Class
+	*
+	* @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	* @copyright SenseStrong <www.sensestrong.com>
+	*/
 	class Station extends CI_Controller
 	{
 		public function __construct()
@@ -8,6 +14,13 @@
 			parent::__construct();
 		}
 
+		/**
+		* Generate refuel station list page or detail page.
+		*
+		* @since always
+		* @param int $station_id
+		* @return void
+		*/
 		public function index($station_id = NULL)
 		{
 			if ($station_id === NULL):

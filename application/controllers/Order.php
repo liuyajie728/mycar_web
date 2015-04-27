@@ -1,18 +1,31 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/**
+	* Order Class
+	*
+	* @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	* @copyright SenseStrong <www.sensestrong.com>
+	*/
 	class Order extends CI_Controller
 	{
 		public function __construct()
 		{
 			parent::__construct();
 
-			//若未登录，转到登录页
+			// Redirect to login page if not logged in.
 			if($this->session->userdata('logged_in') != TRUE):
 				redirect(base_url('login'));
 			endif;
 		}
 
+		/**
+		* View consume order list or single order.
+		*
+		* @since always
+		* @param int $order_id
+		* @return array Consume order contents.
+		*/
 		public function index($order_id = NULL)
 		{
 			if ($order_id != NULL):
@@ -24,14 +37,14 @@
 		    $result = $this->curl->go($url, $params, 'array');
 			
 			if ($order_id === NULL): // 若未传入order_id，生成订单列表页并设置相应class
-				$data['title'] = '订单列表';
+				$data['title'] = '消费账单';
 				$data['class'] = 'order order-index';
 				$this->load->view('templates/header', $data);
 			    $data['orders'] = $result['content'];
 				$this->load->view('order/index', $data);
 
 			else: // 若传入order_id，生成订单详情页并设置相应class
-				$data['title'] = '订单详情';
+				$data['title'] = '消费详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);
 			    $data['order'] = $result['content'];
@@ -42,12 +55,46 @@
 		}
 		
 		/**
-		* Supply user_info to create order on remote server.
+		* View recharge order list or single order.
+		*
+		* @since always
+		* @param int $order_id
+		* @return array Recharge order contents.
+		*/
+		public function index_recharge($order_id = NULL)
+		{
+			if ($order_id != NULL):
+				$params['order_id'] = $order_id;
+			endif;
+			$params['user_id'] = $this->session->userdata('user_id');
+
+			$url = api_url('order/recharge');
+		    $result = $this->curl->go($url, $params, 'array');
+			
+			if ($order_id === NULL): // 若未传入order_id，生成订单列表页并设置相应class
+				$data['title'] = '充值账单';
+				$data['class'] = 'order order-index';
+				$this->load->view('templates/header', $data);
+			    $data['orders'] = $result['content'];
+				$this->load->view('order/index', $data);
+
+			else: // 若传入order_id，生成订单详情页并设置相应class
+				$data['title'] = '充值详情';
+				$data['class'] = 'order order-detail';
+				$this->load->view('templates/header', $data);
+			    $data['order'] = $result['content'];
+				$this->load->view('order/detail', $data);
+
+			endif;
+			$this->load->view('templates/footer', $data);
+		}
+		
+		/**
+		* Supply user info to create order on remote server.
 		*
 		* @since always
 		* @param array $params All datas that should be sent to API server.
-		* @param string $order_type Order type, allows either 'consume' or 'recharge', default to 'consume'
-		* @return json Order creating results.
+		* @return array $result Order creating results.
 		*/
 		public function create($params)
 		{
@@ -56,8 +103,17 @@
 			$result = $this->curl->go($url, $params, 'array');
 			return $result;
 		}
-		
-		// 消费订单
+
+		/**
+		* Consume order
+		*
+		* @since always
+		* @param int $station_id
+		* @param int $_SESSION['user_id'] (NOTICE: CodeIgniter3 Session, NOT native PHP5 session)
+		* @param int $_POST['refuel_cost']
+		* @param int $_POST['shopping_cost']
+		* @return void
+		*/
 		public function consume($station_id)
 		{
 			$data['title'] = '消费订单';
@@ -80,11 +136,12 @@
 				$params['shopping_cost'] = $this->input->post('shopping_cost');
 				// 创建消费类型订单
 				$params['type'] = 'consume';
-				$order_status = $this->create($params);
+				$order = $this->create($params);
 				
 				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
-				if ($order_status['status'] == 200):
-					echo $order_status['content']['order_id'];
+				if ($order['status'] == 200):
+					$order = $order['content'];
+					var_dump($order);
 				// 若订单创建不成功，则重新载入本页面
 				else:
 					echo $order_status['content'];
@@ -92,10 +149,16 @@
 				endif;
 
 			endif;
-			$this->output->enable_profiler(TRUE);
 		}
 
-		// 充值订单
+		/**
+		* Recharge order
+		*
+		* @since always
+		* @param int $_SESSION['user_id'] (NOTICE: CodeIgniter3 Session, NOT native PHP5 session)
+		* @param int $_POST['amount']
+		* @return void
+		*/
 		public function recharge()
 		{
 			$data['title'] = '充值订单';
@@ -113,7 +176,6 @@
 				$params['amount'] = $this->input->post('amount');
 				// 创建充值类型订单
 				$params['type'] = 'recharge';
-				
 				$order = $this->create($params);
 
 				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
@@ -128,6 +190,5 @@
 				endif;
 				
 			endif;
-			$this->output->enable_profiler(TRUE);
 		}
 	}

@@ -1,6 +1,12 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	/**
+	* User Class
+	*
+	* @author Kamas 'Iceberg' Lau <kamaslau@outlook.com>
+	* @copyright SenseStrong <www.sensestrong.com>
+	*/
 	class User extends CI_Controller
 	{
 		public function __construct()
@@ -8,10 +14,16 @@
 			parent::__construct();
 		}
 
-		// User homepage
+		/**
+		* Generate user home page.
+		*
+		* @since always
+		* @param void
+		* @return void
+		*/
 		public function index()
 		{
-			//若未登录，转到登录页
+			// Redirect to login page if not logged in.
 			if($this->session->userdata('logged_in') != TRUE):
 				redirect(base_url('login'));
 			endif;
@@ -19,25 +31,40 @@
 			$data['title'] = '我';
 			$data['class'] = 'user user-index';
 
-			$data['me'] = $this->get_me($this->session->userdata('user_id'));			
+			$data['me'] = $this->get_me();			
 			$this->load->view('templates/header', $data);
 			$this->load->view('user/index', $data);
 			$this->load->view('templates/footer', $data);
 		}
 
-		// Get user's data
-		private function get_me($user_id)
+		/**
+		* Get current user data.
+		*
+		* @since always
+		* @param void
+		* @return void
+		*/
+		private function get_me()
 		{
-			$params['user_id'] = $user_id;
+			$params['user_id'] = $this->session->userdata('user_id');
+
 			$url = api_url('user');
 			$result = $this->curl->go($url, $params, 'array');
 			return $result['content'];
 		}
 
-		// 用户登录
+		/**
+		* User login with AJAX
+		*
+		* @since always
+		* @param int(4) $_GET['captcha']
+		* @param int(11) $_GET['mobile']
+		* @param int $_GET['sms_id']
+		* @return json Login result.
+		*/
 		public function login()
 		{
-			//若已登录，则直接转到首页
+			// Redirect to home page if already logged in.
 			if($this->session->userdata('logged_in') === TRUE):
 				redirect(base_url());
 			endif;
@@ -50,8 +77,7 @@
 				$url = api_url('user/login');
 				$result = $this->curl->go($url, $params, 'array');
 
-				// 返回数据
-				//echo $result;
+				// Return login result according to api return json.
 				if ($result['status'] != 200):
 					$output['status'] = 400;
 					$output['content'] = 'Login failed.';
@@ -112,7 +138,13 @@
 			endif;
 		}
 
-		// 用户退出
+		/**
+		* User logout
+		*
+		* @since always
+		* @param void
+		* @return void
+		*/
 		public function logout()
 		{
 			$this->session->sess_destroy();
