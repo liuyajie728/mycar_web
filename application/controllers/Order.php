@@ -28,6 +28,7 @@
 		*/
 		public function index($order_id = NULL)
 		{
+			$data['type'] = 'consume';
 			if ($order_id != NULL):
 				$params['order_id'] = $order_id;
 			endif;
@@ -35,7 +36,7 @@
 
 			$url = api_url('order');
 		    $result = $this->curl->go($url, $params, 'array');
-			
+
 			if ($order_id === NULL): // 若未传入order_id，生成订单列表页并设置相应class
 				$data['title'] = '消费账单';
 				$data['class'] = 'order order-index';
@@ -47,7 +48,7 @@
 				$data['title'] = '消费详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);
-			    $data['order'] = $result['content'];
+			    $data['order'] = $result['content'][0];
 				$this->load->view('order/detail', $data);
 
 			endif;
@@ -63,6 +64,7 @@
 		*/
 		public function index_recharge($order_id = NULL)
 		{
+			$data['type'] = 'recharge';
 			if ($order_id != NULL):
 				$params['order_id'] = $order_id;
 			endif;
@@ -82,7 +84,7 @@
 				$data['title'] = '充值详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);
-			    $data['order'] = $result['content'];
+			    $data['order'] = $result['content'][0];
 				$this->load->view('order/detail', $data);
 
 			endif;
@@ -120,8 +122,8 @@
 			$data['class'] = 'order order-consume order-create';
 
 			$this->form_validation->set_rules('station_id', '加油站ID', 'trim|required');
-			$this->form_validation->set_rules('refuel_cost', '加油/加气/充电金额', 'trim|decimal|greater_than[0]|required');
-			$this->form_validation->set_rules('shopping_cost', '其它消费金额', 'trim|decimal|greater_than_equal_to[0]|required');
+			$this->form_validation->set_rules('refuel_cost', '加油/加气/充电金额', 'trim|numeric|greater_than[0]|required');
+			$this->form_validation->set_rules('shopping_cost', '其它消费金额', 'trim|numeric|greater_than_equal_to[0]|required');
 
 			if($this->form_validation->run() === FALSE):
 				$data['station_id'] = $station_id;
@@ -141,7 +143,6 @@
 				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
 				if ($order['status'] == 200):
 					$order = $order['content'];
-					var_dump($order);
 				// 若订单创建不成功，则重新载入本页面
 				else:
 					echo $order_status['content'];
@@ -178,10 +179,12 @@
 				$params['type'] = 'recharge';
 				$order = $this->create($params);
 
-				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
+				// 若订单创建成功，则跳转到微信支付页面（url形式传递total_fee、order_id）
 				if ($order['status'] == 200):
 					$order = $order['content'];
-					redirect(base_url('payment/create/'. $order['order_id']));
+					$payment_url = base_url('wepay/demo/js_api_call.php?total_fee='. $order['total']. '&order_id='.$order['order_id']);
+					//var_dump($payment_url);
+					redirect($payment_url);
 				// 若订单创建不成功，则重新载入本页面
 				else:
 					$this->load->view('templates/header', $data);

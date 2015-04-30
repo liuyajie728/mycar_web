@@ -1,23 +1,30 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
+	// Wechat Setups
+	define('APP_ID', 'wx920a184018cc7654');
+	define('APP_SECRET', '1ce56c3e71ff076f6f78ce5e845449e6');
+	define('WECHAT_TOKEN', 't0JxKenbPhFs7uMgRZNWXwGpEoqvYIf4');
+
+	// RESTful API
 	define('API_URL', 'http://www.jiayoucar.com/api/');
 	function api_url($api_name)
 	{
 		$api_url = API_URL . $api_name;
 		return $api_url;
 	}
+
 	date_default_timezone_set('Asia/Shanghai');
 	
 	/**
-	* Native CodeIgniter configs.
+	* Native CodeIgniter configs from here.
 	* @since always
 	*/
 	$config['base_url'] = 'http://www.jiayoucar.com/web/';
 	$config['index_page'] = 'index.php';
 	$config['uri_protocol']	= 'REQUEST_URI';
 	$config['url_suffix'] = '';
-	$config['language']	= 'english';
+	$config['language']	= 'chinese';
 	$config['charset'] = 'UTF-8';
 
 	/*

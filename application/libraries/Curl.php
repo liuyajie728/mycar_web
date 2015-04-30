@@ -9,16 +9,20 @@
 	*/
 	class Curl
 	{		
-		public function go($url, $params, $return = 'object')
+		public function go($url, $params, $return = 'object', $method = 'post')
 		{
 		    $curl = curl_init();
 		    curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_POST, count($params));
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 
 		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
 		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
+			
+			// 需要通过POST方式发送的数据
+			if ($method == 'post'):
+				curl_setopt($curl, CURLOPT_POST, count($params));
+				curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+			endif;
 			
 		    // 运行cURL，请求API
 			$result = curl_exec($curl);

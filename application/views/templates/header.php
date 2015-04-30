@@ -2,12 +2,13 @@
 <html lang=zh-cn>
 	<head>
 		<meta charset=utf-8>
+		<meta http-equiv=x-dns-prefetch-control content=on>
 		<link rel=dns-prefetch href="http://cdn.key2all.com">
 		<link rel=dns-prefetch href="http://images.key2all.com">
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
 		<meta name=description content="<?php echo $title; ?>">
 		<meta name=keywords content="<?php echo $title; ?>">
-		<meta name=version content="revision20150427">
+		<meta name=version content="revision20150428">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -49,6 +50,7 @@
 ?>
 <!-- 内容开始 -->
 	<body<?php echo (isset($class))? ' class="'.$class.'"': NULL; ?>>
+	<?php if(strpos($this->input->user_agent(), 'MicroMessenger') === FALSE && strpos($this->input->user_agent(), 'Windows Phone') === FALSE ): ?>
 		<header id=header class="navbar navbar-default">
 			<nav id=nav-header class=container-fluid>
 				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url() ?>"><?php echo $title; ?></a></h1>
@@ -63,5 +65,5 @@
 				<a id=toorders title="哎油账单" href="<?php echo base_url('order') ?>">账单</a>
 			</nav>
 		</header>
-	
+	<?php endif ?>
 		<div id=maincontainer class=container-fluid>

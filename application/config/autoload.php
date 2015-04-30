@@ -44,7 +44,7 @@
 	*/
 	$autoload['drivers'] = array();
 
-	$autoload['helper'] = array('cookie', 'date', 'form', 'security', 'url');
+	$autoload['helper'] = array('cookie', 'date', 'form', 'security', 'string', 'url');
 
 
 	/*

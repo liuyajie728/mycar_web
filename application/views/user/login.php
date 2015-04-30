@@ -1,3 +1,13 @@
+<style>
+body{color:#fff;font-family:"冬青黑体简体中文","微软雅黑",arial,sans-serif;background-color:#00a1d8;text-align:center;}
+h2{font-size:41px;}
+p{font-size:17px;}
+#content{padding-top:66px;}
+input{font-size:22px;text-align:left;}
+button{color:#fff;}
+	button:disabled{background-color:#ccc;}
+form p>a{color:#8ce2db;}
+</style>
 <div id=content>
 	<h2>您的手机号是？</h2>
 	<p>填写手机号，成为哎油会员</p>
@@ -8,12 +18,12 @@
 ?>
 		<fieldset>
 			<div class=input-group>
-				<input name=mobile class=form-control type=tel value="" placeholder="手机号" required autofocus>
+				<input name=mobile class=form-control type=tel value="" placeholder="*手机号码" required autofocus>
 				<a id=sms_send class="btn btn-default input-group-addon" href="#">获取验证码</a>
 			</div>
-			<input name=captcha class=form-control type=number step=1 value="" placeholder="验证码" required disabled>
+			<input name=captcha class=form-control type=number step=1 placeholder="*验证码" required disabled>
 		</fieldset>
-		<p class="text-center">点击“开始”，即代表您同意<a title="查看青岛我的车信息技术有限公司《哎油服务条款》详细内容" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
+		<p class="text-center">点击“开始”，即表示您同意<a title="查看青岛我的车信息技术有限公司《哎油服务条款》详细内容" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
 		<button id=login class="btn btn-primary btn-block" disabled>开始</button>
 	</form>
 	<script>

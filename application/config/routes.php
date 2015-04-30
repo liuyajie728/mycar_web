@@ -32,6 +32,9 @@
 	
 	/* Home Page */
 	$route['home'] = 'home/index';
+	
+	//$route['wechat/(:any)'] = 'wechat/$1';
+	$route['wechat'] = 'wechat/index';
 
 /**
 * Stop Edit From Here

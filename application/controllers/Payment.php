@@ -47,13 +47,13 @@
 				$data['title'] = '流水详情';
 				$data['class'] = 'payment payment-detail';
 				$this->load->view('templates/header', $data);
-			    $data['payment'] = $result['content'];
+			    $data['payment'] = $result['content'][0];
 				$this->load->view('payment/detail', $data);
 
 			endif;
 			$this->load->view('templates/footer', $data);
 		}
-		
+
 		/**
 		* Supply order id to create payment on remote server.
 		*

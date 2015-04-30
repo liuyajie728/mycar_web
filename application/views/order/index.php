@@ -13,8 +13,10 @@
 		<?php foreach ($orders as $order): ?>
 		<li class=list-group-item>
 			订单号 <?php echo $order['order_id'] ?>
-			金额 <?php echo $order['amount'] ?>
+			金额 <?php echo $order['total'] ?>
 			创建时间 <?php echo $order['time_create'] ?>
+			支付时间 <?php echo $order['time_payed'] ?>
+			<a class="btn btn-primary btn-block" href="<?php echo $type == 'consume'? base_url('order/'.$order['order_id']): base_url('order/recharge/'.$order['order_id']) ?>">查看详情</a>
 		</li>
 		<?php endforeach ?>
 	</ul>

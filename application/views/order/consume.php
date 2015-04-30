@@ -4,11 +4,11 @@
 	</section>
 <?php
 	$attributes = array('class' => 'form-order-consume-create', 'role' => 'form');
-	echo form_open(base_url('order/create/consume'), $attributes);
+	echo form_open(base_url('order/create/consume/'.$station_id), $attributes);
 ?>
 		<fieldset>
 			<label for=refuel_cost>加油/加气/充电金额</label>
-			<input class=form-control name=refuel_cost type=number step=0.01 min=0.01 autofocus required>
+			<input class=form-control name=refuel_cost type=number step=0.01 min=200.00 placeholder="最低200元" autofocus required>
 			<?php echo form_error('refuel_cost'); ?>
 			<label for=shopping_cost>其它消费金额</label>
 			<input class=form-control name=shopping_cost type=number step=0.01 min=0.00 value=0.00 placeholder="洗车、维修、购物等" required>
