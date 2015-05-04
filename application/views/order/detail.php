@@ -1,3 +1,7 @@
+<style>
+	body.order{background-color:#f0f0f0;}
+	button{background-color:#00a1d8;}
+</style>
 <div id=content>
 <?php
 	if(empty($order)):

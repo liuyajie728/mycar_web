@@ -1,0 +1,48 @@
+@charset "utf-8";
+@viewport{width:device-width;}
+
+body{color:#6d6d72;background:#EFEFF4;font:100%/1.5 "华文细黑","微软雅黑",verdana,sans-serif;}
+h1,h2,h3,h4{}
+	a{color:#4cb5ff;}
+		a:hover,a:active{color:#466096;}
+	.container{font-size:24px;font-size:1.5rem;box-sizing:border-box;}
+	
+	/**
+	* Home page styles
+	*
+	*/
+	#quick,#filter,#stations{width:100%;overflow:hidden;}
+		#quick li{float:left;display:inline;width:50%;}
+		#filter>ul{float:left;display:inline;width:33%;}
+			#filter li:last-child{width:34%;}
+		#stations li{float:left;display:inline;width:100%;}
+
+#header{color:#fff;background-color:#222;text-align:center;height:2.75rem;line-height:2.75rem;}
+#header h1{font-size:18px;font-size:1.125rem;}
+	#header a{color:#fff;}
+#nav-header>a{position:absolute;top:0;}
+	#toback{left:10px;}
+	#toorders{right:10px;}
+
+#footer .container{width:100%;position:fixed;bottom:0;}
+#nav-footer>a{color:#999;background-color:#eaeaea;float:left;width:33.33%;height:2.75rem;line-height:2.75rem;text-align:center;}
+
+form{width:100%;padding:0 7.8125%;box-sizing:border-box;}
+	input{height:2.5rem;width:100%;box-sizing:border-box;}
+		input:focus{box-shadow:0 0 2px #4cb5ff;}
+	button{color:#fff;background-color:#4cb5ff;text-align:center;height:2.5rem;width:100%;margin-top:1rem;border-radius:5px;}
+
+/* 宽度在640像素以上的设备 */
+@media only screen and (min-width:641px){
+	.container{font-size:20px;font-size:1.125rem;width:640px;margin:0 auto;}
+}
+
+/* 宽度在960像素以上的设备 */
+@media only screen and (min-width:961px){
+	.container{font-size:16px;font-size:1rem;width:960px;}
+}
+
+/* 宽度在1280像素以上的设备 */
+@media only screen and (min-width:1281px){
+	.container{width:95%;}
+}

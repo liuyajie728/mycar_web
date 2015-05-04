@@ -122,8 +122,8 @@
 			$data['class'] = 'order order-consume order-create';
 
 			$this->form_validation->set_rules('station_id', '加油站ID', 'trim|required');
-			$this->form_validation->set_rules('refuel_cost', '加油/加气/充电金额', 'trim|numeric|greater_than[0]|required');
-			$this->form_validation->set_rules('shopping_cost', '其它消费金额', 'trim|numeric|greater_than_equal_to[0]|required');
+			$this->form_validation->set_rules('refuel_amount', '加油/加气/充电金额', 'trim|numeric|greater_than[0]|required');
+			$this->form_validation->set_rules('shopping_amount', '其它消费金额', 'trim|numeric|greater_than_equal_to[0]|required');
 
 			if($this->form_validation->run() === FALSE):
 				$data['station_id'] = $station_id;
@@ -134,8 +134,8 @@
 			else:
 				$params['user_id'] = $this->session->userdata('user_id');
 				$params['station_id'] = $this->input->post('station_id');
-				$params['refuel_cost'] = $this->input->post('refuel_cost');
-				$params['shopping_cost'] = $this->input->post('shopping_cost');
+				$params['refuel_amount'] = $this->input->post('refuel_amount');
+				$params['shopping_amount'] = $this->input->post('shopping_amount');
 				// 创建消费类型订单
 				$params['type'] = 'consume';
 				$order = $this->create($params);

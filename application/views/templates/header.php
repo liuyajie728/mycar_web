@@ -8,11 +8,11 @@
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
 		<meta name=description content="<?php echo $title; ?>">
 		<meta name=keywords content="<?php echo $title; ?>">
-		<meta name=version content="revision20150428">
+		<meta name=version content="revision20150504">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
-		<meta name=viewport content="width=device-width">
+		<meta name=viewport content="width=device-width, user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<!--[if (lt IE 9) & (!IEMobile)]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -29,7 +29,8 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<!--<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">-->
+		<link rel=stylesheet href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">
 		
 		<link rel="shortcut icon" href="http://images.key2all.com/logo/brand/6_32.png">
 		<link rel="apple-touch-icon" href="http://images.key2all.com/logo/brand/6_120.png">
@@ -60,9 +61,8 @@
 					$no_toback = array('home', 'product-index', 'user-index', 'user-login');
 					if (empty(array_intersect($class_array, $no_toback))):
 				?>
-				<a id=toback title="返回" href="#" onclick="javascript:history.go(-1);">返回</a>
+				<a id=toback title="返回" href="#" onclick="javascript:history.go(-1);"><i class="fa fa-chevron-left"></i>返回</a>
 				<?php endif; ?>
-				<a id=toorders title="哎油账单" href="<?php echo base_url('order') ?>">账单</a>
 			</nav>
 		</header>
 	<?php endif ?>

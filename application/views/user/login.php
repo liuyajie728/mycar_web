@@ -1,12 +1,11 @@
 <style>
-body{color:#fff;font-family:"冬青黑体简体中文","微软雅黑",arial,sans-serif;background-color:#00a1d8;text-align:center;}
 h2{font-size:41px;}
 p{font-size:17px;}
-#content{padding-top:66px;}
-input{font-size:22px;text-align:left;}
-button{color:#fff;}
-	button:disabled{background-color:#ccc;}
-form p>a{color:#8ce2db;}
+#content{padding-top:66px;text-align:center;}
+input{font-size:22px;}
+form p{color:#fff;}
+	form p>a{color:#8ce2db;}
+	button{background-color:#47dac0;}
 </style>
 <div id=content>
 	<h2>您的手机号是？</h2>

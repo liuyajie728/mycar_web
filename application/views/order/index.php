@@ -1,5 +1,8 @@
+<style>
+	body.order{background-color:#f0f0f0;}
+	button{background-color:#00a1d8;}
+</style>
 <div id=content>
-	
 <?php if(empty($orders)): ?>
 	<blockquote>
 		<p>还没有享受过哎油的优惠和服务哦。您可以：
