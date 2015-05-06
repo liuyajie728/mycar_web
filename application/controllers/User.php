@@ -129,6 +129,11 @@
 
 				$data['title'] = '哎油';
 				$data['class'] = 'user user-login';
+				
+				$params['article_id'] = 1;
+				$url = api_url('article');
+			    $result = $this->curl->go($url, $params, 'array');
+				$data['article'] = $result['content'];
 
 				if($this->form_validation->run() === FALSE):
 					$this->load->view('templates/header', $data);

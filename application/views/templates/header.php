@@ -6,9 +6,9 @@
 		<link rel=dns-prefetch href="http://cdn.key2all.com">
 		<link rel=dns-prefetch href="http://images.key2all.com">
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
-		<meta name=description content="<?php echo $title; ?>">
-		<meta name=keywords content="<?php echo $title; ?>">
-		<meta name=version content="revision20150504">
+		<meta name=description content="<?php echo $title ?>">
+		<meta name=keywords content="<?php echo $title ?>">
+		<meta name=version content="revision20150506">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">

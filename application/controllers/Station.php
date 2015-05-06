@@ -36,7 +36,7 @@
 			
 			// 若未传入station_id，生成油站列表页并设置相应class
 			if ($station_id === NULL):
-				$data['title'] = '加油站列表';
+				$data['title'] = '所有加油站';
 				$data['class'] = 'station station-index';
 				$this->load->view('templates/header', $data);
 			    $data['stations'] = $result['content'];

@@ -22,7 +22,7 @@ form p{color:#fff;}
 			</div>
 			<input name=captcha class=form-control type=number step=1 placeholder="*验证码" required disabled>
 		</fieldset>
-		<p class="text-center">点击“开始”，即表示您同意<a title="查看青岛我的车信息技术有限公司《哎油服务条款》详细内容" href="<?php echo base_url('article/1') ?>">《哎油服务条款》</a>。</p>
+		<p class=text-center>点击“开始”，即表示您同意<a title="查看青岛我的车信息技术有限公司《哎油服务条款》详细内容" href="#myModal" data-toggle=modal data-target="#myModal">《哎油服务条款》</a>。</p>
 		<button id=login class="btn btn-primary btn-block" disabled>开始</button>
 	</form>
 	<script>
@@ -75,7 +75,8 @@ form p{color:#fff;}
 					if (data.status == 200) // 若成功，激活并将焦点移到captcha字段，激活确认按钮
 					{
 						$.cookie('sms_id', data.content.sms_id);
-						$('[name=captcha],button#login').removeAttr('disabled').focus();
+						$('[name=captcha],button#login').removeAttr('disabled');
+						$('[name=captcha]').focus();
 					}
 					else // 若失败，激活sms_send按钮
 					{
@@ -84,7 +85,7 @@ form p{color:#fff;}
 				});
 				return false;
 			});
-			
+
 			$('button#login').click(function(){
 				// 验证captcha字段是否已被输入4位数字
 				var captcha = $('[name=captcha]').val();
@@ -92,6 +93,10 @@ form p{color:#fff;}
 				//{
 				//	return false;
 				//}
+				
+				// 将表单提交按钮设置为不可用状态
+				$('button#login').attr('disabled');
+
 				// 将captcha字段值和存储在cookie中的sms_id发送到服务器进行验证
 				var mobile = $('[name=mobile]').val();
 				var sms_id = $.cookie('sms_id');
@@ -105,6 +110,7 @@ form p{color:#fff;}
 					else // 若失败，进行提示并将焦点移入captcha字段
 					{
 						alert('登录失败，请重试验证码。');
+						$('button#login').removeAttr('disabled');
 						$('[name=captcha]').val('').focus();
 					}
 				});
@@ -112,4 +118,20 @@ form p{color:#fff;}
 			});
 		});
 	</script>
+</div>
+
+<!-- 用户条款模态窗口，bootstrap插件 -->
+<div class="modal fade" id=myModal tabindex="-1" role=dialog aria-labelledby=myModalLabel aria-hidden=true>
+  <div class=modal-dialog>
+    <div class=modal-content>
+      <div class=modal-header>
+        <button class=close data-dismiss=modal aria-label=Close><span aria-hidden=true>&times;</span></button>
+        <h4 class=modal-title id=myModalLabel><?php echo $article['title'] ?></h4>
+      </div>
+      <div class=modal-body><?php echo $article['content'] ?></div>
+      <div class=modal-footer>
+        <button class="btn btn-primary btn-block" data-dismiss=modal>好的</button>
+      </div>
+    </div>
+  </div>
 </div>

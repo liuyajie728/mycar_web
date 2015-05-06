@@ -32,8 +32,12 @@
 	
 	/* Home Page */
 	$route['home'] = 'home/index';
+
+	/* Article Page */
+	$route['article/(:any)'] = 'article/index/$1';
+	$route['article'] = 'article/index';
 	
-	//$route['wechat/(:any)'] = 'wechat/$1';
+	/* Wechat API */
 	$route['wechat'] = 'wechat/index';
 
 /**
