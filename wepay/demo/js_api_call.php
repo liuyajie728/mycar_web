@@ -8,7 +8,10 @@
  * 步骤2：使用统一支付接口，获取prepay_id
  * 步骤3：使用jsapi调起支付
 */
-	$total_fee = $_GET['total_fee'];
+	//$total_fee = $_GET['total_fee'];
+	//$order_id = $_GET['order_id'];
+	$total_fee = 0.01;
+	$order_id = 996;
 	include_once('../WxPayPubHelper/WxPayPubHelper.php');
 
 	//使用jsapi接口
@@ -16,20 +19,16 @@
 
 	//=========步骤1：网页授权获取用户openid============
 	//通过code获得openid
-	if (!isset($_GET['code']))
-	{
+	if (!isset($_GET['code'])):
 		//触发微信返回code码
-		$url = $jsApi->createOauthUrlForCode(WxPayConf_pub::JS_API_CALL_URL. '?total_fee='. $total_fee);
-		//$url = $jsApi->createOauthUrlForCode(WxPayConf_pub::JS_API_CALL_URL. '?order_id='. $order_id);
-		Header("Location: $url"); 
-	}
-	else
-	{
+		$url = $jsApi->createOauthUrlForCode(WxPayConf_pub::JS_API_CALL_URL. '?showwxpaytitle=1&total_fee='. $total_fee. '&order_id='. $order_id);
+		Header("Location: $url");
+	else:
 		//获取code码，以获取openid
 	    $code = $_GET['code'];
 		$jsApi->setCode($code);
 		$openid = $jsApi->getOpenId();
-	}
+	endif;
 
 	//=========步骤2：使用统一支付接口，获取prepay_id============
 	//使用统一支付接口
@@ -38,10 +37,11 @@
 	//设置必填参数
 	//appid、mch_id、noncestr、spbill_create_ip、sign已填,商户无需重复填写
 	$unifiedOrder->setParameter('openid', $openid); // 步骤1中获取到的openid
-	$unifiedOrder->setParameter('body', '贡献一分钱'); //商品描述
+	$order_name = '测试订单'. $order_id;
+	$unifiedOrder->setParameter('body', $order_name); //订单描述
 	//自定义订单号，此处仅作举例
-	$out_trade_no = WxPayConf_pub::APPID.time();
-	$unifiedOrder->setParameter('out_trade_no', $out_trade_no); //商户订单号
+	//$out_trade_no = WxPayConf_pub::APPID.time();
+	$unifiedOrder->setParameter('out_trade_no', $order_id); //商户订单号
 	$unifiedOrder->setParameter('total_fee', $total_fee * 100); //总金额，数字单位为分
 	$unifiedOrder->setParameter('notify_url', WxPayConf_pub::NOTIFY_URL); //通知地址
 	$unifiedOrder->setParameter('trade_type', 'JSAPI'); //交易类型
@@ -49,7 +49,6 @@
 	//$unifiedOrder->setParameter("attach","XXXX");//附加数据
 	//$unifiedOrder->setParameter("time_start","XXXX");//交易起始时间
 	//$unifiedOrder->setParameter("time_expire","XXXX");//交易结束时间
-
 	$prepay_id = $unifiedOrder->getPrepayId();
 
 	//=========步骤3：使用jsapi调起支付============
@@ -63,11 +62,11 @@
 		<meta http-equiv=x-dns-prefetch-control content=on>
 		<link rel=dns-prefetch href="http://cdn.key2all.com">
 		<link rel=dns-prefetch href="http://images.key2all.com">
-	    <title>哎油 - 微信安全支付</title>
+	    <title>哎油 - 订单支付</title>
 		<meta name=robots content="noindex, nofollow">
 		<meta name=description content="哎油">
 		<meta name=keywords content="哎油">
-		<meta name=version content="revision20150506">
+		<meta name=version content="revision20150507">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -103,17 +102,20 @@
 					function(res)
 					{
 						if (res.err_msg == "get_brand_wcpay_request:ok"){
-							alert('支付成功！');
+							
+							// AJAX根据订单号检查订单状态，若支付成功则转到订单确认页
+							alert(<?php echo $order_name ?> + '订单支付成功！');
+							
 							//location.href = 'http://www.jiayoucar.com/web/order/comment/<?php //echo $order_id ?>';
 						}
 						else if (res.err_msg == "get_brand_wcpay_request:cancel")
 						{
-							alert('用户取消支付！');
+							alert('您已取消支付！');
 							//location.href = 'http://www.jiayoucar.com/web/payment/process/<?php //echo $order_id ?>';
 						}
 						else
 						{
-							alert('支付失败！');
+							alert('支付失败，请重新支付！');
 							//location.href = 'http://www.jiayoucar.com/web/payment/process/<?php //echo $order_id ?>';
 						}
 					}
@@ -141,18 +143,29 @@
 ?>
 	<body class=payment>
 		<div id=maincontainer class=container-fluid>
-			<p>订单号 <?php echo $order_id ?></p>
-			<p>自动订单号 <?php echo $out_trade_no ?></p>
-			<p>支付金额 <?php echo $total_fee ?></p>
-			<button class="btn" onclick="callpay()">确定</button>
+			<form role=form>
+				<div class=form-group>
+				    <label>订单号</label>
+				    <p class=form-control-static><?php echo $order_id ?></p>
+				</div>
+				<div class=form-group>
+				    <label>订单内容</label>
+					<p class=form-control-static><?php echo $order_name ?></p>
+				</div>
+				<div class=form-group>
+				    <label>支付金额</label>
+					<p class=form-control-static><?php echo $total_fee ?></p>
+				</div>
+			</form>
+			<button class="btn btn-primary btn-block" onclick="callpay()">确定</button>
 		</div>
 		<footer id=footer class="navbar navbar-default navbar-fixed-bottom">
 			<div class=container-fluid>
-				<nav id=nav-footer class="nav navbar-nav">
+				<nav id=nav-footer class="nav navbar-nav row">
 					<?php $base_url = 'http://www.jiayoucar.com/web/' ?>
-					<a title="哎油首页" href="<?php echo $base_url ?>">首页</a>
-					<a title="哎油账户充值" href="<?php echo $base_url.'order/create/recharge' ?>">充值</a>
-					<a title="我的哎油账户" href="<?php echo $base_url.'user' ?>">我</a>
+					<a title="哎油首页" href="<?php echo $base_url ?>" class="col-xs-4 text-center">首页</a>
+					<a title="哎油账户充值" href="<?php echo $base_url.'order/create/recharge' ?>" class="col-xs-4 text-center">充值</a>
+					<a title="我的哎油账户" href="<?php echo $base_url.'user' ?>" class="col-xs-4 text-center">我</a>
 				</nav>
 				<!--<p>&copy;<?php echo date('Y'); ?> <a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a> 鲁ICP备15013080号</p>-->
 			</div>

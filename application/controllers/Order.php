@@ -182,9 +182,10 @@
 				// 若订单创建成功，则跳转到微信支付页面（url形式传递total_fee、order_id）
 				if ($order['status'] == 200):
 					$order = $order['content'];
+					var_dump($order);
 					$payment_url = base_url('wepay/demo/js_api_call.php?total_fee='. $order['total']. '&order_id='.$order['order_id']);
-					//var_dump($payment_url);
-					redirect($payment_url);
+					var_dump($payment_url);
+					//redirect($payment_url);
 				// 若订单创建不成功，则重新载入本页面
 				else:
 					$this->load->view('templates/header', $data);
