@@ -1,17 +1,3 @@
-<nav id=nav-quick>
-	<li>
-		<a id=tostations title="寻找加油站" href="#stations">
-			<figure><img alt="寻找加油站" src=""></figure>
-			<p>找油站</p>
-		</a>
-	</li>
-	<li>
-		<a title="显示付款码" href="<?php echo base_url('payment/code') ?>">
-			<figure><img alt="显示付款码" src=""></figure>
-			<p>付款码</p>
-		</a>
-	</li>
-</nav>
 <nav id=filter class="btn-group btn-group-justified" role=group>
 	<div id=filter-position class=btn-group role=group>
 		<button type=button class="btn btn-default dropdown-toggle" data-toggle=dropdown aria-expanded=false>位置<span class=caret></span></button>

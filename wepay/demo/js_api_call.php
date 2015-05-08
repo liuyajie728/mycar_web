@@ -8,11 +8,12 @@
  * 步骤2：使用统一支付接口，获取prepay_id
  * 步骤3：使用jsapi调起支付
 */
-	//$total_fee = $_GET['total_fee'];
-	//$order_id = $_GET['order_id'];
-	$total_fee = 0.01;
-	$order_id = 996;
 	include_once('../WxPayPubHelper/WxPayPubHelper.php');
+
+	$type = $_GET['type'];
+	$total_fee = $_GET['total_fee'];
+	$order_id = $_GET['order_id'];
+	$order_name = $_GET['order_name'];
 
 	//使用jsapi接口
 	$jsApi = new JsApi_pub();
@@ -21,8 +22,9 @@
 	//通过code获得openid
 	if (!isset($_GET['code'])):
 		//触发微信返回code码
-		$url = $jsApi->createOauthUrlForCode(WxPayConf_pub::JS_API_CALL_URL. '?showwxpaytitle=1&total_fee='. $total_fee. '&order_id='. $order_id);
+		$url = $jsApi->createOauthUrlForCode(WxPayConf_pub::JS_API_CALL_URL. rawurlencode('?showwxpaytitle=1&type='. $type. '&total_fee='. $total_fee. '&order_id='. $order_id. '&order_name='. $order_name));
 		Header("Location: $url");
+
 	else:
 		//获取code码，以获取openid
 	    $code = $_GET['code'];
@@ -37,15 +39,15 @@
 	//设置必填参数
 	//appid、mch_id、noncestr、spbill_create_ip、sign已填,商户无需重复填写
 	$unifiedOrder->setParameter('openid', $openid); // 步骤1中获取到的openid
-	$order_name = '测试订单'. $order_id;
-	$unifiedOrder->setParameter('body', $order_name); //订单描述
-	//自定义订单号，此处仅作举例
-	//$out_trade_no = WxPayConf_pub::APPID.time();
-	$unifiedOrder->setParameter('out_trade_no', $order_id); //商户订单号
-	$unifiedOrder->setParameter('total_fee', $total_fee * 100); //总金额，数字单位为分
 	$unifiedOrder->setParameter('notify_url', WxPayConf_pub::NOTIFY_URL); //通知地址
 	$unifiedOrder->setParameter('trade_type', 'JSAPI'); //交易类型
-	//非必填参数，商户可根据实际情况选填
+
+	//自定义订单号，此处仅作举例；与已经成功支付过的订单号相同的订单号将无法成功获取prepayID，因此测试和生产环境时请务必加前缀（by Kamas 'Iceberg' Lau）
+	$standard_order_id = 'test_'.$order_id;
+	$unifiedOrder->setParameter('out_trade_no', $standard_order_id); //商户订单号(自定义)
+	$unifiedOrder->setParameter('body', $order_name); //订单描述
+	$unifiedOrder->setParameter('total_fee', $total_fee * 100); //总金额，数字单位为分
+	// 以下非必填参数，可根据实际情况选填
 	//$unifiedOrder->setParameter("attach","XXXX");//附加数据
 	//$unifiedOrder->setParameter("time_start","XXXX");//交易起始时间
 	//$unifiedOrder->setParameter("time_expire","XXXX");//交易结束时间
@@ -66,7 +68,7 @@
 		<meta name=robots content="noindex, nofollow">
 		<meta name=description content="哎油">
 		<meta name=keywords content="哎油">
-		<meta name=version content="revision20150507">
+		<meta name=version content="revision20150508">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -101,22 +103,21 @@
 					<?php echo $jsApiParameters ?>,
 					function(res)
 					{
-						if (res.err_msg == "get_brand_wcpay_request:ok"){
+						if (res.err_msg == 'get_brand_wcpay_request:ok')
+						{
 							
 							// AJAX根据订单号检查订单状态，若支付成功则转到订单确认页
-							alert(<?php echo $order_name ?> + '订单支付成功！');
+							//alert('订单支付成功！');
 							
-							//location.href = 'http://www.jiayoucar.com/web/order/comment/<?php //echo $order_id ?>';
+							location.href = 'http://www.jiayoucar.com/web/order/confirm/<?php echo $type. '/'. $order_id ?>';
 						}
-						else if (res.err_msg == "get_brand_wcpay_request:cancel")
+						else if (res.err_msg == 'get_brand_wcpay_request:cancel')
 						{
 							alert('您已取消支付！');
-							//location.href = 'http://www.jiayoucar.com/web/payment/process/<?php //echo $order_id ?>';
 						}
 						else
 						{
 							alert('支付失败，请重新支付！');
-							//location.href = 'http://www.jiayoucar.com/web/payment/process/<?php //echo $order_id ?>';
 						}
 					}
 				);

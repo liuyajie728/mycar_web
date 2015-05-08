@@ -165,10 +165,9 @@
 				//发送文本消息
 				$this->output_type = 'text';
 				$content = '您现在的地理位置是' . $weidu . '（纬度）' . $jingdu . '（经度）,';
-				//$target_weidu = '36.106683';
-				//$target_jingdu = '120.463263';
 				$routeurl = 'http://api.map.baidu.com/direction?origin='. $weidu .','. $jingdu .'&destination=天宝国际银座&mode=driving&region=青岛&output=html&src=我的车|哎油&coord_type=gcj02'; // 微信获取到的坐标是高德地图的gcj02纠偏坐标
 				$content .= '<a href="'. $routeurl .'">我的车所在地</a>';
+				$content = '<a href="'. base_url() .'">周边油站</a>';
 				$this->reply($content);
 			endif;
 

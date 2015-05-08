@@ -5,12 +5,19 @@
 	define('APP_ID', 'wx920a184018cc7654');
 	define('APP_SECRET', '1ce56c3e71ff076f6f78ce5e845449e6');
 	define('WECHAT_TOKEN', 't0JxKenbPhFs7uMgRZNWXwGpEoqvYIf4');
-
+	// Wepay Setups
+	define('WEPAY_URL', 'http://www.jiayoucar.com/web/wepay/demo/');
+	function wepay_url($api_name)
+	{
+		$wepay_url = WEPAY_URL. $api_name;
+		return $wepay_url;
+	}
+	
 	// RESTful API
 	define('API_URL', 'http://www.jiayoucar.com/api/');
 	function api_url($api_name)
 	{
-		$api_url = API_URL . $api_name;
+		$api_url = API_URL. $api_name;
 		return $api_url;
 	}
 

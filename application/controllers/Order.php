@@ -48,7 +48,7 @@
 				$data['title'] = '消费详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);
-			    $data['order'] = $result['content'][0];
+			    $data['order'] = $result['content'];
 				$this->load->view('order/detail', $data);
 
 			endif;
@@ -84,7 +84,7 @@
 				$data['title'] = '充值详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);
-			    $data['order'] = $result['content'][0];
+			    $data['order'] = $result['content'];
 				$this->load->view('order/detail', $data);
 
 			endif;
@@ -139,10 +139,13 @@
 				// 创建消费类型订单
 				$params['type'] = 'consume';
 				$order = $this->create($params);
-				
+
 				// 若订单创建成功，则跳转到支付页面（url形式传递order_id）
 				if ($order['status'] == 200):
 					$order = $order['content'];
+					$payment_url = wepay_url('js_api_call.php?showwxpaytitle=1&type=consume&total_fee='. $order['total']. '&order_id='. $order['order_id']. '&order_name=哎油-消费订单');
+					redirect($payment_url);
+
 				// 若订单创建不成功，则重新载入本页面
 				else:
 					echo $order_status['content'];
@@ -182,17 +185,61 @@
 				// 若订单创建成功，则跳转到微信支付页面（url形式传递total_fee、order_id）
 				if ($order['status'] == 200):
 					$order = $order['content'];
-					var_dump($order);
-					$payment_url = base_url('wepay/demo/js_api_call.php?total_fee='. $order['total']. '&order_id='.$order['order_id']);
-					var_dump($payment_url);
-					//redirect($payment_url);
+					$payment_url = wepay_url('js_api_call.php?showwxpaytitle=1&type=recharge&total_fee='. $order['amount']. '&order_id='. $order['order_id']. '&order_name=哎油-余额充值');
+					redirect($payment_url);
 				// 若订单创建不成功，则重新载入本页面
 				else:
 					$this->load->view('templates/header', $data);
 					$this->load->view('order/recharge', $data);
 					$this->load->view('templates/footer', $data);
 				endif;
-				
+
 			endif;
+		}
+		
+		public function confirm($order_type, $order_id = NULL)
+		{
+			if ($order_id == NULL):
+				echo '请提供订单号。';
+				exit;
+			else:
+				$params['order_id'] = $order_id;
+			endif;
+			
+			$url = api_url('order/'. $order_type);
+		    $order = $this->curl->go($url, $params, 'array');
+			if ($order['status'] == 200 && !empty($order['content'])):
+				$data['order'] = $order['content'];
+				$order_status = $data['order']['status'];
+			else:
+				echo '订单不存在！';
+				exit;
+			endif;
+			
+			$data['title'] = '订单确认';
+			$data['class'] = 'order order-confirm';
+			$this->load->view('templates/header', $data);
+			$this->load->view('order/confirm', $data);
+			$this->load->view('templates/footer', $data);
+		}
+
+		public function comment()
+		{
+			$data['title'] = '订单评价';
+			$data['class'] = 'order order-comment';
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('order/comment', $data);
+			$this->load->view('templates/footer', $data);
+		}
+		
+		public function comment_append()
+		{
+			$data['title'] = '订单评价';
+			$data['class'] = 'order order-comment order-comment-append';
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('order/comment_append', $data);
+			$this->load->view('templates/footer', $data);
 		}
 	}
