@@ -12,7 +12,7 @@
 ?>
 		<fieldset>
 			<label for=refuel_cost>加油/加气/充电金额</label>
-			<input class=form-control name=refuel_amount type=number step=0.01 min=200.00 placeholder="最低200元" autofocus required>
+			<input class=form-control name=refuel_amount type=number step=0.01 min=1.00 placeholder="最低1元" autofocus required>
 			<?php echo form_error('refuel_amount'); ?>
 			<label for=shopping_cost>其它消费金额</label>
 			<input class=form-control name=shopping_amount type=number step=0.01 min=0.00 placeholder="洗车、维修、购物等" required>

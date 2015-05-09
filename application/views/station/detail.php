@@ -1,6 +1,6 @@
 <?php
 	// 设置导航URL http://developer.baidu.com/map/index.php?title=uri/api/web
-	$marker_url = 'http://api.map.baidu.com/marker?location=' . $station['latitude'] . ',' . $station['longitude'] . '&title=' . $station['name'] . '&content=' . $station['address'] . '【哎油】优选商户&output=html&src=哎油'; // 可以在PC、移动设备浏览器上打开打开该链接显示地图上的点
+	$marker_url = 'http://api.map.baidu.com/marker?location=' . $station['latitude'] . ',' . $station['longitude'] . '&title=' . $station['name'] . '&content=【哎油优选】' . $station['address'] . '&output=html&src=哎油'; // 可以在PC、移动设备浏览器上打开打开该链接显示地图上的点
 ?>
 <div id=content>
 	<section id=info>

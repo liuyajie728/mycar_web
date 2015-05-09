@@ -11,6 +11,7 @@
 	{		
 		public function go($url, $params, $return = 'object', $method = 'post')
 		{
+			$params['token'] = API_TOKEN;
 		    $curl = curl_init();
 		    curl_setopt($curl, CURLOPT_URL, $url);
 

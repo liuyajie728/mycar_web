@@ -37,18 +37,26 @@
 			$url = api_url('order');
 		    $result = $this->curl->go($url, $params, 'array');
 
-			if ($order_id === NULL): // 若未传入order_id，生成订单列表页并设置相应class
+			if ($order_id === NULL): // 若未传入order_id，生成消费订单列表页并设置相应class
+				$data['orders'] = $result['content'];
 				$data['title'] = '消费账单';
 				$data['class'] = 'order order-index';
 				$this->load->view('templates/header', $data);
-			    $data['orders'] = $result['content'];
 				$this->load->view('order/index', $data);
 
-			else: // 若传入order_id，生成订单详情页并设置相应class
+			else: // 若传入order_id，获取相应加油站信息，生成消费详情页并设置相应class
+				$data['order'] = $result['content'];
+				$params['station_id'] = $data['order']['station_id'];
+				
+				$url = api_url('station');
+			    $result = $this->curl->go($url, $params, 'array');
+				$data['station'] = $result['content'];
+
+				$url = api_url('order');
+				
 				$data['title'] = '消费详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);
-			    $data['order'] = $result['content'];
 				$this->load->view('order/detail', $data);
 
 			endif;
@@ -73,14 +81,14 @@
 			$url = api_url('order/recharge');
 		    $result = $this->curl->go($url, $params, 'array');
 			
-			if ($order_id === NULL): // 若未传入order_id，生成订单列表页并设置相应class
+			if ($order_id === NULL): // 若未传入order_id，生成充值订单列表页并设置相应class
 				$data['title'] = '充值账单';
 				$data['class'] = 'order order-index';
 				$this->load->view('templates/header', $data);
 			    $data['orders'] = $result['content'];
 				$this->load->view('order/index', $data);
 
-			else: // 若传入order_id，生成订单详情页并设置相应class
+			else: // 若传入order_id，生成充值详情页并设置相应class
 				$data['title'] = '充值详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);

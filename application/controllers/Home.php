@@ -21,14 +21,17 @@
 		* @param void
 		* @return void
 		*/
-		public function index()
+		public function index($weidu = NULL, $jingdu = NULL)
 		{
 			$data['title'] = '哎油';
 			$data['class'] = 'home';
-
-			$data['stations'] = $this->get_station();
-			$data['station_brands'] = $this->get_station_brand();
 			
+			($weidu != NULL)? $this->session->set_userdata('latitude', $weidu): NULL;
+			($jingdu != NULL)? $this->session->set_userdata('longitude', $jingdu): NULL;
+
+			$data['station_brands'] = $this->get_station_brand();
+			$data['stations'] = $this->get_station($weidu, $jingdu);
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('home', $data);
 			$this->load->view('templates/footer', $data);
@@ -41,22 +44,12 @@
 		* @param int $station_id
 		* @return array $result['content']
 		*/
-		public function get_station($station_id = NULL)
+		public function get_station($weidu = NULL, $jingdu = NULL)
 		{
-			$params['station_id'] = $station_id;
+			$params['latitude'] = $weidu;
+			$params['longitude'] = $jingdu;
 			$url = api_url('station');
-
-		    $curl = curl_init();
-		    curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_POST, count($params));
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
-		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-		    // 运行cURL，请求API
-		    $result = json_decode(curl_exec($curl), TRUE); // 将json对象转换成关联数组
-		    // 关闭URL请求
-		    curl_close($curl);
+			$result = $this->curl->go($url, $params, 'array');
 
 			// 返回数据
 			return $result['content'];
@@ -73,18 +66,7 @@
 		{
 			$params['brand_id'] = $brand_id;
 			$url = api_url('station_brand');
-
-		    $curl = curl_init();
-		    curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_POST, count($params));
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
-		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
-		    // 运行cURL，请求API
-		    $result = json_decode(curl_exec($curl), TRUE); // 将json对象转换成关联数组
-		    // 关闭URL请求
-		    curl_close($curl);
+			$result = $this->curl->go($url, $params, 'array');
 
 			// 返回数据
 			return $result['content'];

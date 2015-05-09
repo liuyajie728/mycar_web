@@ -43,7 +43,7 @@
 	$unifiedOrder->setParameter('trade_type', 'JSAPI'); //交易类型
 
 	//自定义订单号，此处仅作举例；与已经成功支付过的订单号相同的订单号将无法成功获取prepayID，因此测试和生产环境时请务必加前缀（by Kamas 'Iceberg' Lau）
-	$standard_order_id = 'test_'.$order_id;
+	$standard_order_id = 'test_'. $type. '_'. $order_id;
 	$unifiedOrder->setParameter('out_trade_no', $standard_order_id); //商户订单号(自定义)
 	$unifiedOrder->setParameter('body', $order_name); //订单描述
 	$unifiedOrder->setParameter('total_fee', $total_fee * 100); //总金额，数字单位为分

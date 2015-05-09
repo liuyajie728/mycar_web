@@ -138,6 +138,15 @@
 			return $access_token = $result['access_token'];
 		}
 		
+		public function get_baidu_coor($weidu, $jingdu)
+		{
+			// 使用百度的API将微信获取到的谷歌坐标系坐标转换为百度坐标系坐标
+			$coords = $weidu. ','. $jingdu;
+			$url = 'http://api.map.baidu.com/geoconv/v1/?from=3&to=5&ak=xjkNHSD9fwhrL3v7P3hUBCwc&coords='. $coords;
+			$result = $this->curl->go($url, NULL, 'array', 'get');
+			return $result['result'][0];
+		}
+
 		// 处理消息消息
 		public function index()
 		{
@@ -159,15 +168,18 @@
 			//地理位置
 			if ($type == 'location'):
 				//解析地理位置
-				$weidu = $input->Location_X; // 维度
-				$jingdu = $input->Location_Y; // 经度
-
+				$weidu = $input->Location_X; // 微信获取到的谷歌坐标系纬度
+				$jingdu = $input->Location_Y; // 微信获取到的谷歌坐标系经度
+				$transformed_coords = $this->get_baidu_coor($jingdu, $weidu); // 通过百度API转换坐标系
+				$jingdu_t = $transformed_coords['x']; // 百度坐标系经度
+				$weidu_t = $transformed_coords['y']; // 百度坐标系纬度
+				
 				//发送文本消息
 				$this->output_type = 'text';
-				$content = '您现在的地理位置是' . $weidu . '（纬度）' . $jingdu . '（经度）,';
-				$routeurl = 'http://api.map.baidu.com/direction?origin='. $weidu .','. $jingdu .'&destination=天宝国际银座&mode=driving&region=青岛&output=html&src=我的车|哎油&coord_type=gcj02'; // 微信获取到的坐标是高德地图的gcj02纠偏坐标
-				$content .= '<a href="'. $routeurl .'">我的车所在地</a>';
-				$content = '<a href="'. base_url() .'">周边油站</a>';
+				$content = '您现在的地理位置是' . $weidu_t . '（纬度）' . $jingdu_t . '（经度）,';
+				//$routeurl = 'http://api.map.baidu.com/direction?origin='. $weidu .','. $jingdu .'&destination=天宝国际银座&mode=driving&region=青岛&output=html&src=我的车|哎油&coord_type=gcj02'; // 微信获取到的坐标是高德地图的gcj02纠偏坐标
+				//$content .= '<a href="'. $routeurl .'">我的车所在地</a>';
+				$content .= '<a href="'. base_url('home/'. rawurlencode($weidu_t). '/'. rawurlencode($jingdu_t)) .'">周边油站</a>';
 				$this->reply($content);
 			endif;
 

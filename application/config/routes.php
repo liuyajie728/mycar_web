@@ -33,6 +33,7 @@
 	$route['user'] = 'user/index';
 	
 	/* Home Page */
+	$route['home/(:any)/(:any)'] = 'home/index/$1/$2';
 	$route['home'] = 'home/index';
 
 	/* Article Page */
@@ -48,7 +49,7 @@
 * @since always
 */
 	/* Default Routes */
-	$route['default_controller'] = 'home';
+	$route['default_controller'] = 'home/index';
 	$route['404_override'] = '';
 	$route['translate_uri_dashes'] = TRUE;
 	

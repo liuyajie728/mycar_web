@@ -14,6 +14,7 @@
 	}
 	
 	// RESTful API
+	define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk6nFS');
 	define('API_URL', 'http://www.jiayoucar.com/api/');
 	function api_url($api_name)
 	{
