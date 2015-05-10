@@ -139,7 +139,7 @@ class Common_util_pub
 	 */
 	public function xmlToArray($xml)
 	{		
-        //将XML转为array        
+        //将XML转为array
         $array_data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);		
 		return $array_data;
 	}
@@ -689,11 +689,12 @@ class NativeCall_pub extends Wxpay_server_pub
 	 */
 	function createXml()
 	{
-		if($this->returnParameters["return_code"] == "SUCCESS"){
-		   	$this->returnParameters["appid"] = WxPayConf_pub::APPID;//公众账号ID
-		   	$this->returnParameters["mch_id"] = WxPayConf_pub::MCHID;//商户号
-		    $this->returnParameters["nonce_str"] = $this->createNoncestr();//随机字符串
-		    $this->returnParameters["sign"] = $this->getSign($this->returnParameters);//签名
+		if($this->returnParameters["return_code"] == "SUCCESS")
+		{
+		   	$this->returnParameters["appid"] = WxPayConf_pub::APPID; //公众账号ID
+		   	$this->returnParameters["mch_id"] = WxPayConf_pub::MCHID; //商户号
+		    $this->returnParameters["nonce_str"] = $this->createNoncestr(); //随机字符串
+		    $this->returnParameters["sign"] = $this->getSign($this->returnParameters); //签名
 		}
 		return $this->arrayToXml($this->returnParameters);
 	}
@@ -703,7 +704,7 @@ class NativeCall_pub extends Wxpay_server_pub
 	 */
 	function getProductId()
 	{
-		$product_id = $this->data["product_id"];
+		$product_id = $this->data['product_id'];
 		return $product_id;
 	}
 	
@@ -824,7 +825,7 @@ class JsApi_pub extends Common_util_pub
         curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		//运行curl，结果以jason形式返回
+		//运行curl，结果以json形式返回
         $res = curl_exec($ch);
 		curl_close($ch);
 		//取出openid

@@ -52,7 +52,30 @@
 		else:
 			//此处应该更新一下订单状态，商户自行增删操作
 			$log_->log_result($log_name, "【支付成功】:\n". $xml. "\n");
+			
+			// RESTful API更新订单状态
+			@list($order_prefix, $type, $order_id) = split('_', $notify->data['out_trade_no']); // 分解出订单前缀、订单类型、哎油订单号等
+			$params['type'] = $type; // 从XML中获取type
+			$params['order_id'] = $order_id; // 从XML中获取order_id
+			$params['status'] = '3';
+			$params['payment_id'] = $notify->data['transaction_id']; // 微信支付订单号
+			// 通过RESTful API更新订单状态
+			$url = 'http://www.jiayoucar.com/api/order/update_status';
+			$params['token'] = '7C4l7JLaM3Fq5biQurtmk6nFS';
+		    $curl = curl_init();
+		    curl_setopt($curl, CURLOPT_URL, $url);
 
+		    // 设置cURL参数，要求结果保存到字符串中还是输出到屏幕上。
+		    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		    curl_setopt($curl, CURLOPT_ENCODING, 'UTF-8');
+			curl_setopt($curl, CURLOPT_POST, count($params));
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+	
+		    // 运行cURL，请求API
+			$result = curl_exec($curl);
+
+			// 关闭URL请求
+		    curl_close($curl);
 		endif;
 
 		//商户自行增加处理流程,

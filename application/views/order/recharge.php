@@ -9,7 +9,7 @@
 ?>
 		<fieldset>
 			<label for=amount>充值金额（元）</label>
-			<input class=form-control name=amount type=number step=100 min=100 required>
+			<input class=form-control name=amount type=number step=100 min=1 required>
 			<?php echo form_error('amount'); ?>
 		</fieldset>
 		<p id=balance_change>充值后最多获得 <span></span> 元余额。</p>

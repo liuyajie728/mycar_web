@@ -1,7 +1,8 @@
 @charset "utf-8";
 @viewport{width:device-width;}
-
-body{color:#9b9b9b;background-color:#00a1d8;font:100%/1.5 "冬青黑体简体中文","微软雅黑",arial,sans-serif;}
+/* 蓝色页面背景 00a1d8 */
+body{color:#9b9b9b;background-color:#f0f0f0;font-family:"微软雅黑",arial,sans-serif;}
+.container-fluid{border-radius:0;}
 form{color:#9b9b9b;text-align:left;}
 	input, textarea, select{margin-bottom:20px;}
 	button{color:#fff;background-color:#00a1d8;}
@@ -15,9 +16,9 @@ i.fa{text-align:left;font-size:36px;}
 body.home #maincontainer{padding:0;}
 
 /* Order Page Group */
-body.order{background-color:#f0f0f0;}
+body.order{}
 
 /* Order Page Group */
-body.user{background-color:#f0f0f0;}
+body.user{}
 	body.user-login{background-color:#00a1d8;}
 		body.user-login #content{color:#fff;}

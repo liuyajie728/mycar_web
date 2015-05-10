@@ -7,7 +7,7 @@
 		?>
 		<footer id=footer class="navbar navbar-default navbar-fixed-bottom">
 			<div class=container-fluid>
-				<nav id=nav-footer class="nav navbar-nav row">
+				<nav id=nav-footer class="nav navbar-nav nav-justified row">
 					<a title="哎油首页" href="<?php echo base_url() ?>" class="col-xs-4 text-center">首页</a>
 					<a title="哎油账户充值" href="<?php echo base_url('order/create/recharge') ?>" class="col-xs-4 text-center">充值</a>
 					<a title="我的哎油账户" href="<?php echo base_url('user') ?>" class="col-xs-4 text-center">我</a>
