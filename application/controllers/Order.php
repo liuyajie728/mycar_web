@@ -131,7 +131,7 @@
 
 			$this->form_validation->set_rules('station_id', '加油站ID', 'trim|required');
 			$this->form_validation->set_rules('refuel_amount', '加油/加气/充电金额', 'trim|numeric|greater_than[0]|required');
-			$this->form_validation->set_rules('shopping_amount', '其它消费金额', 'trim|numeric|greater_than_equal_to[0]|required');
+			$this->form_validation->set_rules('shopping_amount', '其它消费金额', 'trim|numeric|greater_than_equal_to[0]');
 
 			if($this->form_validation->run() === FALSE):
 				$data['station_id'] = $station_id;
@@ -140,7 +140,7 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				$params['user_id'] = $this->session->userdata('user_id');
+				$params['user_id'] = $this->session->user_id;
 				$params['station_id'] = $this->input->post('station_id');
 				$params['refuel_amount'] = $this->input->post('refuel_amount');
 				$params['shopping_amount'] = $this->input->post('shopping_amount');
@@ -184,7 +184,7 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				$params['user_id'] = $this->session->userdata('user_id');
+				$params['user_id'] = $this->session->user_id;
 				$params['amount'] = $this->input->post('amount');
 				// 创建充值类型订单
 				$params['type'] = 'recharge';
@@ -205,25 +205,27 @@
 			endif;
 		}
 		
-		public function confirm($order_type, $order_id = NULL)
+		public function confirm($type, $order_id = NULL)
 		{
 			if ($order_id == NULL):
 				echo '请提供订单号。';
 				exit;
 			else:
+				$params['user_id'] = $this->session->user_id;
 				$params['order_id'] = $order_id;
 			endif;
-			
-			$url = api_url('order/'. $order_type);
+
+			$url = api_url('order/'. $type);
 		    $order = $this->curl->go($url, $params, 'array');
 			if ($order['status'] == 200 && !empty($order['content'])):
 				$data['order'] = $order['content'];
+				$data['order']['type'] = $type;
 				$order_status = $data['order']['status'];
 			else:
 				echo '订单不存在！';
 				exit;
 			endif;
-			
+
 			$data['title'] = '订单确认';
 			$data['class'] = 'order order-confirm';
 			$this->load->view('templates/header', $data);
@@ -233,6 +235,7 @@
 
 		public function comment()
 		{
+			$params['user_id'] = $this->session->user_id;
 			$data['title'] = '订单评价';
 			$data['class'] = 'order order-comment';
 
@@ -243,6 +246,7 @@
 		
 		public function comment_append()
 		{
+			$params['user_id'] = $this->session->user_id;
 			$data['title'] = '订单评价';
 			$data['class'] = 'order order-comment order-comment-append';
 

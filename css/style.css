@@ -4,7 +4,7 @@
 body{color:#9b9b9b;background-color:#f0f0f0;font-family:"微软雅黑",arial,sans-serif;}
 .container-fluid{border-radius:0;}
 form{color:#9b9b9b;text-align:left;}
-	input, textarea, select{margin-bottom:20px;}
+	input, textarea, select{font-size:22px;margin-bottom:20px;}
 	button{color:#fff;background-color:#00a1d8;}
 		button:disabled{background-color:#ccc;}
 		button.btn-primary{background-color:#00a1d8;}
@@ -21,4 +21,7 @@ body.order{}
 /* Order Page Group */
 body.user{}
 	body.user-login{background-color:#00a1d8;}
-		body.user-login #content{color:#fff;}
+		body.user-login #content{color:#fff;padding-top:66px;text-align:center;}
+		body.user-login form p{color:#fff;}
+			body.user-login form p>a{color:#8ce2db;}
+			body.user-login button{background-color:#47dac0;}

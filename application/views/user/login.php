@@ -1,12 +1,3 @@
-<style>
-h2{font-size:41px;}
-p{font-size:17px;}
-#content{padding-top:66px;text-align:center;}
-input{font-size:22px;}
-form p{color:#fff;}
-	form p>a{color:#8ce2db;}
-	button{background-color:#47dac0;}
-</style>
 <div id=content>
 	<h2>您的手机号是？</h2>
 	<p>填写手机号，成为哎油会员</p>

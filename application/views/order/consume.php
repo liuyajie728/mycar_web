@@ -1,7 +1,3 @@
-<style>
-	body.order{background-color:#f0f0f0;}
-	button{background-color:#00a1d8;}
-</style>
 <div id=content>
 	<section class="alert alert-warning" role=alert>
 		<p>请确定您正在加油站现场。</p>
@@ -15,7 +11,7 @@
 			<input class=form-control name=refuel_amount type=number step=0.01 min=1.00 placeholder="最低1元" autofocus required>
 			<?php echo form_error('refuel_amount'); ?>
 			<label for=shopping_cost>其它消费金额</label>
-			<input class=form-control name=shopping_amount type=number step=0.01 min=0.00 placeholder="洗车、维修、购物等" required>
+			<input class=form-control name=shopping_amount type=number step=0.01 min=0.00 placeholder="洗车、维修、购物等">
 			<?php echo form_error('shopping_amount'); ?>
 			<input name=station_id type=hidden value=<?php echo $station_id ?> required>
 		</fieldset>
