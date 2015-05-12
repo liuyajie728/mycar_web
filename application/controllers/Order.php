@@ -232,26 +232,4 @@
 			$this->load->view('order/confirm', $data);
 			$this->load->view('templates/footer', $data);
 		}
-
-		public function comment()
-		{
-			$params['user_id'] = $this->session->user_id;
-			$data['title'] = '订单评价';
-			$data['class'] = 'order order-comment';
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('order/comment', $data);
-			$this->load->view('templates/footer', $data);
-		}
-		
-		public function comment_append()
-		{
-			$params['user_id'] = $this->session->user_id;
-			$data['title'] = '订单评价';
-			$data['class'] = 'order order-comment order-comment-append';
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('order/comment_append', $data);
-			$this->load->view('templates/footer', $data);
-		}
 	}

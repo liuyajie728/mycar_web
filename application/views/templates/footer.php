@@ -2,8 +2,8 @@
 		<?php
 			// 拆分载入视图时传入的$class变量为数组，并检查数组中内容决定是否需要显示页面尾部导航
 			$class_array = explode(' ', $class);
-			$no_footer = array('user-login', 'order', 'payment');
-			if (empty(array_intersect($class_array, $no_footer))):
+			$has_footer = array('home', 'user-index', 'order-recharge');
+			if (!empty(array_intersect($class_array, $has_footer))):
 		?>
 		<footer id=footer class="navbar navbar-default navbar-fixed-bottom">
 			<div class=container-fluid>
@@ -23,8 +23,6 @@
 			});
 			
 			$(function(){
-				// 表格可排序
-				//$('.sortable').tablesorter();
 			});
 		</script>
 	</body>

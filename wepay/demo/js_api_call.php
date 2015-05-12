@@ -142,35 +142,26 @@
 	//将head内容立即输出，让用户浏览器立即开始请求head中各项资源，提高页面加载速度
 	ob_flush();flush();
 ?>
-	<body class=payment>
+	<body class=wepay>
 		<div id=maincontainer class=container-fluid>
 			<form role=form>
-				<div class=form-group>
-				    <label>订单号</label>
-				    <p class=form-control-static><?php echo $order_id ?></p>
-				</div>
-				<div class=form-group>
-				    <label>订单内容</label>
-					<p class=form-control-static><?php echo $order_name ?></p>
-				</div>
-				<div class=form-group>
-				    <label>支付金额</label>
-					<p class=form-control-static><?php echo $total_fee ?></p>
-				</div>
+				<fieldset>
+					<div class=form-group>
+					    <label>订单号</label>
+					    <p class=form-control-static><?php echo $order_id ?></p>
+					</div>
+					<div class=form-group>
+					    <label>订单内容</label>
+						<p class=form-control-static><?php echo $order_name ?></p>
+					</div>
+					<div class=form-group>
+					    <label>支付金额</label>
+						<p class=form-control-static><?php echo $total_fee ?></p>
+					</div>
+				</fieldset>
+				<button class="btn btn-primary btn-block" onclick="callpay()">确定</button>
 			</form>
-			<button class="btn btn-primary btn-block" onclick="callpay()">确定</button>
 		</div>
-		<footer id=footer class="navbar navbar-default navbar-fixed-bottom">
-			<div class=container-fluid>
-				<nav id=nav-footer class="nav navbar-nav row">
-					<?php $base_url = 'http://www.jiayoucar.com/web/' ?>
-					<a title="哎油首页" href="<?php echo $base_url ?>" class="col-xs-4 text-center">首页</a>
-					<a title="哎油账户充值" href="<?php echo $base_url.'order/create/recharge' ?>" class="col-xs-4 text-center">充值</a>
-					<a title="我的哎油账户" href="<?php echo $base_url.'user' ?>" class="col-xs-4 text-center">我</a>
-				</nav>
-				<!--<p>&copy;<?php echo date('Y'); ?> <a title="<?php echo $title; ?>" href="<?php echo base_url(); ?>"><?php echo $title; ?></a> 鲁ICP备15013080号</p>-->
-			</div>
-		</footer>
 	</body>
 <!-- 内容结束 -->
 </html>

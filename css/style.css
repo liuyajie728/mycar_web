@@ -2,6 +2,7 @@
 @viewport{width:device-width;}
 /* 蓝色页面背景 00a1d8 */
 body{color:#9b9b9b;background-color:#f0f0f0;font-family:"微软雅黑",arial,sans-serif;}
+img{width:100%;max-width:100%;}
 .container-fluid{border-radius:0;}
 form{color:#9b9b9b;text-align:left;}
 	input, textarea, select{font-size:22px;margin-bottom:20px;}
@@ -14,6 +15,10 @@ i.fa{text-align:left;font-size:36px;}
 	#toback{position:absolute;top:0;left:10px;}
 
 body.home #maincontainer{padding:0;}
+	body.home #stations li{padding:0;}
+		body.home #stations li h2{margin:0;}
+		body.home #stations li #station_info{position:relative;}
+			body.home #stations li #station_info li.distance{position:absolute;bottom:0;right:0;}
 
 /* Order Page Group */
 body.order{}

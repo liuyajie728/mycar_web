@@ -26,16 +26,18 @@
 <ul id=stations class=list-group>
 	<?php foreach($stations as $station): ?>
 	<li class=list-group-item>
-		<a title="<?php echo $station['name'] ?>" href="<?php echo base_url('station/'.$station['station_id']); ?>">
-			<figure class=thumbnail><img alt="<?php echo $station['name'] ?>" src="<?php echo $station['image_url'] ?>"></figure>
-			<h2><?php echo '#'.$station['station_id'].' '.$station['name'] ?></h2>
-			<ul class=station_info>
-				<li><?php echo $station['tel'] ?></li>
-				<li><?php echo $station['city']. $station['district']. ' '. $station['address'] ?></li>
-				<?php if(isset($station['distance'])): ?>
-				<li><?php echo ($station['distance'] <= 1500)? $station['distance'].'米': round($station['distance']/1000).'公里'; ?></li>
-				<?php endif ?>
-			</ul>
+		<a class=row title="<?php echo $station['name'] ?>" href="<?php echo base_url('station/'.$station['station_id']); ?>">
+			<figure class="thumbnail col-xs-3"><img alt="<?php echo $station['name'] ?>" src="<?php echo $station['image_url'] ?>"></figure>
+			<div class="station_info col-xs-9">
+				<h2><?php echo '#'.$station['station_id'].' '.$station['name'] ?></h2>
+				<ul>
+					<li><?php echo $station['rate_oil'] ?></li>
+					<li><?php echo $station['district']. ' '. $station['address'] ?></li>
+					<?php if(isset($station['distance'])): ?>
+					<li class=distance><?php echo ($station['distance'] <= 1500)? $station['distance'].'米': round($station['distance']/1000).'公里'; ?></li>
+					<?php endif ?>
+				</ul>
+			</div>
 		</a>
 	</li>
 	<?php endforeach; ?>
