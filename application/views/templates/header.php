@@ -20,18 +20,17 @@
 		<![endif]-->
 		<script src="http://cdn.key2all.com/js/jquery/new.js"></script>
 		<script src="http://cdn.key2all.com/js/jquery/jquery.cookie.js"></script>
-		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.tablesorter.js"></script>-->
 		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.validate.js"></script>-->
 		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.uploadify.js"></script>-->
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
 		<link rel=stylesheet href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">
-		
+
 		<link rel="shortcut icon" href="http://images.key2all.com/logo/brand/6_32.png">
 		<link rel="apple-touch-icon" href="http://images.key2all.com/logo/brand/6_120.png">
 
@@ -51,9 +50,9 @@
 ?>
 <!-- 内容开始 -->
 	<body<?php echo (isset($class))? ' class="'.$class.'"': NULL; ?>>
-	<?php if(strpos($this->input->user_agent(), 'MicroMessenger') === FALSE && strpos($this->input->user_agent(), 'Windows Phone') === FALSE ): ?>
-		<header id=header class="navbar navbar-default">
-			<nav id=nav-header class=container-fluid>
+	<?php if(strpos($this->input->user_agent(), 'MicroMessenger') === FALSE && strpos($this->input->user_agent(), 'Windows Phone') === FALSE): ?>
+		<header id=header>
+			<nav id=nav-header class=container>
 				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url() ?>"><?php echo $title; ?></a></h1>
 				<?php
 					// 拆分载入视图时传入的$class变量为数组，并检查数组中内容决定是否需要显示“返回”按钮
@@ -66,4 +65,4 @@
 			</nav>
 		</header>
 	<?php endif ?>
-		<div id=maincontainer class=container-fluid>
+		<div id=maincontainer class=container>

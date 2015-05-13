@@ -1,9 +1,7 @@
 <div id=content>
-	<section class="alert alert-warning" role=alert>
-		<p>请确定您正在加油站现场。</p>
-	</section>
+	<p>请确定您正在加油站现场。</p>
 <?php
-	$attributes = array('class' => 'form-order-consume-create', 'role' => 'form');
+	$attributes = array('class' => 'form-order-consume', 'role' => 'form');
 	echo form_open(base_url('order/create/consume/'.$station_id), $attributes);
 ?>
 		<fieldset>
@@ -11,11 +9,11 @@
 			<input class=form-control name=refuel_amount type=number step=0.01 min=1.00 placeholder="最低1元" autofocus required>
 			<?php echo form_error('refuel_amount'); ?>
 			<label for=shopping_cost>其它消费金额</label>
-			<input class=form-control name=shopping_amount type=number step=0.01 min=0.00 placeholder="洗车、维修、购物等">
+			<input name=shopping_amount type=number step=0.01 min=0.00 placeholder="洗车、维修、购物等">
 			<?php echo form_error('shopping_amount'); ?>
 			<input name=station_id type=hidden value=<?php echo $station_id ?> required>
 		</fieldset>
-		<button class="btn btn-primary btn-block">确定</button>
+		<button>确定</button>
 	</form>
 </div>
 <script>

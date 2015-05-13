@@ -68,7 +68,7 @@
 		<meta name=robots content="noindex, nofollow">
 		<meta name=description content="哎油">
 		<meta name=keywords content="哎油">
-		<meta name=version content="revision20150508">
+		<meta name=version content="revision20150513">
 		<meta name=author content="刘亚杰">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -145,22 +145,20 @@
 	<body class=wepay>
 		<div id=maincontainer class=container-fluid>
 			<form role=form>
-				<fieldset>
-					<div class=form-group>
-					    <label>订单号</label>
-					    <p class=form-control-static><?php echo $order_id ?></p>
-					</div>
-					<div class=form-group>
-					    <label>订单内容</label>
-						<p class=form-control-static><?php echo $order_name ?></p>
-					</div>
-					<div class=form-group>
-					    <label>支付金额</label>
-						<p class=form-control-static><?php echo $total_fee ?></p>
-					</div>
-				</fieldset>
-				<button class="btn btn-primary btn-block" onclick="callpay()">确定</button>
+				<div class=form-group>
+				    <label>订单号</label>
+				    <p class=form-control-static><?php echo $order_id ?></p>
+				</div>
+				<div class=form-group>
+				    <label>订单内容</label>
+					<p class=form-control-static><?php echo $order_name ?></p>
+				</div>
+				<div class=form-group>
+				    <label>支付金额</label>
+					<p class=form-control-static><?php echo $total_fee ?></p>
+				</div>
 			</form>
+			<button class="btn btn-primary btn-block" onclick="callpay()">确定</button>
 		</div>
 	</body>
 <!-- 内容结束 -->

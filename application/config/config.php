@@ -24,11 +24,55 @@
 
 	date_default_timezone_set('Asia/Shanghai');
 	
+	// 将根据油站评分显示星级标志
+	function rate2star($rate_value)
+	{
+		$star = '<i class="fa fa-star"></i>'; // 一颗亮星
+		$half_star = '<i class="fa fa-star-half"></i>'; // 半颗亮星
+		$dim_star = '<i class="fa fa-star dim-star"></i>';  // 一颗亮星，需自定义.dim-star样式为background-color:#aaa等
+		switch($rate_value)
+		{
+			case $rate_value >= 95:
+				$star_html = $star.$star.$star.$star.$star;
+				break;
+			case $rate_value >= 90:
+				$star_html = $star.$star.$star.$star.$half_star;
+				break;
+			case $rate_value >= 80:
+				$star_html = $star.$star.$star.$star.$dim_star;
+				break;
+			case $rate_value >= 70:
+				$star_html = $star.$star.$star.$half_star.$dim_star;
+				break;
+			case $rate_value >= 60:
+				$star_html = $star.$star.$star.$dim_star.$dim_star;
+				break;
+			case $rate_value >= 50:
+				$star_html = $star.$star.$half_star.$dim_star.$dim_star;
+				break;
+			case $rate_value >= 40:
+				$star_html = $star.$star.$dim_star.$dim_star.$dim_star;
+				break;
+			case $rate_value >= 30:
+				$star_html = $star.$half_star.$dim_star.$dim_star.$dim_star;
+				break;
+			case $rate_value >= 20:
+				$star_html = $star.$dim_star.$dim_star.$dim_star.$dim_star;
+				break;
+			case $rate_value >= 10:
+				$star_html = $half_star.$dim_star.$dim_star.$dim_star.$dim_star;
+				break;
+			default:
+				$star_html = $dim_star.$dim_star.$dim_star.$dim_star.$dim_star;
+		}
+		return $star_html;
+	}
+	
 	/**
 	* Native CodeIgniter configs from here.
 	* @since always
 	*/
-	$config['base_url'] = 'http://www.jiayoucar.com/web/';
+	$config['base_url'] = 'http://web.irefuel.cn/';
 	$config['index_page'] = 'index.php';
 	$config['uri_protocol']	= 'REQUEST_URI';
 	$config['url_suffix'] = '';
@@ -312,9 +356,9 @@
 	$config['sess_time_to_update'] = 300;
 	$config['sess_regenerate_destroy'] = FALSE;
 
-	$config['cookie_prefix']	= '';
-	$config['cookie_domain']	= '.jiayoucar.com';
-	$config['cookie_path']		= '/web';
+	$config['cookie_prefix']	= 'rf_';
+	$config['cookie_domain']	= '.irefuel.cn';
+	$config['cookie_path']		= '/';
 	$config['cookie_secure']	= FALSE;
 	$config['cookie_httponly'] 	= FALSE;
 
