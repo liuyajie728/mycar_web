@@ -9,8 +9,8 @@
 		<meta name=description content="<?php echo $title ?>">
 		<meta name=keywords content="<?php echo $title ?>">
 		<meta name=version content="revision20150513">
-		<meta name=author content="刘亚杰">
-		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
+		<meta name=author content="刘亚杰, 童小燕">
+		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油iRefuel">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
 		<meta name=viewport content="width=device-width, user-scalable=no">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,8 +26,6 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
-		<!-- Latest compiled and minified CSS -->
-		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
 		<link rel=stylesheet href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">
 

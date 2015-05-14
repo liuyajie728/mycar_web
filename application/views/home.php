@@ -1,12 +1,12 @@
 <!--<ul id=filter class=horizontal>
 	<li id=filter-position>
-		<a href=#>位置</a>
+		<a href=#>位置 <i class="fa fa-caret-down"></i></a>
 	    <ul>
 			<li data-sort_type=0>所有</li>
 	    </ul>
 	</li>
 	<li id=filter-brand>
-	    <a href=#>品牌</a>
+	    <a href=#>品牌 <i class="fa fa-caret-down"></i></a>
 	    <ul>
 			<li data-sort_type=0>所有</li>
 			<?php foreach($station_brands as $brand): ?>
@@ -15,7 +15,7 @@
 	    </ul>
 	</li>
 	<li id=filter-sorter>
-		<a href=#>排序方式</a>
+		<a href=#>排序方式 <i class="fa fa-caret-down"></i></a>
 	    <ul>
 			<li data-sort_type=0>距离</li>
 	    </ul>

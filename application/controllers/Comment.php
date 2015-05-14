@@ -19,25 +19,25 @@
 			endif;
 		}
 		
-		public function comment()
+		public function comment($order_id)
 		{
 			$params['user_id'] = $this->session->user_id;
 			$data['title'] = '订单评价';
-			$data['class'] = 'Comment Comment-comment';
+			$data['class'] = 'comment comment-create';
 
 			$this->load->view('templates/header', $data);
-			$this->load->view('Comment/comment', $data);
+			$this->load->view('comment/create', $data);
 			$this->load->view('templates/footer', $data);
 		}
 		
-		public function append()
+		public function append($comment_id) // Causion here!!! Parameter must be $comment_id, NOT $order_id!!!
 		{
 			$params['user_id'] = $this->session->user_id;
-			$data['title'] = '订单评价';
-			$data['class'] = 'Comment Comment-comment Comment-comment-append';
+			$data['title'] = '追加评价';
+			$data['class'] = 'comment comment-append';
 
 			$this->load->view('templates/header', $data);
-			$this->load->view('Comment/comment_append', $data);
+			$this->load->view('comment/append', $data);
 			$this->load->view('templates/footer', $data);
 		}
 		
