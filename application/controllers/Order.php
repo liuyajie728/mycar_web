@@ -156,8 +156,11 @@
 
 				// 若订单创建不成功，则重新载入本页面
 				else:
-					echo $order_status['content'];
-					
+					echo '订单创建失败，请重试！';
+					$this->load->view('templates/header', $data);
+					$this->load->view('order/consume', $data);
+					$this->load->view('templates/footer', $data);
+
 				endif;
 
 			endif;
@@ -197,39 +200,12 @@
 					redirect($payment_url);
 				// 若订单创建不成功，则重新载入本页面
 				else:
+					echo '订单创建失败，请重试！';
 					$this->load->view('templates/header', $data);
 					$this->load->view('order/recharge', $data);
 					$this->load->view('templates/footer', $data);
 				endif;
 
 			endif;
-		}
-		
-		public function confirm($type, $order_id = NULL)
-		{
-			if ($order_id == NULL):
-				echo '请提供订单号。';
-				exit;
-			else:
-				$params['user_id'] = $this->session->user_id;
-				$params['order_id'] = $order_id;
-			endif;
-
-			$url = api_url('order/'. $type);
-		    $order = $this->curl->go($url, $params, 'array');
-			if ($order['status'] == 200 && !empty($order['content'])):
-				$data['order'] = $order['content'];
-				$data['order']['type'] = $type;
-				$order_status = $data['order']['status'];
-			else:
-				echo '订单不存在！';
-				exit;
-			endif;
-
-			$data['title'] = '订单确认';
-			$data['class'] = 'order order-confirm';
-			$this->load->view('templates/header', $data);
-			$this->load->view('order/confirm', $data);
-			$this->load->view('templates/footer', $data);
 		}
 	}

@@ -26,8 +26,8 @@
 			$data['title'] = '哎油';
 			$data['class'] = 'home';
 			
-			($weidu != NULL)? $this->session->set_userdata('latitude', $weidu): NULL;
-			($jingdu != NULL)? $this->session->set_userdata('longitude', $jingdu): NULL;
+			($weidu != NULL)? $this->session->set_userdata('latitude', $weidu): $weidu = $this->session->latitude;
+			($jingdu != NULL)? $this->session->set_userdata('longitude', $jingdu): $jingdu = $this->session->longitude;
 
 			$data['station_brands'] = $this->get_station_brand();
 			$data['stations'] = $this->get_station($weidu, $jingdu);

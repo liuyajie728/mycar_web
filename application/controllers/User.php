@@ -31,7 +31,7 @@
 			$data['title'] = '我';
 			$data['class'] = 'user user-index';
 
-			$data['me'] = $this->get_me();			
+			$data['me'] = $this->get_me();
 			$this->load->view('templates/header', $data);
 			$this->load->view('user/index', $data);
 			$this->load->view('templates/footer', $data);
@@ -47,7 +47,7 @@
 		private function get_me()
 		{
 			$params['user_id'] = $this->session->userdata('user_id');
-
+		
 			$url = api_url('user');
 			$result = $this->curl->go($url, $params, 'array');
 			return $result['content'];
@@ -80,7 +80,7 @@
 				// Return login result according to api return json.
 				if ($result['status'] != 200):
 					$output['status'] = 400;
-					$output['content'] = 'Login failed.';
+					$output['content'] = '通过API服务器登录失败';
 					header("Content-type:application/json;charset=utf-8");
 					$output_json = json_encode($output);
 					echo $output_json;
@@ -99,14 +99,13 @@
 						'mobile'	=> $data['user']['mobile'],
 						'email'	=> $data['user']['email'],
 						'time_join'	=> $data['user']['time_join'],
-						'time_last_activity'	=> $data['user']['time_last_activity'],
+						'time_last_activity' => $data['user']['time_last_activity'],
 						'logged_in' => TRUE
 					);
 					$this->session->set_userdata($user_data);
-					//将会员ID及手机号写入cookie并保存1年
+					//将会员手机号写入cookie并保存1年
 					$this->input->set_cookie('mobile', $data['user']['mobile'], 60*60*24*365);
 					$this->input->set_cookie('user_id', $data['user']['user_id'], 60*60*24*365);
-					
 					// 通知页面跳转到登录前页面，若无则跳转到首页
 					if($this->session->flashdata('referer') && $this->session->flashdata('referer') != base_url()):
 						$output['content']['target_url'] = $this->session->flashdata('referer');

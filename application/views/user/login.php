@@ -96,7 +96,6 @@ button{background-color:#47dac0;}
 				//{
 				//	return false;
 				//}
-				
 				// 将表单提交按钮设置为不可用状态
 				$('button#login').attr('disabled');
 
@@ -133,7 +132,7 @@ button{background-color:#47dac0;}
       </div>
       <div class=modal-body><?php echo $article['content'] ?></div>
       <div class=modal-footer>
-        <button class="btn btn-primary btn-block" data-dismiss=modal>好的</button>
+        <button data-dismiss=modal>好的</button>
       </div>
     </div>
   </div>

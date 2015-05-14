@@ -61,7 +61,7 @@
 			$params['payment_id'] = $notify->data['transaction_id']; // 微信支付订单号
 			// 通过RESTful API更新订单状态
 			$params['token'] = '7C4l7JLaM3Fq5biQurtmk6nFS';
-			$url = 'http://www.jiayoucar.com/api/order/update_status';
+			$url = 'http://api.irefuel.cn/order/update_status';
 		    $curl = curl_init();
 		    curl_setopt($curl, CURLOPT_URL, $url);
 

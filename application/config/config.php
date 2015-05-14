@@ -5,8 +5,9 @@
 	define('APP_ID', 'wx920a184018cc7654');
 	define('APP_SECRET', '1ce56c3e71ff076f6f78ce5e845449e6');
 	define('WECHAT_TOKEN', 't0JxKenbPhFs7uMgRZNWXwGpEoqvYIf4');
+
 	// Wepay Setups
-	define('WEPAY_URL', 'http://www.jiayoucar.com/web/wepay/demo/');
+	define('WEPAY_URL', 'http://web.irefuel.cn/wepay/demo/');
 	function wepay_url($api_name)
 	{
 		$wepay_url = WEPAY_URL. $api_name;
@@ -15,7 +16,7 @@
 	
 	// RESTful API
 	define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk6nFS');
-	define('API_URL', 'http://www.jiayoucar.com/api/');
+	define('API_URL', 'http://api.irefuel.cn/');
 	function api_url($api_name)
 	{
 		$api_url = API_URL. $api_name;
@@ -242,16 +243,6 @@
 	|            integer notation (i.e. 0700, 0644, etc.)
 	*/
 	$config['log_file_permissions'] = 0644;
-
-	/*
-	|--------------------------------------------------------------------------
-	| Date Format for Logs
-	|--------------------------------------------------------------------------
-	|
-	| Each item that is logged has an associated date. You can use PHP date
-	| codes to set your own date formatting
-	|
-	*/
 	$config['log_date_format'] = 'Y-m-d H:i:s';
 
 	/*
@@ -298,7 +289,7 @@
 	| http://codeigniter.com/user_guide/libraries/encryption.html
 	|
 	*/
-	$config['encryption_key'] = '94118435';
+	$config['encryption_key'] = 'irefuel_web';
 
 	/*
 	|--------------------------------------------------------------------------
@@ -356,7 +347,7 @@
 	$config['sess_time_to_update'] = 300;
 	$config['sess_regenerate_destroy'] = FALSE;
 
-	$config['cookie_prefix']	= 'rf_';
+	$config['cookie_prefix']	= '';
 	$config['cookie_domain']	= '.irefuel.cn';
 	$config['cookie_path']		= '/';
 	$config['cookie_secure']	= FALSE;

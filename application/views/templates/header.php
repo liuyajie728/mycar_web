@@ -8,7 +8,7 @@
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
 		<meta name=description content="<?php echo $title ?>">
 		<meta name=keywords content="<?php echo $title ?>">
-		<meta name=version content="revision20150513">
+		<meta name=version content="revision20150515">
 		<meta name=author content="刘亚杰, 童小燕">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油iRefuel">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">

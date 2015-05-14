@@ -68,8 +68,8 @@
 		<meta name=robots content="noindex, nofollow">
 		<meta name=description content="哎油">
 		<meta name=keywords content="哎油">
-		<meta name=version content="revision20150513">
-		<meta name=author content="刘亚杰">
+		<meta name=version content="revision20150514">
+		<meta name=author content="刘亚杰,童小燕">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
 		<meta name=viewport content="width=device-width">
@@ -78,13 +78,10 @@
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 		<![endif]-->
-		
+
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<!--<link rel=stylesheet media=all href="http://www.jiayoucar.com/web/css/style.css">-->
+		<!--<link rel=stylesheet media=all href="http://web.irefuel.cn/css/style.css">-->
 		
 		<link rel="shortcut icon" href="http://images.key2all.com/logo/brand/6_32.png">
 		<link rel="apple-touch-icon" href="http://images.key2all.com/logo/brand/6_120.png">
@@ -108,8 +105,7 @@
 							
 							// AJAX根据订单号检查订单状态，若支付成功则转到订单确认页
 							//alert('订单支付成功！');
-							
-							location.href = 'http://www.jiayoucar.com/web/order/confirm/<?php echo $type. '/'. $order_id ?>';
+							location.href = 'http://web.irefuel.cn/order/<?php echo $type. '/'. $order_id ?>';
 						}
 						else if (res.err_msg == 'get_brand_wcpay_request:cancel')
 						{
@@ -163,4 +159,3 @@
 	</body>
 <!-- 内容结束 -->
 </html>
-<?php //include_once('../../application/views/templates/footer.php') ?>

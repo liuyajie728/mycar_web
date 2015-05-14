@@ -4,15 +4,15 @@
 	/* Order */
 	$route['order/create/consume/(:any)'] = 'order/consume/$1';
 	$route['order/create/recharge'] = 'order/recharge';
-	$route['order/confirm/(:any)'] = 'order/confirm/$1';
 	$route['order/recharge/(:any)'] = 'order/index_recharge/$1'; // 查询特定充值订单
 	$route['order/recharge'] = 'order/index_recharge';
+	$route['order/consume/(:any)'] = 'order/index/$1';
 	$route['order/(:any)'] = 'order/index/$1'; // 查询特定消费订单
 	$route['order'] = 'order/index';
 	
 	/* Comment */
-	$route['comment/create/(:any)'] = 'payment/create/$1'; // 评价订单
-	$route['comment/append/(:any)'] = 'payment/append/$1'; // 追加评价订单
+	$route['comment/create/(:any)'] = 'comment/create/$1'; // 评价订单
+	$route['comment/append/(:any)'] = 'comment/append/$1'; // 追加评价订单
 
 	/* Station */
 	$route['station/(:any)'] = 'station/index/$1';
