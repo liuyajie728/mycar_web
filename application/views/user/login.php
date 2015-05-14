@@ -123,6 +123,7 @@ button{background-color:#47dac0;}
 </div>
 
 <!-- 用户条款模态窗口，bootstrap插件 -->
+<!--
 <div class="modal fade" id=myModal tabindex="-1" role=dialog aria-labelledby=myModalLabel aria-hidden=true>
   <div class=modal-dialog>
     <div class=modal-content>
@@ -137,3 +138,4 @@ button{background-color:#47dac0;}
     </div>
   </div>
 </div>
+-->

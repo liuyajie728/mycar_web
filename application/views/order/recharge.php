@@ -1,3 +1,7 @@
+<style>
+#content{padding-top:20px;}
+#content>p{text-align:center;}
+</style>
 <div id=content>
 <?php
 	$attributes = array('class' => 'form-order-recharge-create', 'role' => 'form');
@@ -5,11 +9,11 @@
 ?>
 		<fieldset>
 			<label for=amount>充值金额（元）</label>
-			<input class=form-control name=amount type=number step=100 min=1 required>
+			<input name=amount type=number step=100 min=1 required>
 			<?php echo form_error('amount'); ?>
 		</fieldset>
 		<p id=balance_change>充值后最多获得 <span></span> 元余额。</p>
-		<button class="btn btn-primary btn-block">确定</button>
+		<button>确定</button>
 	</form>
 </div>
 <script>

@@ -7,7 +7,7 @@
 	define('WECHAT_TOKEN', 't0JxKenbPhFs7uMgRZNWXwGpEoqvYIf4');
 
 	// Wepay Setups
-	define('WEPAY_URL', 'http://web.irefuel.cn/wepay/demo/');
+	define('WEPAY_URL', 'http://www.jiayoucar.com/web/wepay/demo/');
 	function wepay_url($api_name)
 	{
 		$wepay_url = WEPAY_URL. $api_name;

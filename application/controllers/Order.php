@@ -52,8 +52,6 @@
 			    $result = $this->curl->go($url, $params, 'array');
 				$data['station'] = $result['content'];
 
-				$url = api_url('order');
-				
 				$data['title'] = '消费详情';
 				$data['class'] = 'order order-detail';
 				$this->load->view('templates/header', $data);

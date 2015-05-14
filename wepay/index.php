@@ -17,7 +17,8 @@
 	</br></br>
 	<div >
 		<ul>
-			<h1><a href="./demo/js_api_call.php?total_fee=200" >1.JSapi支付demo(在微信客户端中点击)</a></h1>
+			<h1><a href="./demo/js_api_call.php?type=comsume&total_fee=1&order_id=24
+				&order_name=哎油-消费订单">1.JSapi支付demo(在微信客户端中点击)</a></h1>
 			<h1><a href="./demo/native_call_qrcode.php" >2.native支付模式一demo(用微信扫的静态链接二维码)</a></h1>
 			<h1><a href="./demo/native_dynamic_qrcode.php" >3.native支付模式二demo(用微信扫的动态链接二维码)</a></h1>
 			<h1><a href="./demo/order_query.php" >4.支付查询接口demo</a></h1>

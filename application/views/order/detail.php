@@ -1,29 +1,63 @@
+<?php
+	function show_status($status_code)
+	{
+		switch($status_code):
+			case '0':
+				$status = '待支付';
+				break;
+			case '1':
+				$status = '已过期';
+				break;
+			case '2':
+				$status = '已取消';
+				break;
+			case '3':
+				$status = '已支付';
+				break;
+			case '4':
+				$status = '已评论';
+				break;
+			case '5':
+				$status = '已追加评论';
+				break;
+			default:
+				break;
+		endswitch;
+		return $status;
+	}
+?>
+<style>
+strong{color:#00a1d8;font-weight:bold;}
+ul#order_info{background-color:#fff;margin:20px 0;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;}
+	ul#order_info li{width:90%;margin:0 auto;height:40px;line-height:40px;border-bottom:1px solid #e8e8e8;}
+		ul#order_info li:last-child{border-bottom:0;}
+	ul#order_info li span{float:right;}
+a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:90%;margin:0 auto;height:40px;line-height:40px;text-align:center;}
+</style>
 <div id=content>
 <?php
 	if(empty($order)):
 		echo '未找到该订单。';
 	else:
 ?>
-	<ul id=detail>
-		<li>订单编号 <?php echo $order['order_id'] ?></li>
-		<li>订单状态 <?php echo $order['status'] ?></li>
-		<!--订单状态；0待支付1已过期2已取消3已支付4已评论5已追加评论-->
-		<?php if (isset($order['refuel_amount'])): // 如果是消费订单?>
-		<li>消费站点 <?php echo $station['name'] ?></li>
-		<li>加油口令 <?php echo $order['order_code'] ?></li>
-		<li>加油/加气/充电金额 <?php echo $order['refuel_amount'] ?></li>
-		<li>其它消费金额 <?php echo $order['shopping_amount'] ?></li>
-		<li>小计 <?php echo $order['amount'] ?></li>
-		<li>抵扣 <?php echo $order['deduction'] ?></li>
-		<li>支付金额 <?php echo $order['total'] ?></li>
-		<?php else: ?>
-		<li>充值金额 <?php echo $order['amount'] ?></li>
-		<li>支付金额 <?php echo $order['total'] ?></li>
-		<?php endif ?>
-		<li>创建时间 <?php echo $order['time_create'] ?></li>
+	<ul id=order_info>
+		<li>订单编号 <span><?php echo $order['order_id'] ?></span></li>
+		<li>订单状态 <span><?php echo show_status($order['status']) ?></span></li>
+		<li>创建时间 <span><?php echo $order['time_create'] ?></span></li>
 		<?php if ($order['status'] >= 3): ?>
-		<li>支付时间 <?php echo $order['time_payed'] ?></li>
+		<li>支付时间 <span><?php echo $order['time_payed'] ?></span></li>
 		<?php endif ?>
+		<?php if (isset($order['refuel_amount'])): // 如果是消费订单?>
+		<li>消费地点 <span><?php echo $station['name'] ?></span></li>
+		<li>加油口令 <span><?php echo $order['order_code'] ?></span></li>
+		<li>加油/加气/充电金额 <span><?php echo $order['refuel_amount'] ?> 元</span></li>
+		<li>其它消费金额 <span><?php echo $order['shopping_amount'] ?>  元</span></li>
+		<li>小计 <span><?php echo $order['amount'] ?> 元</span></li>
+		<li>抵扣 <span><?php echo $order['deduction'] ?> 元</span></li>
+		<?php else: ?>
+		<li>充值金额 <span><?php echo $order['amount'] ?> 元</span></li>
+		<?php endif ?>
+		<li>支付金额 <span><strong><?php echo $order['total'] ?> 元</strong></span></li>
 	</ul>
 	<?php
 		if ($order['status'] == 0):
@@ -31,11 +65,11 @@
 			$name = isset($order['refuel_amount'])? '消费订单': '余额充值';
 			$payment_url = wepay_url('js_api_call.php?showwxpaytitle=1&type='. $type. '&total_fee='. $order['total']. '&order_id='. $order['order_id']. '&order_name=哎油-'.$name);
 	?>
-	<a href="<?php echo $payment_url ?>">付款</a>
+	<a class=button href="<?php echo $payment_url ?>">付款</a>
 	<?php elseif ($order['status'] == 3 && isset($order['refuel_amount'])): ?>
-	<a href="<?php echo base_url('comment/create/'.$order['order_id']) ?>">去评价</a>
+	<a class=button href="<?php echo base_url('comment/create/'.$order['order_id']) ?>">评价</a>
 	<?php elseif ($order['status'] == 4 && isset($order['refuel_amount'])): ?>
-	<a href="<?php echo base_url('comment/append/'.$order['order_id']) ?>">追加评价</a>
+	<!--<a class=button href="<?php echo base_url('comment/append/'.$order['order_id']) ?>">追加评价</a>-->
 	<?php endif ?>
 <?php endif ?>
 </div>

@@ -68,7 +68,7 @@
 		<meta name=robots content="noindex, nofollow">
 		<meta name=description content="哎油">
 		<meta name=keywords content="哎油">
-		<meta name=version content="revision20150514">
+		<meta name=version content="revision20150515">
 		<meta name=author content="刘亚杰,童小燕">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -81,7 +81,7 @@
 
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<!--<link rel=stylesheet media=all href="http://web.irefuel.cn/css/style.css">-->
+		<link rel=stylesheet media=all href="http://web.irefuel.cn/css/style.css">
 		
 		<link rel="shortcut icon" href="http://images.key2all.com/logo/brand/6_32.png">
 		<link rel="apple-touch-icon" href="http://images.key2all.com/logo/brand/6_120.png">
@@ -138,23 +138,25 @@
 	//将head内容立即输出，让用户浏览器立即开始请求head中各项资源，提高页面加载速度
 	ob_flush();flush();
 ?>
+<style>
+strong{color:#00a1d8;font-weight:bold;}
+ul#order_info{background-color:#fff;margin:20px 0;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;}
+	ul#order_info li{width:90%;margin:0 auto;height:40px;line-height:40px;border-bottom:1px solid #e8e8e8;}
+		ul#order_info li:last-child{border-bottom:0;}
+	ul#order_info li span{float:right;}
+a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:90%;margin:0 auto;height:40px;line-height:40px;text-align:center;}
+</style>
 	<body class=wepay>
-		<div id=maincontainer class=container-fluid>
-			<form role=form>
-				<div class=form-group>
-				    <label>订单号</label>
-				    <p class=form-control-static><?php echo $order_id ?></p>
-				</div>
-				<div class=form-group>
-				    <label>订单内容</label>
-					<p class=form-control-static><?php echo $order_name ?></p>
-				</div>
-				<div class=form-group>
-				    <label>支付金额</label>
-					<p class=form-control-static><?php echo $total_fee ?></p>
-				</div>
-			</form>
-			<button class="btn btn-primary btn-block" onclick="callpay()">确定</button>
+		<div id=maincontainer class=container>
+			<div id=content>
+				<ul id=order_info>
+					<li>订单号 <span><?php echo $order_id ?></span></li>
+					<li>订单类别 <span><?php echo $type == 'consume'? '消费': '充值'; ?></span></li>
+					<li>订单内容 <span><?php echo $order_name ?></span></li>
+					<li>支付金额 <span><strong><?php echo $total_fee ?> 元</strong></span></li>
+				</ul>
+				<a class=button href=# onclick="callpay()">确定支付</a>
+			</div>
 		</div>
 	</body>
 <!-- 内容结束 -->
