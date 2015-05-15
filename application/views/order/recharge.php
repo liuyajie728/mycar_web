@@ -1,6 +1,6 @@
 <style>
 #content{padding-top:20px;}
-#content>p{text-align:center;}
+form>p{text-align:center;margin:8px 0;}
 </style>
 <div id=content>
 <?php

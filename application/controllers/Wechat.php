@@ -138,6 +138,14 @@
 			return $access_token = $result['access_token'];
 		}
 		
+		/**
+		* Transfer google coordinates to baidu coordinates through baidu API
+		*
+		* @since always
+		* @param decimal $weidu
+		* @param decimal $$jingdu
+		* @return string
+		*/
 		public function get_baidu_coor($weidu, $jingdu)
 		{
 			// 使用百度的API将微信获取到的谷歌坐标系坐标转换为百度坐标系坐标
@@ -150,63 +158,99 @@
 		// 处理消息消息
 		public function index()
 		{
-			//解析信息
+			// 解析信息
 			$input = simplexml_load_string($this->message_input, 'SimpleXMLElement', LIBXML_NOCDATA); // 解析收到的用户消息XML对象为PHP对象
 			$this->user_name = $input->FromUserName; // 接收到的消息发送方ID
 			$this->account_name = $input->ToUserName; // 接收到的消息接收方ID，即公众号ID
 			$type = $input->MsgType; // 接收到的消息类型
 
-			//默认回复类型及回复语
+			// 默认回复类型及回复语
 			if ($type == 'text'):
 				$this->message_input = trim($input->Content);
 				$this->output_type = 'text';
-				//$content = '呃哦，攻城狮没有教过我这该怎么回答唉[衰]……不如咱换个话题[偷笑]？';
-				$content = '接收到的内容为：' . $this->message_input;
+				$content = '你好，目前我们没有为“' . $this->message_input. '”准备特别的服务，请确认。';
 				$this->reply($content);
 			endif;
 			
-			//地理位置
+			// 地理位置推送
 			if ($type == 'location'):
-				//解析地理位置
+				// 解析地理位置
 				$weidu = $input->Location_X; // 微信获取到的谷歌坐标系纬度
 				$jingdu = $input->Location_Y; // 微信获取到的谷歌坐标系经度
 				$transformed_coords = $this->get_baidu_coor($jingdu, $weidu); // 通过百度API转换坐标系
 				$jingdu_t = $transformed_coords['x']; // 百度坐标系经度
 				$weidu_t = $transformed_coords['y']; // 百度坐标系纬度
 				
-				//发送文本消息
-				$this->output_type = 'text';
+				/*
+				$title = '哎油优选油/气/电站';
+				$description = '您现在的地理位置是' . $weidu_t . '（纬度）' . $jingdu_t . '（经度），点击可挑选周边哎油优选油/气/电站。';
+				$pic_url = 'https://mmbiz.qlogo.cn/mmbiz/4goiaMRM40YZ9duftavdqENpEGO5GKpEusKia76I1p1vBRsH84a1evn7fr1BTQWebJngej92iaZ0UJ7GQxUMIicnoQ/0?wx_fmt=jpeg';
+				$url = base_url('home/'. rawurlencode($weidu_t). '/'. rawurlencode($jingdu_t));
+
+				// 发送图文消息
+				$news_body = array(
+					'title' => $title,
+					'description' => $description,
+					'pic_url' => $pic_url,
+					'url' => $url
+				);
+				array_push($content, $news_body);
+				$this->output_type = 'news';
+				*/
+				
 				$content = '您现在的地理位置是' . $weidu_t . '（纬度）' . $jingdu_t . '（经度）,';
-				//$routeurl = 'http://api.map.baidu.com/direction?origin='. $weidu .','. $jingdu .'&destination=天宝国际银座&mode=driving&region=青岛&output=html&src=我的车|哎油&coord_type=gcj02'; // 微信获取到的坐标是高德地图的gcj02纠偏坐标
-				//$content .= '<a href="'. $routeurl .'">我的车所在地</a>';
 				$content .= '<a href="'. base_url('home/'. rawurlencode($weidu_t). '/'. rawurlencode($jingdu_t)) .'">周边油站</a>';
+				$this->output_type = 'text';
 				$this->reply($content);
 			endif;
 
-			//用户订阅或退订
+			// 用户订阅或退订
 			if ($type == 'event'):
 				$event = $input->Event;
-				//用户订阅
-				if ($event == 'subscribe'):
+				// 用户订阅
+				if ($event == 'subscribe' || $event == 'SCAN'):
 					$this->output_type = 'text';
 					$content = '成功关注哎油！'. "\n\n";
 					$content .= '您可以：'. "\n";
-					$content .= '在“我要加油”中寻找最近的加油站，或扫码加油；'. "\n";
+					$content .= '在“我要加油”中寻找最近的加油站，或扫描加油码进行加油；'. "\n";
 					$content .= '在“油卡充值”中充值通用油卡'. "\n";
 					$content .= '在“我的账户”中查看消费和充值账单';
+					
+					/*
 					$this->reply($content);
+					if ($event == 'SCAN'):
+						$params['user_ip'] = $this->get_client_ip();
+						$params['url'] = $input->EventKey;
+						$url = 'http://www.sitelang.cn/r/index_api';
+					endif;
+					*/
 
-				//用户退订，无法向用户发送任何信息，只可做内部操作
+				// 用户退订，无法向用户发送任何信息，只可做内部操作
 				elseif ($event == 'unsubscribe'):
 					exit;
 				endif;
 			endif;
 		}
 		
+		// 获取用户设备的IP地址
+		public function get_client_ip()
+		{ 
+		    if (getenv('HTTP_CLIENT_IP')):
+		        $client_ip = getenv('HTTP_CLIENT_IP'); 
+			elseif (getenv('HTTP_X_FORWARDED_FOR')):
+		        $client_ip = getenv('HTTP_X_FORWARDED_FOR'); 
+			elseif (getenv('REMOTE_ADDR')):
+		        $client_ip = getenv('REMOTE_ADDR'); 
+		    else:
+		        $client_ip = $_SERVER['REMOTE_ADDR'];
+		    endif;
+		    return $client_ip;
+		}
+		
 		//回复消息到用户
 		public function reply($content)
 		{
-			//生成准备回复的消息头部及尾部
+			// 生成准备回复的消息头部及尾部
 			$header = sprintf($this->output_templates['header'], $this->user_name, $this->account_name, time(), $this->output_type);
 			$footer = $this->output_templates['footer'];
 
@@ -215,10 +259,10 @@
 			{
 				case 'news': // 发送图文消息
 					$news_items = array();
-					//拼接图文消息模板
+					// 拼接图文消息模板
 					foreach($content as $news_item)
 					{
-						array_push($message_output_items, sprintf($this->output_templates['news']['item'], $news_item['title'], $news_item['description'], $news_item['picurl'], $news_item['url']));
+						array_push($news_items, sprintf($this->output_templates['news']['item'], $news_item['title'], $news_item['description'], $news_item['pic_url'], $news_item['url']));
 					}
 					$content = sprintf($this->output_templates['news']['frame'], count($news_items), $news_items);
 					break;

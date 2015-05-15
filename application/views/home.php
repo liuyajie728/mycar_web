@@ -30,7 +30,7 @@
 				<img alt="<?php echo $station['name'] ?>" src="<?php echo $station['image_url'] ?>">
 			</figure>
 			<div class=station_info>
-				<h2><?php echo '#'.$station['station_id'].' '.$station['name'] ?></h2>
+				<h2><?php echo $station['name'] ?></h2>
 				<ul>
 					<li>
 						<?php
