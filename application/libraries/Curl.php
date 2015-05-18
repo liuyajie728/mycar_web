@@ -11,7 +11,8 @@
 	{		
 		public function go($url, $params, $return = 'object', $method = 'post')
 		{
-			$params['token'] = API_TOKEN;
+			$params['token'] = API_TOKEN; // 表单防护
+
 		    $curl = curl_init();
 		    curl_setopt($curl, CURLOPT_URL, $url);
 

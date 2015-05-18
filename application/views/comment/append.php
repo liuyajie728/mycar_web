@@ -1,3 +1,7 @@
+<style>
+#content{padding-top:20px;}
+#content>p{text-align:center;}
+</style>
 <div id=content>
 	<?php
 		$attributes = array('class' => 'form-comment-append', 'role' => 'form');
@@ -5,7 +9,7 @@
 	?>
 			<fieldset>
 				<label for=append>追加评论内容</label>
-				<textarea name=append row=5 required></textarea>
+				<textarea name=append rows=5 placeholder="最多100字" required></textarea>
 				<?php echo form_error('append'); ?>
 				<input name=comment_id type=hidden value=<?php echo $comment_id ?> required>
 			</fieldset>

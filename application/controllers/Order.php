@@ -14,7 +14,7 @@
 			parent::__construct();
 
 			// Redirect to login page if not logged in.
-			if($this->session->userdata('logged_in') != TRUE):
+			if($this->session->logged_in != TRUE):
 				redirect(base_url('login'));
 			endif;
 		}
@@ -32,7 +32,7 @@
 			if ($order_id != NULL):
 				$params['order_id'] = $order_id;
 			endif;
-			$params['user_id'] = $this->session->userdata('user_id');
+			$params['user_id'] = $this->session->user_id;
 
 			$url = api_url('order');
 		    $result = $this->curl->go($url, $params, 'array');
@@ -44,13 +44,19 @@
 				$this->load->view('templates/header', $data);
 				$this->load->view('order/index', $data);
 
-			else: // 若传入order_id，获取相应加油站信息，生成消费详情页并设置相应class
+			else: // 若传入order_id，获取相应加油站信息及相关订单评论，生成消费详情页并设置相应class
+				// 根据order_id获取加油站信息
 				$data['order'] = $result['content'];
 				$params['station_id'] = $data['order']['station_id'];
-				
 				$url = api_url('station');
 			    $result = $this->curl->go($url, $params, 'array');
 				$data['station'] = $result['content'];
+				
+				// 根据order_id获取评论信息
+				$params['order_id'] = $order_id;
+				$url = api_url('comment');
+				$result = $this->curl->go($url, $params, 'array');
+				$data['comment'] =  ($result['status'] == 200)? $result['content']: NULL;
 
 				$data['title'] = '消费详情';
 				$data['class'] = 'order order-detail';
@@ -74,7 +80,7 @@
 			if ($order_id != NULL):
 				$params['order_id'] = $order_id;
 			endif;
-			$params['user_id'] = $this->session->userdata('user_id');
+			$params['user_id'] = $this->session->user_id;
 
 			$url = api_url('order/recharge');
 		    $result = $this->curl->go($url, $params, 'array');
@@ -106,8 +112,8 @@
 		*/
 		public function create($params)
 		{
-			$params['user_id'] = $this->session->user_id;
 			$params['user_ip'] = $this->input->ip_address(); //获取用户IP
+			$params['user_id'] = $this->session->user_id;
 			$url = api_url('order/create');
 			$result = $this->curl->go($url, $params, 'array');
 			return $result;
