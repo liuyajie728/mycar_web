@@ -106,7 +106,8 @@
 		*/
 		public function create($params)
 		{
-			// Automaticly generate api url according to $order_type.
+			$params['user_id'] = $this->session->user_id;
+			$params['user_ip'] = $this->input->ip_address(); //获取用户IP
 			$url = api_url('order/create');
 			$result = $this->curl->go($url, $params, 'array');
 			return $result;
@@ -138,7 +139,6 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				$params['user_id'] = $this->session->user_id;
 				$params['station_id'] = $this->input->post('station_id');
 				$params['refuel_amount'] = $this->input->post('refuel_amount');
 				$params['shopping_amount'] = $this->input->post('shopping_amount');
@@ -154,6 +154,7 @@
 
 				// 若订单创建不成功，则重新载入本页面
 				else:
+					$data['station_id'] = $station_id;
 					echo '订单创建失败，请重试！';
 					$this->load->view('templates/header', $data);
 					$this->load->view('order/consume', $data);
@@ -185,7 +186,6 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				$params['user_id'] = $this->session->user_id;
 				$params['amount'] = $this->input->post('amount');
 				// 创建充值类型订单
 				$params['type'] = 'recharge';

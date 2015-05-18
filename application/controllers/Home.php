@@ -25,7 +25,7 @@
 		{
 			$data['title'] = '哎油';
 			$data['class'] = 'home';
-			
+
 			($weidu != NULL)? $this->session->set_userdata('latitude', $weidu): $weidu = $this->session->latitude;
 			($jingdu != NULL)? $this->session->set_userdata('longitude', $jingdu): $jingdu = $this->session->longitude;
 
@@ -48,6 +48,8 @@
 		{
 			$params['latitude'] = $weidu;
 			$params['longitude'] = $jingdu;
+			// 需要添加筛选项或者排序项时，只需要在此添加通过视图中表单post过来的字段值，并相应调整RESTful API相应功能即可。
+
 			$url = api_url('station');
 			$result = $this->curl->go($url, $params, 'array');
 

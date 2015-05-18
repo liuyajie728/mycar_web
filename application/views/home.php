@@ -37,7 +37,7 @@
 							echo $station['district']. ' '. $station['address'];
 							if(isset($station['distance'])):
 						?>
-						<span class=distance><?php echo ($station['distance'] <= 1500)? $station['distance'].'米': round($station['distance']/1000).'公里'; ?></span>
+						<span class=distance><?php echo ($station['distance'] <= 1500)? '<strong>'. $station['distance']. '米</strong>': round($station['distance']/1000).'公里'; ?></span>
 						<?php endif ?>
 					</li>
 					<li><?php echo rate2star($station['rate_oil']); ?></li>
