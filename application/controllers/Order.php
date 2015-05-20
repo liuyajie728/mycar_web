@@ -36,6 +36,10 @@
 
 			$url = api_url('order');
 		    $result = $this->curl->go($url, $params, 'array');
+			
+			if ($result['status'] != 200):
+				$result['content'] = '';
+			endif;
 
 			if ($order_id === NULL): // 若未传入order_id，生成消费订单列表页并设置相应class
 				$data['orders'] = $result['content'];
@@ -85,6 +89,10 @@
 			$url = api_url('order/recharge');
 		    $result = $this->curl->go($url, $params, 'array');
 			
+			if ($result['status'] != 200):
+				$result['content'] = '';
+			endif;
+
 			if ($order_id === NULL): // 若未传入order_id，生成充值订单列表页并设置相应class
 				$data['title'] = '充值账单';
 				$data['class'] = 'order order-index';

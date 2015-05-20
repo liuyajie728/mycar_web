@@ -68,6 +68,34 @@
 		}
 		return $star_html;
 	}
+
+	// 显示订单状态
+	function show_order_status($status_code)
+	{
+		switch($status_code):
+			case '0':
+				$status = '待支付';
+				break;
+			case '1':
+				$status = '已过期';
+				break;
+			case '2':
+				$status = '已取消';
+				break;
+			case '3':
+				$status = '已支付';
+				break;
+			case '4':
+				$status = '已评论';
+				break;
+			case '5':
+				$status = '已追加评论';
+				break;
+			default:
+				break;
+		endswitch;
+		return $status;
+	}
 	
 	/**
 	* Native CodeIgniter configs from here.
@@ -341,7 +369,7 @@
 	*/
 	$config['sess_driver'] = 'database';
 	$config['sess_cookie_name'] = 'ci_session';
-	$config['sess_expiration'] = 86400; // 有效期24小时 60*60*24
+	$config['sess_expiration'] = 2592000; // 有效期30天 60*60*24*30
 	$config['sess_save_path'] = 'ci_sessions';
 	$config['sess_match_ip'] = FALSE;
 	$config['sess_time_to_update'] = 300;

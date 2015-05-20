@@ -1,31 +1,3 @@
-<?php
-	function show_status($status_code)
-	{
-		switch($status_code):
-			case '0':
-				$status = '待支付';
-				break;
-			case '1':
-				$status = '已过期';
-				break;
-			case '2':
-				$status = '已取消';
-				break;
-			case '3':
-				$status = '已支付';
-				break;
-			case '4':
-				$status = '已评论';
-				break;
-			case '5':
-				$status = '已追加评论';
-				break;
-			default:
-				break;
-		endswitch;
-		return $status;
-	}
-?>
 <style>
 #content>p{text-align:center;margin:20px auto;}
 strong{color:#00a1d8;font-weight:bold;}
@@ -44,12 +16,12 @@ a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:
 		<li><a class=button title="哎油首页" href="<?php echo base_url() ?>">去找附近加油站试一下</a></li>
 	</ol>
 <?php else: ?>
-	<ul id=order_info>
+	<ul id=order_info class=list_info>
 		<?php foreach ($orders as $order): ?>
 		<li>
 			<a href="<?php echo base_url('order/'.$type.'/'.$order['order_id']) ?>">
 			订单号 <?php echo $order['order_id'] ?>
-			<?php echo show_status($order['status']) ?>
+			<?php echo show_order_status($order['status']) ?>
 			<br>
 			金额 <?php echo $order['total'] ?>
 			时间 <?php echo $order['time_create'] ?>

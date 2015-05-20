@@ -29,7 +29,6 @@
 				$params['type'] = $this->input->get('type');
 
 				$url = api_url('sms/send');
-				//echo $this->curl->go($url, $params);
 				$result = $this->curl->go($url, $params);
 				
 				// Convert to json format for ajax return.

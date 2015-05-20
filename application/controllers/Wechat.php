@@ -1,6 +1,6 @@
 <?php
 	if (!defined('BASEPATH')) exit('此文件不可被直接访问');
-	
+
 	/**
 	* Wechat Class
 	*
@@ -13,7 +13,7 @@
 		protected $appsecret = APP_SECRET; // appsecret，微信公众平台提供，静态，可通过微信公众平台后台重置更换
 		protected $token = WECHAT_TOKEN; // token，需与微信公众平台后台相关设置项一致
 
-		protected $access_token; // access_token，通过相应API从微信公众平台获取
+		protected $access_token; // access_token，需要时通过相应API从微信公众平台获取
 
 		public $message_input; // 接收到的消息
 		public $message_output; // 发送出去的消息
@@ -167,8 +167,10 @@
 			// 默认回复类型及回复语
 			if ($type == 'text'):
 				$this->message_input = trim($input->Content);
+
+				// 默认回复
 				$this->output_type = 'text';
-				$content = '你好，目前我们没有为“' . $this->message_input. '”准备特别的服务，请确认。';
+				$content = '你好，目前我们没有为“'. $this->message_input. '”准备特别的服务，请确认。';
 				$this->reply($content);
 			endif;
 			
@@ -181,9 +183,9 @@
 				$jingdu_t = $transformed_coords['x']; // 百度坐标系经度
 				$weidu_t = $transformed_coords['y']; // 百度坐标系纬度
 				
-				/*
-				$title = '哎油优选油/气/电站';
-				$description = '您现在的地理位置是' . $weidu_t . '（纬度）' . $jingdu_t . '（经度），点击可挑选周边哎油优选油/气/电站。';
+				
+				$title = '最近的加油站已经为您找到！';
+				$description = '哎油已经挑选出了离您最近的加油/加气/充电站，请点击查看~';
 				$pic_url = 'https://mmbiz.qlogo.cn/mmbiz/4goiaMRM40YZ9duftavdqENpEGO5GKpEusKia76I1p1vBRsH84a1evn7fr1BTQWebJngej92iaZ0UJ7GQxUMIicnoQ/0?wx_fmt=jpeg';
 				$url = base_url('home/'. rawurlencode($weidu_t). '/'. rawurlencode($jingdu_t));
 
@@ -194,14 +196,11 @@
 					'pic_url' => $pic_url,
 					'url' => $url
 				);
-				array_push($content, $news_body);
+				$content[] = $news_body;
 				$this->output_type = 'news';
-				*/
-				
-				$content = '您现在的地理位置是' . $weidu_t . '（纬度）' . $jingdu_t . '（经度）,';
-				$content .= '<a href="'. base_url('home/'. rawurlencode($weidu_t). '/'. rawurlencode($jingdu_t)) .'">周边油站</a>';
-				$this->output_type = 'text';
+
 				$this->reply($content);
+				
 			endif;
 
 			// 用户订阅或退订
@@ -212,39 +211,25 @@
 					$this->output_type = 'text';
 					$content = '成功关注哎油！'. "\n\n";
 					$content .= '您可以：'. "\n";
-					$content .= '在“我要加油”中寻找最近的加油站，或扫描加油码进行加油；'. "\n";
-					$content .= '在“油卡充值”中充值通用油卡'. "\n";
-					$content .= '在“我的账户”中查看消费和充值账单';
+					$content .= '在“我要加油”中根据所处位置挑选最近的加油站，或扫描加油站现场二维码进行加油；'. "\n";
+					$content .= '在“充值”中充值余额'. "\n";
+					$content .= '在“我的账户”中查看消费和充值记录'. "\n";
 					
-					/*
-					$this->reply($content);
-					if ($event == 'SCAN'):
-						$params['user_ip'] = $this->get_client_ip();
+					// 如果是扫描带参数二维码码事件，推送到思特朗系统RESTful API进行记录
+					if (isset($input->EventKey)):
+						$params['user_ip'] = $this->input->ip_address();
+						$params['user_agent'] = $this->input->user_agent();
 						$params['url'] = $input->EventKey;
-						$url = 'http://www.sitelang.cn/r/index_api';
+						$url = 'http://www.sitelang.cn/r/api';
+						$result = $this->curl->go($url, $params);
 					endif;
-					*/
+					$this->reply($content);
 
 				// 用户退订，无法向用户发送任何信息，只可做内部操作
 				elseif ($event == 'unsubscribe'):
 					exit;
 				endif;
 			endif;
-		}
-		
-		// 获取用户设备的IP地址
-		public function get_client_ip()
-		{ 
-		    if (getenv('HTTP_CLIENT_IP')):
-		        $client_ip = getenv('HTTP_CLIENT_IP'); 
-			elseif (getenv('HTTP_X_FORWARDED_FOR')):
-		        $client_ip = getenv('HTTP_X_FORWARDED_FOR'); 
-			elseif (getenv('REMOTE_ADDR')):
-		        $client_ip = getenv('REMOTE_ADDR'); 
-		    else:
-		        $client_ip = $_SERVER['REMOTE_ADDR'];
-		    endif;
-		    return $client_ip;
 		}
 		
 		//回复消息到用户
@@ -262,9 +247,15 @@
 					// 拼接图文消息模板
 					foreach($content as $news_item)
 					{
-						array_push($news_items, sprintf($this->output_templates['news']['item'], $news_item['title'], $news_item['description'], $news_item['pic_url'], $news_item['url']));
+						$single_item = sprintf($this->output_templates['news']['item'], $news_item['title'], $news_item['description'], $news_item['pic_url'], $news_item['url']);
+						array_push($news_items, $single_item);
 					}
-					$content = sprintf($this->output_templates['news']['frame'], count($news_items), $news_items);
+					$news_content = '';
+					foreach($news_items as $news_item)
+					{
+						$news_content .= $news_item;
+					}
+					$content = sprintf($this->output_templates['news']['frame'], count($news_items), $news_content);
 					break;
 				case 'music': // 发送音乐消息
 					$content = sprintf($this->output_templates['music'], $content['title'], $content['description'], $content['music_url'], $content['hq_music_url'], $content['thumb_media_id']);

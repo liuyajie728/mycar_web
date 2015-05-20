@@ -1,31 +1,3 @@
-<?php
-	function show_status($status_code)
-	{
-		switch($status_code):
-			case '0':
-				$status = '待支付';
-				break;
-			case '1':
-				$status = '已过期';
-				break;
-			case '2':
-				$status = '已取消';
-				break;
-			case '3':
-				$status = '已支付';
-				break;
-			case '4':
-				$status = '已评论';
-				break;
-			case '5':
-				$status = '已追加评论';
-				break;
-			default:
-				break;
-		endswitch;
-		return $status;
-	}
-?>
 <style>
 strong{color:#00a1d8;font-weight:bold;}
 ul.list_info{background-color:#fff;margin:20px 0;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;}
@@ -42,7 +14,7 @@ a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:
 ?>
 	<ul id=order_info class=list_info>
 		<li>订单编号 <span><?php echo $order['order_id'] ?></span></li>
-		<li>订单状态 <span><strong><?php echo show_status($order['status']) ?></strong></span></li>
+		<li>订单状态 <span><strong><?php echo show_order_status($order['status']) ?></strong></span></li>
 		<li>创建时间 <span><?php echo $order['time_create'] ?></span></li>
 		<?php if ($order['status'] >= 3): ?>
 		<li>支付时间 <span><?php echo $order['time_payed'] ?></span></li>
@@ -65,7 +37,7 @@ a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:
 	<ul id=comment class=list_info>
 		<li>服务评分 <?php echo $comment['rate_service'] ?></li>
 		<li>质量评分 <?php echo $comment['rate_oil'] ?></li>
-		<li>评价内容 <?php echo isset($comment['content'])? $comment['content']: '该用户只进行了评分，未做详细评价。'; ?></li>
+		<li>评价内容 <?php echo isset($comment['content'])? $comment['content']: '该用户只进行了评分，未写评价。'; ?></li>
 		<?php if (!empty($comment['append'])): ?>
 		<li>追加评价 <?php echo $comment['append'] ?></li>
 		<?php endif ?>

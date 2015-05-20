@@ -1,8 +1,9 @@
 <style>
 #content{padding-top:20px;}
-form>p{text-align:center;margin:8px 0;}
+#content>p{text-align:center;}
 </style>
 <div id=content>
+	<p>“哎油”目前处于测试阶段，所有实际支付金额都将原路退款，敬请安心测试。</p>
 <?php
 	$attributes = array('class' => 'form-order-recharge-create', 'role' => 'form');
 	echo form_open(base_url('order/create/recharge'), $attributes);
