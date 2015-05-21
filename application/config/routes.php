@@ -32,6 +32,10 @@
 	
 	/* Sms */
 	$route['sms/send'] = 'sms/send';
+	
+	/* Article */
+	$route['article/(:any)'] = 'article/index/$1';
+	$route['article'] = 'article/index';
 
 /**
 * Stop Edit From Here

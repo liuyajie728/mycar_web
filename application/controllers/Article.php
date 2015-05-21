@@ -23,19 +23,33 @@
 		*/
 		public function index($article_id = NULL)
 		{
-			$data['title'] = '文章详情';
-			$data['class'] = 'article article-detail';
-
-			if ($article_id != NULL):
-				$params['article_id'] = $article_id;
-			endif;
+			$params['article_id'] = ($article_id != NULL)? $article_id: NULL;
 
 			$url = api_url('article');
 		    $result = $this->curl->go($url, $params, 'array');
-			$data['article'] = $result['content'];
 
-			$this->load->view('templates/header', $data);
-			$this->load->view('article/detail', $data);
+			if ($article_id == NULL):
+				$data['title'] = '文章列表';
+				$data['class'] = 'article article-index';
+				if ($result['status'] == '200'):
+					$data['articles'] = $result['content'];
+				else:
+					$data['error'] = $result['content'];
+				endif;
+				$this->load->view('templates/header', $data);
+				$this->load->view('article/index', $data);
+			else:
+				$data['title'] = '文章详情';
+				$data['class'] = 'article article-detail';
+				if ($result['status'] == '200'):
+					$data['article'] = $result['content'];
+				else:
+					$data['error'] = $result['content'];
+				endif;
+				$this->load->view('templates/header', $data);
+				$this->load->view('article/detail', $data);
+			endif;
+			
 			$this->load->view('templates/footer', $data);
 		}
 	}

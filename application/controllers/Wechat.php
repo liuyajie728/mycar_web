@@ -170,7 +170,7 @@
 
 				// 默认回复
 				$this->output_type = 'text';
-				$content = '你好，目前我们没有为“'. $this->message_input. '”准备特别的服务，请确认。';
+				$content = '哎油目前没有为“'. $this->message_input. '”准备特别的服务，请使用下方菜单。么么哒。';
 				$this->reply($content);
 			endif;
 			
@@ -183,22 +183,22 @@
 				$jingdu_t = $transformed_coords['x']; // 百度坐标系经度
 				$weidu_t = $transformed_coords['y']; // 百度坐标系纬度
 				
-				
-				$title = '最近的加油站已经为您找到！';
-				$description = '哎油已经挑选出了离您最近的加油/加气/充电站，请点击查看~';
+				// 生成回复内容
+				$title = '最近的加油站已经找到！';
+				$description = '哎油已经为您挑选出了距离最近的加油/加气/充电站，请点击查看~';
 				$pic_url = 'https://mmbiz.qlogo.cn/mmbiz/4goiaMRM40YZ9duftavdqENpEGO5GKpEusKia76I1p1vBRsH84a1evn7fr1BTQWebJngej92iaZ0UJ7GQxUMIicnoQ/0?wx_fmt=jpeg';
 				$url = base_url('home/'. rawurlencode($weidu_t). '/'. rawurlencode($jingdu_t));
 
-				// 发送图文消息
-				$news_body = array(
+				// 将回复推入待发送内容
+				$content[] = array(
 					'title' => $title,
 					'description' => $description,
 					'pic_url' => $pic_url,
 					'url' => $url
 				);
-				$content[] = $news_body;
-				$this->output_type = 'news';
 
+				// 发送图文消息
+				$this->output_type = 'news';
 				$this->reply($content);
 				
 			endif;
@@ -206,16 +206,9 @@
 			// 用户订阅或退订
 			if ($type == 'event'):
 				$event = $input->Event;
-				// 用户订阅
+				// 用户订阅或扫描
 				if ($event == 'subscribe' || $event == 'SCAN'):
-					$this->output_type = 'text';
-					$content = '成功关注哎油！'. "\n\n";
-					$content .= '您可以：'. "\n";
-					$content .= '在“我要加油”中根据所处位置挑选最近的加油站，或扫描加油站现场二维码进行加油；'. "\n";
-					$content .= '在“充值”中充值余额'. "\n";
-					$content .= '在“我的账户”中查看消费和充值记录'. "\n";
-					
-					// 如果是扫描带参数二维码码事件，推送到思特朗系统RESTful API进行记录
+					// 如果是扫描带参数二维码码事件，推送到思特朗RESTful API进行记录
 					if (isset($input->EventKey)):
 						$params['user_ip'] = $this->input->ip_address();
 						$params['user_agent'] = $this->input->user_agent();
@@ -223,6 +216,23 @@
 						$url = 'http://www.sitelang.cn/r/api';
 						$result = $this->curl->go($url, $params);
 					endif;
+
+					// 生成回复内容
+					$title = '你好，欢迎来到哎油iRefuel。';
+					$description = '点击此处即刻申请哎油会员，与百万车友同享前所未有的优质、安全、极速加油体验。';
+					$pic_url = 'https://mmbiz.qlogo.cn/mmbiz/4goiaMRM40YYHM3IO7jjQbeUibW2WKoDEibvOn5HMY8SeLm2G3CDGME2a3PMibyZRiaK3lNVp3Rmtff2zcnGebUoicicg/0?wx_fmt=jpeg';
+					$url = base_url('login');
+
+					// 将回复推入待发送内容
+					$content[] = array(
+						'title' => $title,
+						'description' => $description,
+						'pic_url' => $pic_url,
+						'url' => $url
+					);
+
+					// 发送图文消息
+					$this->output_type = 'news';
 					$this->reply($content);
 
 				// 用户退订，无法向用户发送任何信息，只可做内部操作

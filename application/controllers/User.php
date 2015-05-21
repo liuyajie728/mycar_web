@@ -28,7 +28,7 @@
 				redirect(base_url('login'));
 			endif;
 
-			$data['title'] = '我';
+			$data['title'] = '个人中心';
 			$data['class'] = 'user user-index';
 
 			$data['me'] = $this->get_me();

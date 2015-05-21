@@ -7,6 +7,7 @@ ul.list_info{background-color:#fff;margin:20px 0;border-top:1px solid #e8e8e8;bo
 a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:90%;margin:0 auto;height:40px;line-height:40px;text-align:center;}
 </style>
 <div id=content>
+	<p>“哎油”目前处于测试阶段，所有订单均为测试订单，不可作为消费或预付款凭证，敬请安心测试。</p>
 <?php
 	if(empty($order)):
 		echo '未找到该订单。';

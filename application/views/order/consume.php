@@ -3,7 +3,7 @@
 #content>p{text-align:center;}
 </style>
 <div id=content>
-	<p>“哎油”目前处于测试阶段，所有实际支付金额都将原路退款，敬请安心测试。</p>
+	<p>“哎油”目前处于测试阶段，所有订单均为测试订单，实际支付的金额都将原路退款，敬请安心测试。</p>
 	<p>请确定您正在加油站现场。</p>
 <?php
 	$attributes = array('class' => 'form-order-consume', 'role' => 'form');

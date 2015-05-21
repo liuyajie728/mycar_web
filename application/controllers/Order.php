@@ -43,7 +43,7 @@
 
 			if ($order_id === NULL): // 若未传入order_id，生成消费订单列表页并设置相应class
 				$data['orders'] = $result['content'];
-				$data['title'] = '消费账单';
+				$data['title'] = '消费记录';
 				$data['class'] = 'order order-index';
 				$this->load->view('templates/header', $data);
 				$this->load->view('order/index', $data);
@@ -94,7 +94,7 @@
 			endif;
 
 			if ($order_id === NULL): // 若未传入order_id，生成充值订单列表页并设置相应class
-				$data['title'] = '充值账单';
+				$data['title'] = '充值记录';
 				$data['class'] = 'order order-index';
 				$this->load->view('templates/header', $data);
 			    $data['orders'] = $result['content'];
@@ -191,7 +191,7 @@
 		{
 			$data['title'] = '充值订单';
 			$data['class'] = 'order order-recharge order-create';
-			
+
 			$this->form_validation->set_rules('amount', '充值金额', 'trim|is_natural_no_zero|required');
 
 			if($this->form_validation->run() === FALSE):
