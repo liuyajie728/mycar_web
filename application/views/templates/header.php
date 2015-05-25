@@ -8,7 +8,7 @@
 		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
 		<meta name=description content="<?php echo $title ?>">
 		<meta name=keywords content="<?php echo $title ?>">
-		<meta name=version content="revision20150521">
+		<meta name=version content="revision20150522">
 		<meta name=author content="刘亚杰, 童小燕">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油iRefuel">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -20,10 +20,6 @@
 		<![endif]-->
 		<script src="http://cdn.key2all.com/js/jquery/new.js"></script>
 		<script src="http://cdn.key2all.com/js/jquery/jquery.cookie.js"></script>
-		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.validate.js"></script>-->
-		<!--<script src="http://cdn.key2all.com/js/jquery/jquery.uploadify.js"></script>-->
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
 		<link rel=stylesheet href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -39,8 +35,6 @@
 		<!-- 苹果设备优化 -->
 		<meta name=apple-mobile-web-app-capable content=yes>
 		<meta name=apple-mobile-web-app-status-bar-style content=black-translucent>
-		<link rel="apple-touch-startup-image" media="device-width: 320px" href="<?php echo base_url('images/launch_960.png'); ?>">
-		<link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="<?php echo base_url('images/launch_1136.png'); ?>">
 	</head>
 <?php
 	//将head内容立即输出，让用户浏览器立即开始请求head中各项资源，提高页面加载速度

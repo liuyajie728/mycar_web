@@ -35,8 +35,7 @@
  */
 class Common_util_pub
 {
-	function __construct() {
-	}
+	function __construct(){}
 
 	function trimString($value)
 	{
@@ -51,7 +50,7 @@ class Common_util_pub
 		}
 		return $ret;
 	}
-	
+
 	/**
 	 * 	作用：产生随机字符串，不长于32位
 	 */

@@ -13,7 +13,7 @@
 		$wepay_url = WEPAY_URL. $api_name;
 		return $wepay_url;
 	}
-	
+
 	// RESTful API
 	define('API_TOKEN', '7C4l7JLaM3Fq5biQurtmk6nFS');
 	define('API_URL', 'http://api.irefuel.cn/');
@@ -24,7 +24,7 @@
 	}
 
 	date_default_timezone_set('Asia/Shanghai');
-	
+
 	// 将根据油站评分显示星级标志
 	function rate2star($rate_value)
 	{
@@ -96,7 +96,7 @@
 		endswitch;
 		return $status;
 	}
-	
+
 	/**
 	* Native CodeIgniter configs from here.
 	* @since always
@@ -176,7 +176,6 @@
 	|
 	*/
 	$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
-
 
 	/*
 	|--------------------------------------------------------------------------
@@ -437,7 +436,6 @@
 	|
 	*/
 	$config['compress_output'] = FALSE;
-
 	$config['time_reference'] = 'Asia/Shanghai';
 
 	/*
@@ -451,7 +449,6 @@
 	|
 	*/
 	$config['rewrite_short_tags'] = FALSE;
-
 
 	/*
 	|--------------------------------------------------------------------------
@@ -470,6 +467,6 @@
 	| Array:		array('10.0.1.200', '192.168.5.0/24')
 	*/
 	$config['proxy_ips'] = '';
-	
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -17,6 +17,13 @@ ul.horizontal{text-align:center;overflow:hidden;}
 	ul.horizontal li{float:left;display:inline;}
 		ul.horizontal li a{display:block;width:100%;height:100%;vertical-align:center;}
 
+strong{color:#00a1d8;font-weight:bold;}
+ul.list_info{background-color:#fff;margin:20px 0;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;}
+	ul.list_info li{width:90%;margin:0 auto;height:40px;line-height:40px;border-bottom:1px solid #e8e8e8;}
+		ul.list_info li:last-child{border-bottom:0;}
+	ul.list_info li span{float:right;}
+a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:90%;margin:0 auto;height:40px;line-height:40px;text-align:center;}
+
 form{text-align:left;width:90%;margin:0 auto;}
 	label,form>p{margin:8px 0;}
 	.input-group,input{height:2.5rem;width:100%;}

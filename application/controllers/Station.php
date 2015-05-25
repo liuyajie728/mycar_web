@@ -44,10 +44,18 @@
 			
 			// 若传入station_id，生成油站详情页并设置相应class
 			else:
-				$data['title'] = '加油站详情';
+				$data['station'] = $result['content'];
+				$data['title'] = $result['content']['name'];
 				$data['class'] = 'station station-detail';
 				$this->load->view('templates/header', $data);
-			    $data['station'] = $result['content'];
+				// 获取对该加油站的评论
+				$url = api_url('comment/station');
+				$result = $this->curl->go($url, $params, 'array');
+				if ($result['status'] == 200):
+					$data['comments'] = $result['content'];
+				else:
+					$data['comments'] = NULL;
+				endif;
 				$this->load->view('station/detail', $data);
 			endif;
 			$this->load->view('templates/footer', $data);
