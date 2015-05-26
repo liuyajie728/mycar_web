@@ -21,7 +21,7 @@ button{background-color:#47dac0;}
 		<fieldset>
 			<div class=input-group>
 				<input class=form-control name=mobile type=tel placeholder="*手机号码" required autofocus>
-				<a id=sms_send class="input-group-addon button" href="#">获取验证码</a>
+				<a id=sms_send class="input-group-addon" href="#">获取验证码</a>
 			</div>
 			<input name=captcha type=number step=1 placeholder="*验证码" required disabled>
 		</fieldset>

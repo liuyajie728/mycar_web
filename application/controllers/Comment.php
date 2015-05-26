@@ -25,9 +25,9 @@
 			$data['class'] = 'comment comment-create';
 
 			$this->form_validation->set_rules('order_id', '订单ID', 'trim|required');
-			$this->form_validation->set_rules('rate_oil', '能源质量', 'trim|numeric|greater_than_equal_to[20]|less_than_equal_to[100]|required');
-			$this->form_validation->set_rules('rate_service', '服务质量', 'trim|numeric|greater_than_equal_to[20]|less_than_equal_to[100]|required');
-			$this->form_validation->set_rules('content', '评论内容', 'trim');
+			$this->form_validation->set_rules('rate_oil', '质量评价', 'trim|numeric|greater_than_equal_to[20]|less_than_equal_to[100]|required');
+			$this->form_validation->set_rules('rate_service', '服务评价', 'trim|numeric|greater_than_equal_to[20]|less_than_equal_to[100]|required');
+			$this->form_validation->set_rules('content', '文字评论', 'trim');
 
 			if($this->form_validation->run() === FALSE):
 				$data['order_id'] = $order_id;
@@ -61,7 +61,7 @@
 			$data['class'] = 'comment comment-append';
 			
 			$this->form_validation->set_rules('comment_id', '评论ID', 'trim|required');
-			$this->form_validation->set_rules('append', '追加评论内容', 'trim|required');
+			$this->form_validation->set_rules('append', '评论内容', 'trim|required');
 
 			if($this->form_validation->run() === FALSE):
 				$data['comment_id'] = $comment_id;

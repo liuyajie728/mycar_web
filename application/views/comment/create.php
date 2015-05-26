@@ -1,6 +1,6 @@
 <style>
 #content{padding-top:20px;}
-#content>p{text-align:center;}
+	#content>p{text-align:center;}
 </style>
 <div id=content>
 	<?php
@@ -8,7 +8,7 @@
 		echo form_open(base_url('comment/create/'.$order_id), $attributes);
 	?>
 			<fieldset>
-				<label for=rate_oil>能源质量</label>
+				<label for=rate_oil>质量评价</label>
 				<select name=rate_oil required>
 					<option value=100>非常满意</a>
 					<option value=80>满意</a>
@@ -16,7 +16,7 @@
 					<option value=40>不满</a>
 					<option value=20>非常不满</a>
 				</select>
-				<label for=rate_service>服务质量</label>
+				<label for=rate_service>服务评价</label>
 				<select name=rate_service required>
 					<option value=100>非常满意</a>
 					<option value=80>满意</a>

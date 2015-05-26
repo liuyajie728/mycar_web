@@ -96,6 +96,28 @@
 		endswitch;
 		return $status;
 	}
+	
+	// 显示支付方式
+	function show_payment_type($payment_type)
+	{
+		switch($payment_type):
+			case '0':
+				$type = '余额支付';
+				break;
+			case '1':
+				$type = '微信支付';
+				break;
+			case '2':
+				$type = '余额 + 微信支付';
+				break;
+			case '3':
+				$type = '支付宝';
+				break;
+			case '4':
+				$type = '余额 + 支付宝';
+		endswitch;
+		return $type;
+	}
 
 	/**
 	* Native CodeIgniter configs from here.

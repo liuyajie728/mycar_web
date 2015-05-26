@@ -20,6 +20,9 @@ a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:
 		<?php foreach ($orders as $order): ?>
 		<li>
 			<a href="<?php echo base_url('order/'.$type.'/'.$order['order_id']) ?>">
+			<?php if (isset($order['refuel_amount'])): // 如果是消费订单?>
+				<?php echo $order['station_name'] ?>
+			<?php endif ?>
 			订单号 <?php echo $order['order_id'] ?>
 			<?php echo show_order_status($order['status']) ?>
 			<br>

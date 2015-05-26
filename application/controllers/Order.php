@@ -51,10 +51,12 @@
 			else: // 若传入order_id，获取相应加油站信息及相关订单评论，生成消费详情页并设置相应class
 				// 根据order_id获取加油站信息
 				$data['order'] = $result['content'];
+				/*
 				$params['station_id'] = $data['order']['station_id'];
 				$url = api_url('station');
 			    $result = $this->curl->go($url, $params, 'array');
 				$data['station'] = $result['content'];
+				*/
 				
 				// 根据order_id获取评论信息
 				$params['order_id'] = $order_id;

@@ -8,7 +8,7 @@
 		echo form_open(base_url('comment/append/'.$comment_id), $attributes);
 	?>
 			<fieldset>
-				<label for=append>追加评论内容</label>
+				<label for=append>评论内容</label>
 				<textarea name=append rows=5 placeholder="最多100字" required></textarea>
 				<?php echo form_error('append'); ?>
 				<input name=comment_id type=hidden value=<?php echo $comment_id ?> required>

@@ -53,7 +53,7 @@
 			<?php foreach($comments as $comment_item): ?>
 			<li class=comment_item>
 				<figure class=comment_user>
-					<img alt="<?php echo $comment_item['user_nickname'] ?>" src="<?php echo !empty($comment_item['user_logo_url'])? $comment_item['user_logo_url']: base_url('images/default_user.jpg'); ?>">
+					<img alt="<?php echo $comment_item['user_nickname'] ?>" src="<?php echo !empty($comment_item['user_logo_url'])? $comment_item['user_logo_url']: base_url('images/default_user.png'); ?>">
 				</figure>
 				<div class=comment_content>
 					<p><?php echo rate2star($comment_item['rate_oil']) ?></p>
