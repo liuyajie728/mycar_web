@@ -32,7 +32,7 @@
 		<img alt="<?php echo $station['name'] ?>" src="<?php echo $station['image_url'] ?>">
 		<div>
 			<h2><?php echo $station['name'] ?></h2>
-			<p><?php echo $station['city']. $station['district']. ' '. $station['address'] ?></p>
+			<p><?php echo $station['district']. ' '. $station['address'] ?></p>
 		</div>
 	</section>
 	<ul id=rates class=list_info>

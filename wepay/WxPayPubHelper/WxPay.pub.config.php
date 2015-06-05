@@ -17,7 +17,7 @@ class WxPayConf_pub
 	//=======【JSAPI路径设置】===================================
 	//获取access_token过程中的跳转uri，通过跳转将code传入jsapi支付页面
 	const JS_API_CALL_URL = 'http://www.jiayoucar.com/web/wepay/demo/js_api_call.php';
-
+	
 	//=======【证书路径设置】=====================================
 	//证书路径,注意应该填写绝对路径
 	const SSLCERT_PATH = 'http://www.jiayoucar.com/web/wepay/demo/WxPayPubHelper/cacert/apiclient_cert.pem';

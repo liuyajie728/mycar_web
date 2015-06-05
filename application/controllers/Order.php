@@ -194,7 +194,7 @@
 			$data['title'] = '充值订单';
 			$data['class'] = 'order order-recharge order-create';
 
-			$this->form_validation->set_rules('amount', '充值金额', 'trim|is_natural_no_zero|required');
+			$this->form_validation->set_rules('total', '充值金额', 'trim|is_natural_no_zero|required');
 
 			if($this->form_validation->run() === FALSE):
 				$this->load->view('templates/header', $data);
@@ -202,7 +202,7 @@
 				$this->load->view('templates/footer', $data);
 
 			else:
-				$params['amount'] = $this->input->post('amount');
+				$params['total'] = $this->input->post('total'); // 实收款项
 				// 创建充值类型订单
 				$params['type'] = 'recharge';
 				$order = $this->create($params);
@@ -210,7 +210,7 @@
 				// 若订单创建成功，则跳转到微信支付页面（url形式传递total_fee、order_id）
 				if ($order['status'] == 200):
 					$order = $order['content'];
-					$payment_url = wepay_url('js_api_call.php?showwxpaytitle=1&type=recharge&total_fee='. $order['amount']. '&order_id='. $order['order_id']. '&order_name=哎油-余额充值');
+					$payment_url = wepay_url('js_api_call.php?showwxpaytitle=1&type=recharge&total_fee='. $order['total']. '&order_id='. $order['order_id']. '&order_name=哎油-余额充值');
 					redirect($payment_url);
 				// 若订单创建不成功，则重新载入本页面
 				else:

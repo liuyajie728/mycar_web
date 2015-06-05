@@ -68,7 +68,7 @@
 		<meta name=robots content="noindex, nofollow">
 		<meta name=description content="哎油">
 		<meta name=keywords content="哎油">
-		<meta name=version content="revision20150515">
+		<meta name=version content="revision20150605">
 		<meta name=author content="刘亚杰,童小燕">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">

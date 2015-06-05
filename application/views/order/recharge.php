@@ -9,9 +9,9 @@
 	echo form_open(base_url('order/create/recharge'), $attributes);
 ?>
 		<fieldset>
-			<label for=amount>充值金额（元）</label>
-			<input name=amount type=number step=100 min=1 required>
-			<?php echo form_error('amount'); ?>
+			<label for=total>充值金额（元）</label>
+			<input name=total type=number step=100 min=1 required>
+			<?php echo form_error('total'); ?>
 		</fieldset>
 		<p id=balance_change>充值后最多获得 <span></span> 元余额。</p>
 		<button>确定</button>
@@ -19,9 +19,9 @@
 </div>
 <script>
 $(function(){
-	$('[name=amount]').keyup(function(){
-		var amount = $(this).val();
-		$('#balance_change>span').html(amount * 1.1);
+	$('[name=total]').keyup(function(){
+		var total = $(this).val();
+		$('#balance_change>span').html(total * 1.1);
 	});
 });
 </script>

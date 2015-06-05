@@ -34,17 +34,18 @@
 	echo $returnXml;
 	
 	//==商户根据实际情况设置相应的处理流程，此处仅作举例=======
+	
 	//以log文件形式记录回调信息
 	$log_ = new Log_();
-	$log_name = 'notify_url.log'; //log文件路径
+	$log_name = './notify_url.log'; //log文件路径
 	$log_->log_result($log_name, "【接收到的notify通知】:\n". $xml. "\n");
 
 	if($notify->checkSign() === TRUE):
-		if ($notify->data['return_code'] === 'FAIL'):
+		if ($notify->data["return_code"] === 'FAIL'):
 			//此处应该更新一下订单状态，商户自行增删操作
 			$log_->log_result($log_name, "【通信出错】:\n". $xml. "\n");
 
-		elseif ($notify->data['result_code'] === 'FAIL'):
+		elseif ($notify->data["result_code"] === 'FAIL'):
 			//此处应该更新一下订单状态，商户自行增删操作
 			$log_->log_result($log_name, "【业务出错】:\n". $xml. "\n");
 
@@ -53,15 +54,14 @@
 			$log_->log_result($log_name, "【支付成功】:\n". $xml. "\n");
 			
 			// RESTful API更新订单状态
-			@list($order_prefix, $type, $order_id) = split('_', $notify->data['out_trade_no']); // 分解出订单前缀、订单类型（consume或recharge）、哎油订单号等
+			@list($order_prefix, $type, $order_id) = split('_', $notify->data['out_trade_no']); // 分解出订单前缀、订单类型、哎油订单号等
 			$params['type'] = $type; // 从XML中获取type
 			$params['order_id'] = $order_id; // 从XML中获取order_id
 			$params['status'] = '3';
-			$params['payment_type'] = '1'; // 支付方式，全额使用微信支付即为1
-			$params['payment_id'] = $notify->data['transaction_id']; // 支付流水号，即微信支付订单号
+			$params['payment_id'] = $notify->data['transaction_id']; // 微信支付订单号
 			// 通过RESTful API更新订单状态
+			$url = 'http://www.jiayoucar.com/api/order/update_status';
 			$params['token'] = '7C4l7JLaM3Fq5biQurtmk6nFS';
-			$url = 'http://api.irefuel.cn/order/update_status';
 		    $curl = curl_init();
 		    curl_setopt($curl, CURLOPT_URL, $url);
 
