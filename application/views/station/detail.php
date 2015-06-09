@@ -23,13 +23,13 @@
 			.comment_user{width:20%;min-width:60px;float:left;display:inline;}
 				.comment_user img{width:60px;height:60px;}
 			.comment_content{width:76%;float:right;display:inline;}
-	
+
 	#flirting{text-align:center;height:40px;line-height:40px;}
 		#flirting span{font-size:smaller;}
 </style>
 <div id=content>
 	<section id=station_info>
-		<img alt="<?php echo $station['name'] ?>" src="<?php echo $station['image_url'] ?>">
+		<img alt="<?php echo $station['name'] ?>" src="<?php echo !empty($station['image_url'])? $station['image_url']: DEFAULT_IMG_STATION ?>">
 		<div>
 			<h2><?php echo $station['name'] ?></h2>
 			<p><?php echo $station['district']. ' '. $station['address'] ?></p>
@@ -53,7 +53,7 @@
 			<?php foreach($comments as $comment_item): ?>
 			<li class=comment_item>
 				<figure class=comment_user>
-					<img alt="<?php echo $comment_item['user_nickname'] ?>" src="<?php echo !empty($comment_item['user_logo_url'])? $comment_item['user_logo_url']: base_url('images/default_user.png'); ?>">
+					<img alt="<?php echo $comment_item['user_nickname'] ?>" src="<?php echo !empty($comment_item['user_logo_url'])? $comment_item['user_logo_url']: DEFAULT_IMG_USER ?>">
 				</figure>
 				<div class=comment_content>
 					<p><?php echo rate2star($comment_item['rate_oil']) ?></p>

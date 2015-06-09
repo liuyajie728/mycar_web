@@ -17,12 +17,13 @@ a.button{color:#fff;font-size:18px;background-color:#00a1d8;display:block;width:
 		<li>订单编号 <span><?php echo $order['order_id'] ?></span></li>
 		<li>创建时间 <span><?php echo $order['time_create'] ?></span></li>
 		<li>订单状态 <span><strong><?php echo show_order_status($order['status']) ?></strong></span></li>
-		<?php if ($order['status'] >= 3): ?>
+		<?php if ($order['status'] >= 3): //若订单已付款?>
 		<li>支付方式 <span><?php echo show_payment_type($order['payment_type']) ?></span></li>
 		<li>支付时间 <span><?php echo $order['time_payed'] ?></span></li>
 		<?php endif ?>
 		<?php if (isset($order['refuel_amount'])): // 如果是消费订单?>
-		<li>消费地点 <span><?php echo $order['station_name'] ?></span></li>
+		<li>消费商户 <span><?php echo $order['station_name'] ?></span></li>
+		<li>加油员工 <span><?php echo $order['order_operator'] ?></span></li>
 		<li>加油口令 <span><strong><?php echo $order['order_code'] ?></strong></span></li>
 		<li>加油/加气/充电金额 <span><strong><?php echo $order['refuel_amount'] ?> 元</strong></span></li>
 		<li>其它消费金额 <span><strong><?php echo $order['shopping_amount'] ?>  元</strong></span></li>

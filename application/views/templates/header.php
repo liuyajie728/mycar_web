@@ -5,10 +5,10 @@
 		<meta http-equiv=x-dns-prefetch-control content=on>
 		<link rel=dns-prefetch href="http://cdn.key2all.com">
 		<link rel=dns-prefetch href="http://images.key2all.com">
-		<title><?php echo ($class != 'home')?$title :'哎油'; ?></title>
+		<title><?php echo ($class != 'home')? $title: '哎油'; ?></title>
 		<meta name=description content="<?php echo $title ?>">
 		<meta name=keywords content="<?php echo $title ?>">
-		<meta name=version content="revision20150526">
+		<meta name=version content="revision20150609">
 		<meta name=author content="刘亚杰, 童小燕">
 		<meta name=copyright content="刘亚杰, 森思壮SenseStrong, 青岛我的车信息技术有限公司, 哎油iRefuel">
 		<meta name=contact content="liuyaji@sensestrong.com, http://weibo.com/sensestrong">
@@ -23,7 +23,7 @@
 
 		<link rel=stylesheet media=all href="http://cdn.key2all.com/css/reset.css">
 		<link rel=stylesheet href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css'); ?>">
+		<link rel=stylesheet media=all href="<?php echo base_url('css/style.css') ?>">
 
 		<link rel="shortcut icon" href="http://images.key2all.com/logo/brand/6_32.png">
 		<link rel="apple-touch-icon" href="http://images.key2all.com/logo/brand/6_120.png">
@@ -45,7 +45,7 @@
 	<?php if(strpos($this->input->user_agent(), 'MicroMessenger') === FALSE && strpos($this->input->user_agent(), 'Windows Phone') === FALSE): ?>
 		<header id=header>
 			<nav id=nav-header class=container>
-				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url() ?>"><?php echo $title; ?></a></h1>
+				<h1><a title="<?php echo $title; ?>" href="<?php echo base_url() ?>"><?php echo $title ?></a></h1>
 				<?php
 					// 拆分载入视图时传入的$class变量为数组，并检查数组中内容决定是否需要显示“返回”按钮
 					$class_array = explode(' ', $class);
@@ -53,7 +53,7 @@
 					if (empty(array_intersect($class_array, $no_toback))):
 				?>
 				<a id=toback title="返回" href="#" onclick="javascript:history.go(-1);"><i class="fa fa-chevron-left"></i> 返回</a>
-				<?php endif; ?>
+				<?php endif ?>
 			</nav>
 		</header>
 	<?php endif ?>

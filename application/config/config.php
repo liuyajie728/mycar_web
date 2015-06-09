@@ -1,6 +1,11 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
-
+	
+	define('BASE_URL', 'http://web.irefuel.cn/');
+	
+	define('DEFAULT_IMG_STATION', BASE_URL. 'images/default_station.jpg');
+	define('DEFAULT_IMG_USER', BASE_URL. 'images/default_user.png');
+	
 	// Wechat Setups
 	define('APP_ID', 'wx920a184018cc7654');
 	define('APP_SECRET', '1ce56c3e71ff076f6f78ce5e845449e6');
@@ -123,7 +128,7 @@
 	* Native CodeIgniter configs from here.
 	* @since always
 	*/
-	$config['base_url'] = 'http://web.irefuel.cn/';
+	$config['base_url'] = BASE_URL;
 	$config['index_page'] = 'index.php';
 	$config['uri_protocol']	= 'REQUEST_URI';
 	$config['url_suffix'] = '';

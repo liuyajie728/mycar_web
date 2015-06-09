@@ -27,10 +27,11 @@
 	<li class=station>
 		<a title="<?php echo $station['name'] ?>" href="<?php echo base_url('station/'.$station['station_id']); ?>">
 			<figure class=station_img>
-				<img alt="<?php echo $station['name'] ?>" src="<?php echo $station['image_url'] ?>">
+				<img alt="<?php echo $station['name'] ?>" src="<?php echo !empty($station['image_url'])? $station['image_url']: DEFAULT_IMG_STATION ?>">
 			</figure>
 			<div class=station_info>
-				<h2><?php echo $station['name'] ?></h2>
+				<?php $brand_name = !empty($station_brands[$station['brand_id']]['name'])? $station_brands[$station['brand_id']]['name']: NULL; ?>
+				<h2><?php echo !empty($brand_name)? $brand_name: NULL; ?><?php echo $station['name'] ?></h2>
 				<ul>
 					<li>
 						<?php

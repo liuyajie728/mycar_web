@@ -35,10 +35,9 @@
  */
 class Common_util_pub
 {
-	function __construct() {
-	}
+	public function __construct() {}
 
-	function trimString($value)
+	public function trimString($value)
 	{
 		$ret = null;
 		if (null != $value) 
@@ -68,7 +67,7 @@ class Common_util_pub
 	/**
 	 * 	作用：格式化参数，签名过程需要使用
 	 */
-	function formatBizQueryParaMap($paraMap, $urlencode)
+	public function formatBizQueryParaMap($paraMap, $urlencode)
 	{
 		$buff = "";
 		ksort($paraMap);
